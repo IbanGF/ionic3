@@ -3,6 +3,7 @@ import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
 import { Items } from '../../providers/providers';
+import { PlacesProvider } from '../../providers/places/places';
 
 @IonicPage()
 @Component({
@@ -10,45 +11,40 @@ import { Items } from '../../providers/providers';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems: Item[];
+  currentPlaces: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public places: PlacesProvider) {
+
   }
 
-  /**
-   * The view loaded, let's query our items for the list
-   */
   ionViewDidLoad() {
-  }
-
-  /**
-   * Prompt the user to add a new item. This shows our ItemCreatePage in a
-   * modal and then adds the new item to our data source if the user created one.
-   */
-  addItem() {
-    let addModal = this.modalCtrl.create('ItemCreatePage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.items.add(item);
-      }
-    })
-    addModal.present();
-  }
-
-  /**
-   * Delete an item from the list of items.
-   */
-  deleteItem(item) {
-    this.items.delete(item);
-  }
-
-  /**
-   * Navigate to the detail page for this item.
-   */
-  openItem(item: Item) {
-    this.navCtrl.push('ItemDetailPage', {
-      item: item
+    this.places.getPlaces().subscribe(data => {
+      console.log(data);
+      this.currentPlaces = data;
+    },
+    err => {
+      console.log(err);
     });
   }
+
+  // addPlace() {
+  //   let addModal = this.modalCtrl.create('PlaceCreatePage');
+  //   addModal.onDidDismiss(place => {
+  //     if (place) {
+  //       this.places.add(place);
+  //     }
+  //   })
+  //   addModal.present();
+  // }
+
+  // deleteItem(place) {
+  //   this.places.delete(place);
+  // }
+
+
+  // openItem(place: Item) {
+  //   this.navCtrl.push('PlaceDetailPage', {
+  //     place: place
+  //   });
+  // }
 }
