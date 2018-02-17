@@ -1,35 +1,86 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
-
+    <ion-searchbar></ion-searchbar>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
-        <ion-icon name="add"></ion-icon>
+      <button ion-button icon-only>
+        <ion-icon name="options"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let place of currentPlaces">
-      <button ion-item (click)="openPlace(place)">
-        <ion-avatar item-start>
-          <img [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
-        </ion-avatar>
-        <h2>{{place.name}}</h2>
-        <p>{{place.about}}</p>
-        <!-- <ion-note item-end *ngIf="item.note">{{place.note}}</ion-note> -->
-      </button>
+  <!-- <ion-list> -->
+  <!-- <ion-item-sliding *ngFor="let place of currentPlaces"> -->
+  <!-- <ion-scroll scrollX="true" style="width:80vw; height:80px; wite-space:nowrap;" > -->
+  <div #map id="map"></div>
+  <!-- <content-drawer [options]="drawerOptions">
+    <div class="content">
+      The world is your oyster.
+      <p>
+        If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+      </p>
+    </div>
+  </content-drawer> -->
+  <div id="search_content">
+    <ion-segment [(ngModel)]="selectedSecondaryTab" color="secondary">
+      <ion-segment-button value="places" disabled="places">
+        <ion-icon name="camera"></ion-icon> Logements
+      </ion-segment-button>
+      <ion-segment-button value="spots" disabled="spots">
+        <ion-icon name="bookmark"></ion-icon> Spots
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="selectedSecondaryTab">
 
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deletePlace(place)">
-          {{ 'DELETE_BUTTON' | translate }}
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+      <ion-slides *ngSwitchCase="'places'" [initialSlide]="this.currentPlaceIndex" slidesPerView="auto" #placesSlider (ionSlideDidChange)="placeSlideChanged()" zoom="false">
+        <ion-slide *ngFor="let place of currentPlaces" (click)="openPlace(place)">
+          <ion-card nowrap no-margin>
+            <!-- <button ion-item (click)="openPlace(place)"> -->
+            <div class="right_avatar" style="position: absolute; top: 103px; right: 3px; z-index: 2;">
+              <img src="https://test.sportihome.com/assets/users/default-avatar.png" style=" min-width: auto; border-radius: 100%; width: 50px; height: 50px; border: 3px solid #fff; object-position: 50% 0;">
+              <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg" style="    position: absolute; background-color: white; border-radius: 100%; width: 30px; height: 30px; top: 24px; right: 35px; min-width: auto;">
+            </div>
+            <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
+            <ion-item>
+              <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
+              <h2>{{place.name}}</h2>
+              <h3>{{place.address && place.address.locality}}</h3>
+              <h3>À partir de {{place.home.price.defaultPrice|currency:'EUR':'€':0}} par nuit</h3>
+              <p>
+                <ion-icon name="text"></ion-icon>
+                <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
+            </ion-item>
+            <!-- </button> -->
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+
+      <ion-slides *ngSwitchCase="'spots'" [initialSlide]="this.currentSpotIndex" slidesPerView="auto" #spotsSlider (ionSlideDidChange)="spotSlideChanged()" zoom="false">
+        <ion-slide *ngFor="let spot of currentSpots" (click)="openSpot(spot)">
+          <ion-card nowrap no-margin>
+            <img [src]="'https://test.sportihome.com/uploads/spots/' + spot._id + '/thumb/' + spot.pictures[0]" />
+            <div class="card-title">{{spot.name}}</div>
+            <div class="card-subtitle"><span *ngFor="let hobby of spot.hobbies">{{hobby}} </span></div>
+            <ion-card-content>
+              <p>
+                The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+
+    </div>
+  </div>
 </ion-content>
+
+<content-drawer [options]="drawerOptions">
+    <div class="content">
+      The world is your oyster.
+      <p>
+        If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+      </p>
+    </div>
+</content-drawer>

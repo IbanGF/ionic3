@@ -9,12 +9,16 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Ionic2RatingModule } from 'ionic2-rating';
+
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider } from '../providers/providers';
 import { MyApp } from './app.component';
-import { PlacesProvider } from '../providers/places/places';
+import { ContentDrawerComponent } from '../components/content-drawer/content-drawer';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -52,6 +56,7 @@ export function provideSettings(storage: Storage) {
       }
     }),
     IonicModule.forRoot(MyApp),
+    Ionic2RatingModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -65,10 +70,13 @@ export function provideSettings(storage: Storage) {
     Camera,
     SplashScreen,
     StatusBar,
+    GoogleMaps,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    PlacesProvider
+    PlacesProvider,
+    SpotsProvider,
+    SearchProvider
   ]
 })
 export class AppModule { }

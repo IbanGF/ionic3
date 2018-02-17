@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
-import { IonicPage, ModalController, NavController } from 'ionic-angular';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
+
+import { Component, ViewChild } from '@angular/core';
+import { App, IonicPage, ModalController, NavController, Platform, Slides } from 'ionic-angular';
 
 import { Item } from '../../models/item';
-import { Items } from '../../providers/providers';
-import { PlacesProvider } from '../../providers/places/places';
+import { Items, PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
 
 @IonicPage()
 @Component({
@@ -11,19 +20,188 @@ import { PlacesProvider } from '../../providers/places/places';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentPlaces: Item[];
+  @ViewChild(Slides) placesSlider: Slides;
+  @ViewChild(Slides) spotsSlider: Slides;
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public places: PlacesProvider) {
+  map: GoogleMap;
+  currentPlacesMarkers = [];
+  currentSpotsMarkers = [];
+  selectedSecondaryTab = 'places';
+  placesSearchQuery: any;
+  currentPlaces: any;
+  totalPlacesCount: number = 0;
+  currentPlaceIndex = 0;
+  currentSpots: any;
+  currentSpotIndex: number = 0;
+  drawerOptions: any;
+
+  constructor(public appCtrl: App, public navCtrl: NavController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider) {
+
+    this.drawerOptions = {
+      handleHeight: 50,
+      thresholdFromBottom: 200,
+      thresholdFromTop: 200,
+      bounceBack: true
+    };
+  }
+
+  loadMap() {
+
+    console.log('currentPlaces', this.currentPlaces);
+
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: this.currentPlaces[0].loc.coordinates[1],
+          lng: this.currentPlaces[0].loc.coordinates[0]
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+
+    // let element: HTMLElement = document.getElementById('map');
+    this.map = GoogleMaps.create('map', mapOptions);
+
+    // Wait the MAP_READY before using any methods.
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        console.log('Map is ready!');
+
+        for (let i in this.currentPlaces) {
+          this.map.addMarker({
+            title: this.currentPlaces[i].name,
+            icon: {
+              url: 'https://test.sportihome.com/assets/search/nanoPlaceIcon.png',
+              size: {
+                width: 12,
+                height: 18
+              }
+            },
+            animation: 'DROP',
+            position: {
+              lat: this.currentPlaces[i].loc.coordinates[1],
+              lng: this.currentPlaces[i].loc.coordinates[0]
+            }
+          }).then(marker => {
+            this.currentPlacesMarkers.push(marker);
+          })
+        }
+        for (let i in this.currentSpots) {
+          this.map.addMarker({
+            title: this.currentSpots[i].name,
+            icon: {
+              url: 'https://test.sportihome.com/assets/search/nanoSpotIcon.png',
+              size: {
+                width: 12,
+                height: 18
+              }
+            },
+            animation: 'DROP',
+            position: {
+              lat: this.currentSpots[i].loc.coordinates[1],
+              lng: this.currentSpots[i].loc.coordinates[0]
+            }
+          }).then(marker => {
+            this.currentSpotsMarkers.push(marker);
+          })
+        }
+      });
+    // Now you can use all methods safely.
 
   }
 
+  placeSlideChanged() {
+    // this.placesSlider.update();
+    // if (this.currentPlaceIndex) this.currentPlacesMarkers[this.currentPlaceIndex].setAnimation();
+    // console.log('Current index is', this.currentPlaceIndex || false);
+    this.currentPlaceIndex = this.placesSlider.getActiveIndex();
+    console.log('Current index is', this.currentPlaceIndex);
+    // this.currentPlacesMarkers[this.currentPlaceIndex].setAnimation('BOUNCE');
+    // this.map.animateCamera({
+    //   target: this.currentPlacesMarkers[this.currentPlaceIndex].get("position"),
+    //   zoom: 10,
+    //   duration: 500,
+    //   padding: 0 // default = 20px
+    // }).then(() => console.log('camera changed !'));
+    if ((this.currentPlaces.length - this.currentPlaceIndex - 1) < 2 && (this.totalPlacesCount - this.currentPlaces.length) > 0) {
+      this.placesSearchQuery.page++;
+      console.log(this.placesSearchQuery);
+      this.placesProvider.getPlaces([0.19748888593744596, 41.14594933613824], [6.536600214062446, 45.943861212538316], this.placesSearchQuery).then(data => {
+        console.log(data);
+        console.log(this.currentPlaces);
+        // if (data.places) {
+        //   this.currentPlaces = this.currentPlaces.concat(data.places);
+        // for (let i in data.places) {
+        //   this.map.addMarker({
+        //     title: data.places[i].name,
+        //     icon: {
+        //       url: 'https://test.sportihome.com/assets/search/nanoPlaceIcon.png',
+        //       size: {
+        //         width: 12,
+        //         height: 18
+        //       }
+        //     },
+        //     animation: 'DROP',
+        //     position: {
+        //       lat: data.places[i].loc.coordinates[1],
+        //       lng: data.places[i].loc.coordinates[0]
+        //     }
+        //   }).then(marker => {
+        //     this.currentPlacesMarkers.push(marker);
+        //   });
+        // }
+        // }
+      });
+    }
+  }
+
+  spotSlideChanged() {
+    // this.spotsSlider.update();
+    // if (this.currentSpotIndex) this.currentSpotsMarkers[this.currentSpotIndex].setAnimation();
+    this.currentSpotIndex = this.spotsSlider.getActiveIndex();
+    console.log('Current spot index is', this.currentSpotIndex);
+    // this.currentSpotsMarkers[this.currentSpotIndex].setAnimation('BOUNCE');
+    this.map.animateCamera({
+      target: this.currentSpotsMarkers[this.currentSpotIndex].get("position"),
+      zoom: 10,
+      duration: 500,
+      padding: 0 // default = 20px
+    }).then(() => console.log('spot camera changed !'));
+  }
+
+  openPlace(place) {
+    this.appCtrl.getRootNav().push('ItemDetailPage', {
+      placeSlug: place.slug
+    });
+    // this.navCtrl.rootNav.push('ItemDetailPage', {
+    //   place: place
+    // });
+  }
+
+  openSpot(spot) {
+    this.appCtrl.getRootNav().push('ItemDetailPage', {
+      spotSlug: spot.slug
+    });
+    // this.navCtrl.rootNav.push('ItemDetailPage', {
+    //   place: place
+    // });
+  }
+
   ionViewDidLoad() {
-    this.places.getPlaces().subscribe(data => {
-      console.log(data);
-      this.currentPlaces = data;
-    },
-    err => {
-      console.log(err);
+    this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+    console.log(this.placesSearchQuery);
+    this.placesProvider.getPlaces([0.19748888593744596, 41.14594933613824], [6.536600214062446, 45.943861212538316], this.placesSearchQuery).then(data => {
+      console.log('data', data)
+      this.currentPlaces = data && data.places ? data.places : [];
+      this.totalPlacesCount = data && data.count ? data.count : 0;
+      this.spotsProvider.getSpots().then(data => {
+        this.currentSpots = data;
+        console.log(this.currentSpots);
+        // this.platform.ready().then(() => {
+        //   this.loadMap();
+        // });
+      });
     });
   }
 
@@ -41,10 +219,4 @@ export class ListMasterPage {
   //   this.places.delete(place);
   // }
 
-
-  // openItem(place: Item) {
-  //   this.navCtrl.push('PlaceDetailPage', {
-  //     place: place
-  //   });
-  // }
 }

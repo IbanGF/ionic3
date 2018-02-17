@@ -1,4 +1,9 @@
 page-item-detail {
+
+  .imageSlider {
+    height: 40vh;
+  }
+
   .item-profile {
     width: 100%;
     background-position: center center;
@@ -7,6 +12,7 @@ page-item-detail {
   }
 
   .item-detail {
+    margin-top: 40px;
     width: 100%;
     background: white;
     position: absolute;
