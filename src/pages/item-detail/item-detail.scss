@@ -1,7 +1,68 @@
 page-item-detail {
+  .scroll-content {
+    padding-top: 0 !important;
+  }
+
+  ion-navbar {
+    transition: all 0.3s;
+
+    .back-button,
+    .bar-button {
+      //text-shadow: 0 0 5px #000000;
+      color: #fff;
+    }
+  }
+
+  .header-md::after {
+    background-image: none;
+  }
+
+  .header-ios .toolbar-background-ios,
+  .toolbar-background-md,
+  .toolbar-background-wp {
+    border-style: none;
+    background: none;
+    border-color: rgba(0, 0, 0, 0);
+  }
+  //
+  // .show-background {
+  //   border-style: none;
+  //   background: #3db5e7;
+  // }
 
   .imageSlider {
+    position: relative;
     height: 40vh;
+    width: 100%;
+
+    ion-slides {
+      img {
+        height: 40vh;
+        min-width: 100%;
+        object-fit: cover;
+        object-position: 50% 0;
+      }
+
+      .swiper-pagination {
+        top: 20px;
+        bottom: inherit;
+      }
+    }
+
+    .profilePic {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translate3d(-50%,0,0);
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      object-position: 50% 0;
+      border-radius: 100%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      z-index: 3000;
+    }
   }
 
   .item-profile {

@@ -38,7 +38,7 @@ export class ListMasterPage {
   constructor(public appCtrl: App, public navCtrl: NavController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider) {
 
     this.drawerOptions = {
-      handleHeight: 50,
+      handleHeight: 20,
       thresholdFromBottom: 200,
       thresholdFromTop: 200,
       bounceBack: true
@@ -115,7 +115,7 @@ export class ListMasterPage {
     // this.placesSlider.update();
     // if (this.currentPlaceIndex) this.currentPlacesMarkers[this.currentPlaceIndex].setAnimation();
     // console.log('Current index is', this.currentPlaceIndex || false);
-    this.currentPlaceIndex = this.placesSlider.getActiveIndex();
+    // this.currentPlaceIndex = this.placesSlider.getActiveIndex();
     console.log('Current index is', this.currentPlaceIndex);
     // this.currentPlacesMarkers[this.currentPlaceIndex].setAnimation('BOUNCE');
     // this.map.animateCamera({
@@ -127,11 +127,9 @@ export class ListMasterPage {
     if ((this.currentPlaces.length - this.currentPlaceIndex - 1) < 2 && (this.totalPlacesCount - this.currentPlaces.length) > 0) {
       this.placesSearchQuery.page++;
       console.log(this.placesSearchQuery);
-      this.placesProvider.getPlaces([0.19748888593744596, 41.14594933613824], [6.536600214062446, 45.943861212538316], this.placesSearchQuery).then(data => {
+      this.placesProvider.getPlaces([0.19748888593744596, 41.14594933613824], [6.536600214062446, 45.943861212538316], this.placesSearchQuery).then((data: any) => {
         console.log(data);
-        console.log(this.currentPlaces);
-        // if (data.places) {
-        //   this.currentPlaces = this.currentPlaces.concat(data.places);
+          this.currentPlaces = this.currentPlaces.concat(data.places);
         // for (let i in data.places) {
         //   this.map.addMarker({
         //     title: data.places[i].name,
@@ -150,7 +148,6 @@ export class ListMasterPage {
         //   }).then(marker => {
         //     this.currentPlacesMarkers.push(marker);
         //   });
-        // }
         // }
       });
     }
@@ -174,33 +171,24 @@ export class ListMasterPage {
     this.appCtrl.getRootNav().push('ItemDetailPage', {
       placeSlug: place.slug
     });
-    // this.navCtrl.rootNav.push('ItemDetailPage', {
-    //   place: place
-    // });
   }
 
   openSpot(spot) {
     this.appCtrl.getRootNav().push('ItemDetailPage', {
       spotSlug: spot.slug
     });
-    // this.navCtrl.rootNav.push('ItemDetailPage', {
-    //   place: place
-    // });
   }
 
   ionViewDidLoad() {
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
-    console.log(this.placesSearchQuery);
-    this.placesProvider.getPlaces([0.19748888593744596, 41.14594933613824], [6.536600214062446, 45.943861212538316], this.placesSearchQuery).then(data => {
-      console.log('data', data)
-      this.currentPlaces = data && data.places ? data.places : [];
-      this.totalPlacesCount = data && data.count ? data.count : 0;
+    this.placesProvider.getPlaces([0.19748888593744596, 41.14594933613824], [6.536600214062446, 45.943861212538316], this.placesSearchQuery).then((data: any) => {
+      this.currentPlaces = data.places;
+      this.totalPlacesCount = data.count;
       this.spotsProvider.getSpots().then(data => {
         this.currentSpots = data;
-        console.log(this.currentSpots);
-        // this.platform.ready().then(() => {
-        //   this.loadMap();
-        // });
+        this.platform.ready().then(() => {
+          this.loadMap();
+        });
       });
     });
   }

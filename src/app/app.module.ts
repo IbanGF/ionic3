@@ -18,7 +18,6 @@ import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../providers/providers';
 import { MyApp } from './app.component';
-import { ContentDrawerComponent } from '../components/content-drawer/content-drawer';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.

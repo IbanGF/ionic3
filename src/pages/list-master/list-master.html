@@ -39,10 +39,10 @@
           <ion-card nowrap no-margin>
             <!-- <button ion-item (click)="openPlace(place)"> -->
             <div class="right_avatar" style="position: absolute; top: 103px; right: 3px; z-index: 2;">
-              <img src="https://test.sportihome.com/assets/users/default-avatar.png" style=" min-width: auto; border-radius: 100%; width: 50px; height: 50px; border: 3px solid #fff; object-position: 50% 0;">
-              <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg" style="    position: absolute; background-color: white; border-radius: 100%; width: 30px; height: 30px; top: 24px; right: 35px; min-width: auto;">
+              <ion-img src="https://test.sportihome.com/assets/users/default-avatar.png" style=" min-width: auto; border-radius: 100%; width: 50px; height: 50px; border: 3px solid #fff; object-position: 50% 0;">
+              <ion-img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg" style="    position: absolute; background-color: white; border-radius: 100%; width: 30px; height: 30px; top: 24px; right: 35px; min-width: auto;">
             </div>
-            <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
+            <ion-img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
             <ion-item>
               <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
               <h2>{{place.name}}</h2>
@@ -76,11 +76,18 @@
   </div>
 </ion-content>
 
-<content-drawer [options]="drawerOptions">
-    <div class="content">
-      The world is your oyster.
-      <p>
-        If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-      </p>
-    </div>
-</content-drawer>
+<!-- <content-drawer [options]="drawerOptions">
+        <ion-card *ngFor="let place of currentPlaces">
+          <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
+          <ion-card-content>
+              <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
+              <h2>{{place.name}}</h2>
+              <h3>{{place.address && place.address.locality}}</h3>
+              <h3>À partir de {{place.home.price.defaultPrice|currency:'EUR':'€':0}} par nuit</h3>
+              <p>
+                <ion-icon name="text"></ion-icon>
+                <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)
+              </p>
+          </ion-card-content>
+        </ion-card>
+</content-drawer> -->

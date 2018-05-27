@@ -42,7 +42,7 @@ export class ContentDrawerComponent {
       this.thresholdTop = this.options.thresholdFromTop;
     }
 
-    this.renderer.setElementStyle(this.element.nativeElement, 'top', this.platform.height() - 56 - this.handleHeight + 'px');
+    this.renderer.setElementStyle(this.element.nativeElement, 'top', 112 + 'px');
     this.renderer.setElementStyle(this.element.nativeElement, 'padding-top', this.handleHeight + 'px');
 
     let hammer = new window['Hammer'](this.element.nativeElement);
@@ -74,7 +74,7 @@ export class ContentDrawerComponent {
 
       this.domCtrl.write(() => {
         this.renderer.setElementStyle(this.element.nativeElement, 'transition', 'top 0.5s');
-        this.renderer.setElementStyle(this.element.nativeElement, 'top', '56px');
+        this.renderer.setElementStyle(this.element.nativeElement, 'top', '112px');
       });
 
     } else if(((this.platform.height() - newTop) < this.thresholdBottom && ev.additionalEvent === "pandown") || bounceToBottom){
