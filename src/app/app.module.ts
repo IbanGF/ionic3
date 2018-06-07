@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Camera } from '@ionic-native/camera';
+import { Keyboard } from '@ionic-native/keyboard';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
@@ -12,8 +13,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Ionic2RatingModule } from 'ionic2-rating';
 
-import { Items } from '../mocks/providers/items';
-import { Settings } from '../providers/providers';
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../providers/providers';
@@ -23,21 +22,6 @@ import { MyApp } from './app.component';
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function provideSettings(storage: Storage) {
-  /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
-   */
-  return new Settings(storage, {
-    option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
-  });
 }
 
 @NgModule({
@@ -54,7 +38,10 @@ export function provideSettings(storage: Storage) {
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      scrollAssist: false,
+      autoFocusAssist: false
+    }),
     Ionic2RatingModule,
     IonicStorageModule.forRoot()
   ],
@@ -64,13 +51,12 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
-    Items,
     User,
     Camera,
+    Keyboard,
     SplashScreen,
     StatusBar,
     GoogleMaps,
-    { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PlacesProvider,
