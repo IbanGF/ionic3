@@ -7,6 +7,9 @@
 
 
 <ion-content fullscreen #myContent>
+  <!-- =================================================================================  -->
+  <!-- ================================= imageSlider ===================================  -->
+  <!-- =================================================================================  -->
   <div class="imageSlider" *ngIf="place">
     <ion-slides class="imageSlider" pager="true" paginationType="fraction" slides-per-view="1" autoplay="3000" loop="true" zoom="true">
       <ion-slide class="swiper-slide" *ngFor="let picture of place.pictures">
@@ -17,35 +20,52 @@
   </div>
 
   <div class="item-detail" padding *ngIf="place">
-    <h2>{{place.name}}</h2>
-    <h4>Logement à {{place.address.locality}}, {{place.address.country}}</h4>
+    <p text-center class="no_margin bold">{{place.owner.firstName}}</p>
+    <!-- =================================================================================  -->
+    <!-- ================================= Place Infos ===================================  -->
+    <!-- =================================================================================  -->
+    <h1 style="margin: 0">{{place.name}}</h1>
+    <h2>Logement à {{place.address.locality}}, {{place.address.country}}</h2>
     <ion-grid>
       <ion-row>
         <ion-col col-4 text-center>
+          <p class="no_margin"><i class="sp-mobile-{{place.home.propertyType}} f30"></i></p>
           {{place.home.propertyType}}
         </ion-col>
         <ion-col col-4 text-center>
+          <p class="no_margin"><i [ngClass]="{'sp-mobile-private2': (place.private == 'Logement entier'), 'sp-mobile-chambre-privee': (place.private == 'Chambre privée'), 'sp-mobile-chambre-partagee' : (place.private == 'Chambre partagée')}" class="f30"></i></p>
           {{place.private}}
         </ion-col>
         <ion-col col-4 text-center>
+          <p class="no_margin"><i class="sp-mobile-tourist f30"></i></p>
           {{place.home.travellers}} voyageur<span *ngIf="place.home.travellers > 1">s</span>
         </ion-col>
       </ion-row>
     </ion-grid>
     <hr/>
-    <h4>Activités à proximités</h4>
+    <!-- =================================================================================  -->
+    <!-- ================================= Activités =====================================  -->
+    <!-- =================================================================================  -->
+    <h2>Activités à proximités</h2>
     <ion-grid>
       <ion-row>
         <ion-col col-4 *ngFor="let hobby of place.hobbies" text-center>
-          {{hobby}}
+          <i class="sp-mobile-{{hobby}} f30"></i>
+          <p class="no_margin">{{hobby}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>
     <hr/>
-    <h4>A propos de ce logement</h4>
+    <!-- =================================================================================  -->
+    <!-- ================================= À PROPOS ======================================  -->
+    <!-- =================================================================================  -->
+    <h2>A propos de ce logement</h2>
     <p>{{place.about}}</p>
     <hr/>
-    <h4>Services</h4>
+    <!-- =================================================================================  -->
+    <!-- ================================= Services ======================================  -->
+    <!-- =================================================================================  -->
+    <h2>Services</h2>
     <ion-grid>
       <ion-row>
         <ion-col col-4 *ngFor="let service of place.services" text-center>

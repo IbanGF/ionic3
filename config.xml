@@ -95,4 +95,5 @@
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="26.1.0" />
     </plugin>
     <allow-navigation href="http://192.168.1.20:8100" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
 </widget>

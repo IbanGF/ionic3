@@ -33,13 +33,8 @@ $colors: (
 );
 
 
-@mixin font {
-  @for $i from 1 through 60 {
-      .f#{$i} { font-size: #{$i}px !important; }
-  }
-}
-
-@include font;
+// =================================================================
+// ====================== PADDING / example > f10 = font-size: 10px;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -80,6 +75,7 @@ $colors: (
 // @import "ionic.ionicons";
 @import "ionicons";
 @import "sportihome-icones";
+@import "functions";
 
 
 // Fonts

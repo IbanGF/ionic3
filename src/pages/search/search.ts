@@ -298,7 +298,8 @@ export class SearchPage {
   }
 
   openSpot(spot) {
-    this.appCtrl.getRootNav().push('PlacePage', {
+    console.log('go to spot page')
+    this.appCtrl.getRootNav().push('SpotPage', {
       spotSlug: spot.slug
     });
   }

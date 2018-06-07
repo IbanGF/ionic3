@@ -23,7 +23,7 @@ export class SpotPage {
   comments: any;
   showNavbar: boolean = false;
   sliderHeight: number = 0;
-  userProfile: UserProfilePage;
+  userProfile = UserProfilePage;
 
   constructor(public navCtrl: NavController, public spotsProvider: SpotsProvider, public navParams: NavParams, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
