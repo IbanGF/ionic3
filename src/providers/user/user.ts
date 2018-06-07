@@ -1,6 +1,8 @@
 import 'rxjs/add/operator/toPromise';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
+import { UserData } from '../../models/userdata'
 
 import { Api } from '../api/api';
 
@@ -26,8 +28,8 @@ import { Api } from '../api/api';
 @Injectable()
 export class User {
   _user: any;
-
-  constructor(public api: Api) { }
+  userData: any;
+  constructor(public api: Api, public http: HttpClient) { }
 
   /**
    * Send a POST request to our login endpoint with the data
@@ -80,6 +82,20 @@ export class User {
    */
   _loggedIn(resp) {
     this._user = resp.user;
+  }
+
+  getUserData(){
+    return this.userData;
+  }
+
+  getMe() {
+    let getMe = this.http.get('https://test.sportihome.com/api/users/me');
+    getMe.subscribe((res: any) => {
+      this.userData = res;
+    }, err => {
+      console.log('non connecté');
+    });
+    return getMe;
   }
 
   getOne(id: any) {

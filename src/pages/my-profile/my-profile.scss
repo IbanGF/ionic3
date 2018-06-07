@@ -1,0 +1,11 @@
+page-my-profile {
+
+  .imageMyProfile {
+    float: right;
+    object-fit: cover;
+    object-position: 50% 0;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    overflow: hidden;
+  }
+}

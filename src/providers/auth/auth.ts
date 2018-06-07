@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+// import { NativeStorage } from '@ionic-native/native-storage';
 
 @Injectable()
 export class AuthProvider {
@@ -10,8 +11,12 @@ export class AuthProvider {
   data: {};
   isLog: boolean;
 
-
   constructor(public api: Api, public http: HttpClient) { }
+
+  signIn(data: any, redirectUrl: any) {
+    const url = '';
+    return this.http.post('https://test.sportihome.com/api/users' + url, data);
+  }
 
   login(email: string, password: string) {
     this.data = { email: email, password: password };
@@ -28,7 +33,7 @@ export class AuthProvider {
 
   isLoggedin() {
     return this.http.get('https://test.sportihome.com/api/users/loggedin')
-      .map(response => {
+      .subscribe(response => {
         if (response === true) {
           this.isLog = true;
         }

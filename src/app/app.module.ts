@@ -1,7 +1,8 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Camera } from '@ionic-native/camera';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { Keyboard } from '@ionic-native/keyboard';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -10,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { JwtInterceptor } from '../helpers/jwt.interceptor';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Ionic2RatingModule } from 'ionic2-rating';
@@ -58,6 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
     User,
     Camera,
     Keyboard,
+    NativeStorage,
     SplashScreen,
     StatusBar,
     GoogleMaps,
@@ -67,7 +70,12 @@ export function createTranslateLoader(http: HttpClient) {
     SpotsProvider,
     SearchProvider,
     AuthProvider,
-    Facebook
+    Facebook,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ]
 })
 export class AppModule { }

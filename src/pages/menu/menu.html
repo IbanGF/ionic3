@@ -13,8 +13,14 @@
     <button *ngIf="!isLog"[navPush]="login" ion-item>
       Se connecter
     </button>
+    <button *ngIf="!isLog"[navPush]="signin" ion-item>
+      S'inscrire
+    </button>
     <button *ngIf="isLog" (click)="logout()" ion-item>
       Se déconnecter
+    </button>
+    <button *ngIf="isLog"[navPush]="myProfile" ion-item>
+      Mon profil
     </button>
     <button [navPush]="comment" ion-item>
       Comment ça marche

@@ -15,6 +15,8 @@ import { CguPage } from './condition/cgu/cgu';
 import { LegalPage } from './condition/legal/legal';
 import { AnnulationPage } from './condition/annulation/annulation';
 import { SignupPage } from '../signup/signup';
+import { MyprofilePage } from '../my-profile/my-profile';
+import { SigninPage } from '../signin/signin';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { SignupPage } from '../signup/signup';
     CguPage,
     LegalPage,
     AnnulationPage,
-    SignupPage
+    SignupPage,
+    MyprofilePage,
+    SigninPage,
   ],
   imports: [
     IonicPageModule.forChild(MenuPage),
@@ -53,7 +57,9 @@ import { SignupPage } from '../signup/signup';
     CguPage,
     LegalPage,
     AnnulationPage,
-    SignupPage
+    SignupPage,
+    MyprofilePage,
+    SigninPage,
   ]
 })
 export class MenuPageModule {}
