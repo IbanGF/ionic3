@@ -81,4 +81,14 @@ export class User {
   _loggedIn(resp) {
     this._user = resp.user;
   }
+
+  getOne(id: any) {
+    return new Promise(resolve => {
+      this.api.get('users/' + id).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
 }

@@ -16,7 +16,8 @@
         <img [src]="'https://test.sportihome.com/uploads/spots/'+spot._id+'/large/'+picture">
       </ion-slide>
     </ion-slides>
-    <a [navPush]="userProfile" [navParams]="{id: spot.owner._id}">
+    <!-- <a [navPush]="userProfile" [navParams]="{id: spot.owner._id}"> -->
+    <a (click)="showUser(spot.owner._id)">
       <img class="profilePic" width="80" height="80" [src]="spot.owner && spot.owner.avatar && 'https://test.sportihome.com/uploads/users/'+spot.owner._id+'/thumb/'+spot.owner.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="Olivier">
     </a>
   </div>
@@ -25,7 +26,7 @@
     <!-- =================================================================================  -->
     <!-- ================================= Spot Info =====================================  -->
     <!-- =================================================================================  -->
-    <p text-center style="margin: 0"><b>{{spot.owner.firstName}}</b></p>
+    <p text-center style="margin: 0"><b>{{spot.owner.firstName}} éééééé</b></p>
 
     <h1 style="margin: 0">{{spot.name}}</h1>
     <h2>Spot de {{spot.hobby}} à {{spot.address.locality}}, {{spot.address.country}}</h2>

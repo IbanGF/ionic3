@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, Content } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Platform, Content } from 'ionic-angular';
 
-
-import { UserProfilePage } from '../user/user-profile/user-profile';
 import { SpotsProvider } from '../../providers/spots/spots';
 
 /**
@@ -23,18 +21,19 @@ export class SpotPage {
   comments: any;
   showNavbar: boolean = false;
   sliderHeight: number = 0;
-  userProfile = UserProfilePage;
 
-  constructor(public navCtrl: NavController, public spotsProvider: SpotsProvider, public navParams: NavParams, public platform: Platform) {
+  constructor(public appCtrl: App, public navCtrl: NavController, public spotsProvider: SpotsProvider, public navParams: NavParams, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
+  showUser(id) {
+    this.appCtrl.getRootNav().push('UserProfilePage', { id: id });
+  }
+
   ionViewDidLoad() {
-    console.log(this.navParams.get('spotSlug'));
     this.spotsProvider.getOneSpot(this.navParams.get('spotSlug')).then(data => {
       this.spot = data;
       // this.loadMap();
-      console.log(this.spot);
       this.spotsProvider.getComments(this.spot._id).then(comments => {this.comments = comments; console.log(this.comments)});
     });
   }
