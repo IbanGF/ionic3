@@ -289,11 +289,7 @@ export class SearchPage {
   }
 
   openPlace(place) {
-<<<<<<< HEAD
-    this.navCtrl.push('ItemDetailPage', {
-=======
     this.appCtrl.getRootNav().push('PlacePage', {
->>>>>>> 88a2bff8488dc6f249a170c9d6d9d888148e6b09
       placeSlug: place.slug
     })
     // this.appCtrl.getRootNav().push('ItemDetailPage', {
@@ -302,11 +298,7 @@ export class SearchPage {
   }
 
   openSpot(spot) {
-<<<<<<< HEAD
-    this.appCtrl.getRootNav().push('SpotPage', {
-=======
     this.appCtrl.getRootNav().push('PlacePage', {
->>>>>>> 88a2bff8488dc6f249a170c9d6d9d888148e6b09
       spotSlug: spot.slug
     });
   }
