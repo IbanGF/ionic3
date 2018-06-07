@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MenuPage } from './menu';
-
 import { AboutPage } from './about/about';
 import { WhyPage } from './why/why';
 import { ContactPage } from './contact/contact';
@@ -15,6 +14,7 @@ import { AssurancesPage } from './condition/assurances/assurances';
 import { CguPage } from './condition/cgu/cgu';
 import { LegalPage } from './condition/legal/legal';
 import { AnnulationPage } from './condition/annulation/annulation';
+import { SignupPage } from '../signup/signup';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { AnnulationPage } from './condition/annulation/annulation';
     HotePage,
     CguPage,
     LegalPage,
-    AnnulationPage
+    AnnulationPage,
+    SignupPage
   ],
   imports: [
     IonicPageModule.forChild(MenuPage),
@@ -51,7 +52,8 @@ import { AnnulationPage } from './condition/annulation/annulation';
     HotePage,
     CguPage,
     LegalPage,
-    AnnulationPage
+    AnnulationPage,
+    SignupPage
   ]
 })
 export class MenuPageModule {}
