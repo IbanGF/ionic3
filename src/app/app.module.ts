@@ -12,6 +12,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Ionic2RatingModule } from 'ionic2-rating';
+import { MenuPageModule } from '../pages/menu/menu.module';
 
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
@@ -30,6 +31,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    MenuPageModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

@@ -23,6 +23,16 @@ export class SpotsProvider {
     });
   }
 
+  getComments(id) {
+    return new Promise(resolve => {
+      this.api.get('spots/getComments/' + id).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
   getOneSpot(spotSlug: any) {
     return new Promise(resolve => {
       this.api.get('spots/' + spotSlug).subscribe(data => {

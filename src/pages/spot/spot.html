@@ -1,0 +1,90 @@
+
+<ion-header [elasticHeader]="myContent">
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content fullscreen #myContent>
+  <!-- =================================================================================  -->
+  <!-- ================================= imageSlider ===================================  -->
+  <!-- =================================================================================  -->
+  <div class="imageSlider" *ngIf="spot">
+    <ion-slides class="imageSlider" pager="true" paginationType="fraction" slides-per-view="1" autoplay="3000" loop="true" zoom="true">
+      <ion-slide class="swiper-slide" *ngFor="let picture of spot.pictures">
+        <img [src]="'https://test.sportihome.com/uploads/spots/'+spot._id+'/large/'+picture">
+      </ion-slide>
+    </ion-slides>
+    <a [navPush]="userProfile" [navParams]="{id: spot.owner._id}">
+      <img class="profilePic" width="80" height="80" [src]="spot.owner && spot.owner.avatar && 'https://test.sportihome.com/uploads/users/'+spot.owner._id+'/thumb/'+spot.owner.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="Olivier">
+    </a>
+  </div>
+
+  <div class="item-detail" padding *ngIf="spot">
+    <!-- =================================================================================  -->
+    <!-- ================================= Spot Info =====================================  -->
+    <!-- =================================================================================  -->
+    <p text-center style="margin: 0"><b>{{spot.owner.firstName}}</b></p>
+
+    <h1 style="margin: 0">{{spot.name}}</h1>
+    <h2>Spot de {{spot.hobby}} à {{spot.address.locality}}, {{spot.address.country}}</h2>
+
+    <ion-grid>
+      <ion-row class="rating">
+        <ion-col col-4 text-center>
+          <p><i class="sp-mobile-quality f30"></i></p>
+          <p>Qualité</p>
+          <p><rating [ngModel]="spot.rating.quality" readOnly="true"></rating></p>
+        </ion-col>
+        <ion-col col-4 text-center>
+          <p><i class="sp-mobile-beauty f30"></i></p>
+          <p>Beauté</p>
+          <p><rating [ngModel]="spot.rating.beauty" readOnly="true"></rating></p>
+        </ion-col>
+        <ion-col col-4 text-center>
+          <p><i class="sp-mobile-difficulty f30"></i></p>
+          <p>Difficulté</p>
+          <p><rating [ngModel]="spot.rating.difficulty" readOnly="true"></rating></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <hr/>
+
+    <!-- =================================================================================  -->
+    <!-- ================================= Spot About ====================================  -->
+    <!-- =================================================================================  -->
+    <h2>À propos de ce spot</h2>
+    <p text-justify>{{spot.about}}</p>
+
+    <!-- =================================================================================  -->
+    <!-- ================================= Spot Comments =================================  -->
+    <!-- =================================================================================  -->
+    <h2 *ngIf="comments && comments.length">Ils ont noté ce spot <span style="float: right">{{comments.length}} avis</span></h2>
+
+    <div *ngIf="comments && comments.length">
+      <ion-item *ngFor="let comment of comments">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 text-center>
+              <a [navPush]="userProfile" [navParams]="{id: comment.traveller._id}">
+                <img class="img-user" width="50px" height="50px" [src]="comment.traveller.avatar && 'https://test.sportihome.com/uploads/users/'+comment.traveller._id+ '/large/'+comment.traveller.avatar || comment.traveller.facebook.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="{{comment.traveller.identity.firstName}}" />
+              </a>
+            </ion-col>
+            <ion-col col-5 text-center>
+              <p>{{comment.traveller.identity.firstName}}</p>
+              <p class="rating"><rating [ngModel]="((comment.beauty+comment.difficulty+comment.quality)/3)" readOnly="true"></rating></p>
+            </ion-col>
+            <ion-col col-4 text-center *ngIf="comment && comment.traveller && comment.traveller.hobbies && comment.traveller.hobbies.length">
+              <div style="display: inline-flex" *ngIf="comment.traveller.hobbies[0]"> <i class="sp-mobile-{{comment.traveller.hobbies[0]}} f20"></i></div>
+              <div style="display: inline-flex" *ngIf="comment.traveller.hobbies[1]"> <i class="sp-mobile-{{comment.traveller.hobbies[1]}} f20"></i></div>
+              <div style="display: inline-flex" *ngIf="comment.traveller.hobbies[2]"> <i class="sp-mobile-{{comment.traveller.hobbies[2]}} f20"></i></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <p text-justify text-wrap>{{comment.comment}}</p>
+      </ion-item>
+    </div>
+
+  </div>
+</ion-content>

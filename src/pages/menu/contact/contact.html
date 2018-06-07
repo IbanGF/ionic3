@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>contact</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <p text-center><img src="" alt=""></p>
+  <h1 text-center>Contactez-nous</h1>
+  <p>Nous sommes à votre disposition par mail ci-dessous et par téléphone au <a href="tel://+33411937001">04 11 93 70 01</a> (n° non surtaxé)</p>
+  <ion-list>
+      <ion-item>
+        <ion-label floating>Nom</ion-label>
+        <ion-input  [(ngModel)]="contactForm.lastName" type="text" name="lastName" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Prénom</ion-label>
+        <ion-input  [(ngModel)]="contactForm.firstName" type="text" name="firstName" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input  [(ngModel)]="contactForm.email" type="email" name="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Sujet</ion-label>
+        <ion-input  [(ngModel)]="contactForm.subject" type="text" name="subject" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Votre message</ion-label>
+        <ion-textarea  [(ngModel)]="contactForm.message" type="text" name="message" required></ion-textarea>
+      </ion-item>
+  </ion-list>
+  <p *ngIf="error" text-center>Vous devez remplir tous les champs.</p>
+  <p text-center><button ion-button color="secondary" (click)="onSubmit(contactForm)">Envoyer</button></p>
+</ion-content>

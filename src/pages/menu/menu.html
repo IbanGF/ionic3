@@ -1,0 +1,32 @@
+
+<ion-header>
+
+  <ion-navbar hide-tabs>
+    <ion-title>menu</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content hide-tabs>
+  <ion-list>
+    <button [navPush]="comment" ion-item>
+      Comment ça marche
+    </button>
+    <button [navPush]="condition" ion-item>
+      Conditions
+    </button>
+    <button [navPush]="why" ion-item>
+      Pourquoi ?
+    </button>
+    <button [navPush]="contact" ion-item>
+      Contactez-nous
+    </button>
+    <button [navPush]="about" ion-item>
+      À propos
+    </button>
+    <a ion-item href="http://magazine.sportihome.com" target="_blank">
+      Magazine
+    </a>
+  </ion-list>
+</ion-content>
