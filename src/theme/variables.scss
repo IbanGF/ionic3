@@ -12,7 +12,7 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-$text-color:        #000;
+$text-color:        #555F61;
 $background-color:  #fff;
 
 
@@ -32,6 +32,14 @@ $colors: (
   dark:       #222
 );
 
+
+@mixin font {
+  @for $i from 1 through 60 {
+      .f#{$i} { font-size: #{$i}px !important; }
+  }
+}
+
+@include font;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -69,7 +77,9 @@ $colors: (
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/v2/ionicons/
 
-@import "ionic.ionicons";
+// @import "ionic.ionicons";
+@import "ionicons";
+@import "sportihome-icones";
 
 
 // Fonts

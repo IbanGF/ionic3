@@ -169,13 +169,16 @@ export class SearchPage {
   }
 
   openPlace(place) {
-    this.appCtrl.getRootNav().push('ItemDetailPage', {
+    this.navCtrl.push('ItemDetailPage', {
       placeSlug: place.slug
-    });
+    })
+    // this.appCtrl.getRootNav().push('ItemDetailPage', {
+    //   placeSlug: place.slug
+    // });
   }
 
   openSpot(spot) {
-    this.appCtrl.getRootNav().push('ItemDetailPage', {
+    this.appCtrl.getRootNav().push('SpotPage', {
       spotSlug: spot.slug
     });
   }

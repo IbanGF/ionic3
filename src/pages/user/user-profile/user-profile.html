@@ -1,0 +1,39 @@
+<!--
+  Generated template for the UserProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="user.me">{{user.me.identity.firstName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  USER PROFIL
+  <div *ngIf="user.me">
+    <img src="" alt="">
+    <h1>{{user.me.identity.firstName}}</h1>
+    <hr>
+    <div class="border relative">
+      <span class="title_about_user">En savoir plus sur {{user.me.identity.firstName}}</span>
+      <p>{{user.me.identity.about}}</p>
+    </div>
+    <ion-item>
+      <h2>Membre depuis</h2>
+      <p></p>
+    </ion-item>
+    <ion-item>
+      <h2>Informations vérifiées</h2>
+      <p>Addresse Email</p>
+      <p>Numéro de téléphone</p>
+      <p>Compte Facebook</p>
+    </ion-item>
+    <ion-item>Annonce<span>s</span></ion-item>
+    <ion-item>Spot<span>s</span></ion-item>
+  </div>
+</ion-content>
