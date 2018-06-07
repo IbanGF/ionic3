@@ -6,7 +6,7 @@ import { Ionic2RatingModule } from "ionic2-rating";
 
 @NgModule({
   declarations: [
-    SpotPage,
+    SpotPage
   ],
   imports: [
     IonicPageModule.forChild(SpotPage),
