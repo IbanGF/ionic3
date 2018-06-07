@@ -7,7 +7,7 @@ export class PlacesProvider {
 
   constructor(public api: Api) { }
 
-    getPlaces(southwest: Array<number>, northeast: Array<number>, placesQuery?: any) {
+    getPlacesInBounds(southwest: Array<number>, northeast: Array<number>, placesQuery?: any) {
       return new Promise(resolve => {
         this.api.post('places/getPlacesInBounds/' + southwest + '/' + northeast, placesQuery).subscribe((data: any) => {
           resolve({count: data.count, places: data.places});

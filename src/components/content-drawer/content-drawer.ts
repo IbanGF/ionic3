@@ -49,6 +49,7 @@ export class ContentDrawerComponent {
     hammer.get('pan').set({ direction: window['Hammer'].DIRECTION_VERTICAL });
 
     hammer.on('pan', (ev) => {
+      console.log('panning')
       this.handlePan(ev);
     });
 

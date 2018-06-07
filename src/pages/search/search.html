@@ -1,17 +1,28 @@
 <ion-header>
-  <ion-navbar>
-    <ion-searchbar></ion-searchbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="presentModal()" placeholder="Search for a place"></ion-searchbar>
     <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="options"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <div #map id="map"></div>
+  <ion-list [hidden]="autocompleteItems.length == 0" style="position: absolute; z-index: 1000; width: 100%;">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+
+  <div #map id="map">
+    <div class="search_relaunch" *ngIf="showRelaunch">
+      <button ion-button round (click)="relaunchSearch()">Relancer la recherche</button>
+    </div>
+  </div>
+
 
   <div id="search_content">
 
@@ -24,7 +35,7 @@
       </ion-segment-button>
     </ion-segment>
 
-    <div [ngSwitch]="selectedSecondaryTab">
+    <div id="cards" [ngSwitch]="selectedSecondaryTab">
 
       <ion-slides *ngSwitchCase="'places'" [initialSlide]="this.currentPlaceIndex" slidesPerView="auto" #placesSlider (ionSlideDidChange)="placeSlideChanged()" zoom="false">
         <ion-slide *ngFor="let place of currentPlaces" (click)="openPlace(place)">
@@ -69,17 +80,17 @@
 </ion-content>
 
 <!-- <content-drawer [options]="drawerOptions">
-        <ion-card *ngFor="let place of currentPlaces">
-          <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
-          <ion-card-content>
-              <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
-              <h2>{{place.name}}</h2>
-              <h3>{{place.address && place.address.locality}}</h3>
-              <h3>À partir de {{place.home.price.defaultPrice|currency:'EUR':'€':0}} par nuit</h3>
-              <p>
-                <ion-icon name="text"></ion-icon>
-                <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)
-              </p>
-          </ion-card-content>
-        </ion-card>
+  <ion-card *ngFor="let place of currentPlaces">
+    <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
+    <ion-card-content>
+      <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
+      <h2>{{place.name}}</h2>
+      <h3>{{place.address && place.address.locality}}</h3>
+      <h3>À partir de {{place.home.price.defaultPrice|currency:'EUR':'€':0}} par nuit</h3>
+      <p>
+        <ion-icon name="text"></ion-icon>
+        <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)
+      </p>
+    </ion-card-content>
+  </ion-card>
 </content-drawer> -->

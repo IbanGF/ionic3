@@ -1,9 +1,16 @@
 page-search {
-
   #map {
     width: 100%;
     position: absolute;
     height: calc(100% - 294px);
+
+    .search_relaunch {
+      position: absolute;
+      top: 10px;
+      text-align: center;
+      width: 100%;
+      z-index: 100000;
+    }
   }
 
   #search_content {
@@ -70,4 +77,12 @@ page-search {
       }
     }
   }
+}
+
+content-drawer {
+  background-color: #34495e !important;
+}
+
+content-drawer .content {
+  padding: 20px;
 }
