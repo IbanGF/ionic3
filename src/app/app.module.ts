@@ -9,6 +9,7 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Ionic2RatingModule } from 'ionic2-rating';
@@ -65,7 +66,8 @@ export function createTranslateLoader(http: HttpClient) {
     PlacesProvider,
     SpotsProvider,
     SearchProvider,
-    AuthProvider
+    AuthProvider,
+    Facebook
   ]
 })
 export class AppModule { }
