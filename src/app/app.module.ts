@@ -15,7 +15,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
-import { PlacesProvider, SpotsProvider, SearchProvider } from '../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider, AuthProvider } from '../providers/providers';
 import { MyApp } from './app.component';
 
 // The translate loader needs to know where to load i18n files
@@ -61,7 +61,8 @@ export function createTranslateLoader(http: HttpClient) {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PlacesProvider,
     SpotsProvider,
-    SearchProvider
+    SearchProvider,
+    AuthProvider
   ]
 })
 export class AppModule { }
