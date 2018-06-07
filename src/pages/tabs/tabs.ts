@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { MenuPage } from '../menu/menu';
 
 // import { Tab1Root } from '../pages';
 import { Tab2Root } from '../pages';
@@ -14,10 +15,12 @@ import { Tab2Root } from '../pages';
 export class TabsPage {
   // tab1Root: any = Tab1Root;
   tab2Root: any = Tab2Root;
+  tab2Title = " ";
+  tab3Root: any = MenuPage;
+  tab3Title = "Menu";
   // tab3Root: any = Tab3Root;
 
   // tab1Title = " ";
-  tab2Title = " ";
   // tab3Title = " ";
 
   constructor(public navCtrl: NavController, public translateService: TranslateService) {

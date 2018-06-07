@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Comment ça marche</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button [navPush]="voyageur" ion-item>
+        Côté voyageur
+    </button>
+    <button [navPush]="hote" ion-item>
+        Côté hôte
+    </button>
+    <button [navPush]="partager" ion-item>
+        Qu'êtes-vous prêt à partager ?
+    </button>
+    <button [navPush]="reserver" ion-item>
+       Comment réserver ?
+    </button>
+  </ion-list>
+</ion-content>
