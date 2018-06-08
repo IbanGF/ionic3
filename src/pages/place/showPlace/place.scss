@@ -1,22 +1,7 @@
 page-place {
-  h1 {
-    font-size: 18px;
-  }
-  h2 {
-    font-size: 16px;
-  }
-  p {
-    font-size: 14px;
-  }
+
   .scroll-content {
     padding-top: 0 !important;
-  }
-  .img-user {
-    object-fit: cover;
-    object-position: 50% 0;
-    border-radius: 100%;
-    border: 2px solid #fff;
-    overflow: hidden;
   }
 
   ion-navbar {
@@ -46,69 +31,4 @@ page-place {
   //   background: #3db5e7;
   // }
 
-  .imageSlider {
-    position: relative;
-    height: 40vh;
-    width: 100%;
-
-    ion-slides {
-      img {
-        height: 40vh;
-        min-width: 100%;
-        object-fit: cover;
-        object-position: 50% 0;
-      }
-
-      .swiper-pagination {
-        top: 20px;
-        bottom: inherit;
-      }
-    }
-
-    .profilePic {
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translate3d(-50%,0,0);
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      object-position: 50% 0;
-      border-radius: 100%;
-      border: 2px solid #fff;
-      overflow: hidden;
-      z-index: 3000;
-    }
-  }
-
-  .item-profile {
-    width: 100%;
-    background-position: center center;
-    background-size: cover;
-    height: 250px;
-  }
-
-  .item-detail {
-    margin-top: 40px;
-    width: 100%;
-    background: white;
-    position: absolute;
-  }
-
-  .rating {
-    ul {
-      padding: 0px;
-
-      &.rating li {
-        padding: 0 !important;
-        margin: 0 !important;
-        background: none;
-        color: #ffb400;
-
-        ion-icon {
-          font-size: 15px;
-        }
-      }
-    }
-  }
 }

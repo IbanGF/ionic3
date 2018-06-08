@@ -83,11 +83,8 @@ export class PlacePage {
       this.placesProvider.setPlace(data);
       this.placesProvider.getCommentsPlace(this.place._id).then(comments => {
         this.comments = comments;
-        console.log("this.comments");
-        console.log(this.comments);
       });
       // this.loadMap();
-      console.log(this.place);
     });
   }
 

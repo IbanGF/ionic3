@@ -26,6 +26,8 @@ import { Api } from '../api/api';
 @Injectable()
 export class User {
   _user: any;
+  guestComments: any;
+  hostComments: any;
 
   constructor(public api: Api) { }
 
@@ -82,9 +84,45 @@ export class User {
     this._user = resp.user;
   }
 
+  setGuestComments(comments) {
+    this.guestComments = comments;
+  }
+
+  getCurrentGuestComments() {
+    return this.guestComments;
+  }
+
+  setHostComments(comments) {
+    this.hostComments = comments;
+  }
+
+  getCurrentHostComments() {
+    return this.hostComments;
+  }
+
   getOne(id: any) {
     return new Promise(resolve => {
       this.api.get('users/' + id).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getGuestComments(id: any) {
+    return new Promise(resolve => {
+      this.api.get('booking/getGuestComments/' + id).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getHostComments(id: any) {
+    return new Promise(resolve => {
+      this.api.get('booking/getHostComments/' + id).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);

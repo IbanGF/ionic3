@@ -1,9 +1,4 @@
-<!--
-  Generated template for the UserProfilePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -11,7 +6,6 @@
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content padding>
   <div *ngIf="user">
@@ -40,14 +34,12 @@
       <button class="pl1" ion-item>
           Spot<span>s</span>
       </button>
-      <button class="pl1" ion-item>
-          Commentaire<span>s</span> d'hôte<span>s</span>
+      <button *ngIf="hostComments && hostComments.length" class="pl1" ion-item (click)="hostCommentsModal()">
+          {{hostComments.length}} Commentaire<span *ngIf="hostComments.length > 1">s</span> d'hôte<span *ngIf="hostComments.length > 1">s</span>
       </button>
-      <button class="pl1" ion-item>
-          Commentaire<span>s</span> de voyageur<span>s</span>
+      <button *ngIf="guestComments && guestComments.length" class="pl1" ion-item (click)="guestCommentsModal()">
+          {{guestComments.length}} Commentaire<span *ngIf="guestComments.length > 1">s</span> de voyageur<span *ngIf="guestComments.length > 1">s</span>
       </button>
     </ion-list>
-    <!-- <ion-item class="pl1 bold">Annonce<span>s</span></ion-item>
-    <ion-item class="pl1 bold">Spot<span>s</span></ion-item> -->
   </div>
 </ion-content>
