@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
+import { Ionic2RatingModule } from "ionic2-rating";
+
 
 import { PlacePage } from './place';
-import { DirectivesModule } from '../../directives/directives.module';
+import { DirectivesModule } from '../../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { DirectivesModule } from '../../directives/directives.module';
   imports: [
     IonicPageModule.forChild(PlacePage),
     TranslateModule.forChild(),
-    DirectivesModule
+    DirectivesModule,
+    Ionic2RatingModule
   ],
   exports: [
     PlacePage

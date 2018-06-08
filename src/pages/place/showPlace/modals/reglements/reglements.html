@@ -1,0 +1,28 @@
+<!--
+  Generated template for the ReglementsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Règlements</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="place">
+    <ion-list *ngIf="place.rules">
+      <ion-list-header> Règlements </ion-list-header>
+      <ion-item *ngFor="let rule of place.rules"><i item-end [ngClass]="rule === 'Logement non fumeur' ? 'sp-mobile-nosmoking' : rule === 'Animaux bienvenus' ? 'sp-mobile-welcomepets' :
+      rule === 'Animaux domestiques sur place' ? 'sp-mobile-petsaround' : rule == 'Enfants de +10 ans bienvenus' ? 'sp-mobile-kids' : rule == 'Bébés bienvenus' ? 'sp-mobile-baby' :
+      rule == 'Soirées festives autorisées' ? 'sp-mobile-party' : rule == 'Accessible aux personnes à mobilité réduite' ? 'sp-mobile-handicool' : '' "></i> {{rule}}</ion-item>
+    </ion-list>
+  </div>
+</ion-content>

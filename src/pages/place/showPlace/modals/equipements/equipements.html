@@ -1,0 +1,56 @@
+<!--
+  Generated template for the EquipementsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Équipements</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="place && (place.equipments.cosiness.length || place.equipments.entertainment.length || place.equipments.hygiene.length || place.equipments.kitchen.length || place.equipments.serenity.length)">
+
+    <ion-list *ngIf="place.equipments && place.equipments.cosiness && place.equipments.cosiness.length">
+      <ion-list-header> CONFORT </ion-list-header>
+      <ion-item *ngFor="let cosiness of place.equipments.cosiness"><i item-end [ngClass]="cosiness === 'Chauffage' ? 'sp-mobile-heating' : cosiness === 'BBQ/Plancha' ? 'sp-mobile-bbq' : cosiness === 'Salon de jardin' ? 'sp-mobile-confort' : cosiness === 'Équipements de fitness' ? 'sp-mobile-fitness' : cosiness === 'Climatisation' ? 'sp-mobile-aircon' : cosiness === 'Cheminée/Poêle' ? 'sp-mobile-fire' : '' "></i> {{cosiness}}</ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="place.equipments && place.equipments.entertainment && place.equipments.entertainment.length">
+      <ion-list-header> DIVERTISSEMENT </ion-list-header>
+      <ion-item *ngFor="let entertainment of place.equipments.entertainment"><i item-end [ngClass]="entertainment === 'Wifi' ? 'sp-mobile-wifi' : entertainment === 'Internet' ? 'sp-mobile-internet' : entertainment === 'Télévision' ? 'sp-mobile-tv' : entertainment == 'Lecteur DVD' ? 'sp-mobile-dvd' : entertainment == 'Jeux' ? 'sp-mobile-games' : '' "></i>{{entertainment}}</ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="place.equipments && place.equipments.hygiene && place.equipments.hygiene.length">
+      <ion-list-header> HYGIÈNE </ion-list-header>
+      <ion-item *ngFor="let hygiene of place.equipments.hygiene"><i item-end [ngClass]="hygiene === 'Lave-Linge' ? 'sp-mobile-washingmachine' : hygiene === 'Étendoir à linge' ? 'sp-mobile-dry' :
+                            hygiene === 'Douche' ? 'sp-mobile-shower' : hygiene == 'Baignoire' ? 'sp-mobile-bathroom-1' : hygiene == 'Baignoire Bébé' ? 'sp-mobile-babybath' :
+                            hygiene == 'Penderie/commode' ? 'sp-mobile-hanger' : hygiene == 'Sèche cheveux' ? 'sp-mobile-hairdryer' :  hygiene == 'Fer à repasser' ? 'sp-mobile-iron' :
+                            hygiene == 'Sèche linge' ? 'sp-mobile-dryer' : '' "></i> {{hygiene}}</ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="place.equipments && place.equipments.kitchen && place.equipments.kitchen.length">
+      <ion-list-header> CUISINE </ion-list-header>
+      <ion-item *ngFor="let kitchen of place.equipments.kitchen"><i item-end [ngClass]="kitchen === 'Grille pain' ? 'sp-mobile-toaster' : kitchen === 'Four' ? 'sp-mobile-oven' :
+                            kitchen === 'Réfrigérateur' ? 'sp-mobile-fridge' : kitchen == 'Vaisselle et couverts' ? 'sp-mobile-crockery' : kitchen == 'Freezer' ? 'sp-mobile-freezer' :
+                            kitchen == 'Lave-vaisselle' ? 'sp-mobile-dishwasher' : kitchen == 'Bouilloire' ? 'sp-mobile-boiler' :  kitchen == 'Plaques de cuisson' ? 'sp-mobile-cook' :
+                            kitchen == 'Congélateur' ? 'sp-mobile-deepfreezer' : kitchen == 'Chaise bébé' ? 'sp-mobile-babychair' :  kitchen == 'Machine à café' ? 'sp-mobile-coffee' :
+                            kitchen == 'Micro-ondes' ? 'sp-mobile-microwave' : '' "></i> {{kitchen}}</ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="place.equipments && place.equipments.entertainment && place.equipments.entertainment.length">
+      <ion-list-header> SÉRÉNITÉ </ion-list-header>
+      <ion-item *ngFor="let serenity of place.equipments.serenity"><i item-end [ngClass]="serenity === 'Entrée privée' ? 'sp-mobile-lock' : serenity === 'Parking privatif' ? 'sp-mobile-parking' :
+                            serenity === 'Garage' ? 'sp-mobile-garage' : serenity == 'Local sécurisé pour équipement' ? 'sp-mobile-local' : '' "></i> {{serenity}}</ion-item>
+    </ion-list>
+    
+
+  </div>
+</ion-content>

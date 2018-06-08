@@ -28,7 +28,7 @@ export class MenuPage {
   login = SignupPage;
   myProfile = MyprofilePage;
   signin = SigninPage;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthProvider, public toastCtrl: ToastController) { }
 
   ionViewWillEnter() {

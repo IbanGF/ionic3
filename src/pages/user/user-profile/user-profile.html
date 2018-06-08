@@ -16,24 +16,38 @@
 <ion-content padding>
   <div *ngIf="user">
     <img class="imageUserProfile" width="60px" height="60px" [src]="user.avatar && 'https://test.sportihome.com/uploads/users/'+user._id+'/thumb/'+user.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="">
-    <h1 class="pb20">{{user.identity.firstName}}</h1>
+    <h1 class="pb30 mt10">{{user.identity.firstName}}</h1>
 
-    <div class="border relative">
+    <div class="border relative p5 mt15" *ngIf="user.identity.about">
       <span class="title_about_user bold">En savoir plus sur {{user.identity.firstName}}</span>
       <p>{{user.identity.about}}</p>
     </div>
 
-    <ion-item class="pl1">
-      <h2>Membre depuis</h2>
-      <p></p>
+    <ion-item class="pl1 mt10">
+      <h2 class=" bold">Membre depuis</h2>
+      <p class="mt10">{{user.creation}}</p>
     </ion-item>
     <ion-item class="pl1">
-      <h2>Informations vérifiées</h2>
-      <p>Addresse Email</p>
-      <p>Numéro de téléphone</p>
-      <p>Compte Facebook</p>
+      <h2 class="bold">Informations vérifiées</h2>
+      <p class="pl5 mt10">Addresse Email</p>
+      <p class="pl5" *ngIf="user.identity.mobileVerified">Numéro de téléphone</p>
+      <p class="pl5" *ngIf="user.facebook && user.facebook.id">Compte Facebook</p>
     </ion-item>
-    <ion-item class="pl1">Annonce<span>s</span></ion-item>
-    <ion-item class="pl1">Spot<span>s</span></ion-item>
+    <ion-list>
+      <button class="pl1" ion-item>
+          Annonce<span>s</span>
+      </button>
+      <button class="pl1" ion-item>
+          Spot<span>s</span>
+      </button>
+      <button class="pl1" ion-item>
+          Commentaire<span>s</span> d'hôte<span>s</span>
+      </button>
+      <button class="pl1" ion-item>
+          Commentaire<span>s</span> de voyageur<span>s</span>
+      </button>
+    </ion-list>
+    <!-- <ion-item class="pl1 bold">Annonce<span>s</span></ion-item>
+    <ion-item class="pl1 bold">Spot<span>s</span></ion-item> -->
   </div>
 </ion-content>
