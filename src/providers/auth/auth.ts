@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-// import { NativeStorage } from '@ionic-native/native-storage';
+import { NativeStorage } from '@ionic-native/native-storage';
+
 
 @Injectable()
 export class AuthProvider {
@@ -11,7 +12,7 @@ export class AuthProvider {
   data: {};
   isLog: boolean;
 
-  constructor(public api: Api, public http: HttpClient) { }
+  constructor(private api: Api, private http: HttpClient, private nativeStorage: NativeStorage) { }
 
   signIn(data: any, redirectUrl: any) {
     const url = '';
@@ -24,11 +25,28 @@ export class AuthProvider {
       .map(user => {
         if (user && user.token) {
           this.isLog = true;
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.parseJwt(user.token);
+          this.nativeStorage.setItem('currentUser', { property: 'token', anotherProperty: JSON.stringify(user.token) })
+            .then(
+              () => console.log('Stored item!'),
+              error => console.error('Error storing item', error)
+            );
         }
         return user;
       });
+  }
+
+  getTokenAndIsExpire() {
+    this.nativeStorage.getItem('currentUser')
+      .then(
+        data => {
+          if(this.parseJwtandGetExpDate(data) < ){
+            
+          }
+        },
+        error => {
+
+        }
+      );
   }
 
   isLoggedin() {
@@ -53,22 +71,32 @@ export class AuthProvider {
       .map(user => {
         if (user) {
           this.isLog = true;
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.nativeStorage.setItem('currentUser', { property: 'token', anotherProperty: JSON.stringify(user) })
+            .then(
+              () => console.log('Stored item!'),
+              error => console.error('Error storing item', error)
+            );
         }
         return user;
       })
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    this.nativeStorage.remove('currentUser')
+      .then(
+        data => console.log(data),
+        error => console.log(error)
+      );
     this.isLog = false;
     return this.isLog;
   }
 
-  parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
+  parseJwtandGetExpDate(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
     console.log(JSON.parse(window.atob(base64)));
+    const exDate = JSON.parse(window.atob(base64)).exp;
+    return exDate;
   }
 
 }

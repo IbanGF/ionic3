@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-import { AuthProvider } from '../../providers/auth/auth'
+import { AuthProvider } from '../../providers/auth/auth';
+import { User } from '../../providers/user/user'
 import { MainPage } from '../pages';
 
 @IonicPage()
@@ -15,7 +16,7 @@ export class SignupPage {
   password: string;
   facebookAccessToken: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook) { }
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook, public userProvider: User) { }
 
 
   // doSignin(){
@@ -32,6 +33,7 @@ export class SignupPage {
         position: 'top'
       });
       toast.present();
+      this.userProvider.getMe();
     }, (err) => {
       this.navCtrl.pop();
       let toast = this.toastCtrl.create({
