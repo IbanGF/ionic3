@@ -62,9 +62,14 @@ export class PlacePage {
   }
 
   equipementsModal() {
-   let equipementsModalModal = this.modalCtrl.create("EquipementsPage");
-   equipementsModalModal.present();
- }
+     let equipementsModalModal = this.modalCtrl.create("EquipementsPage");
+     equipementsModalModal.present();
+   }
+
+  servicesModal() {
+     let servicesModalModal = this.modalCtrl.create("ServicesPage");
+     servicesModalModal.present();
+   }
 
 
   ionViewDidLoad() {
