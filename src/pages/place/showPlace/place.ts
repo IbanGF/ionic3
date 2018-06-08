@@ -56,7 +56,6 @@ export class PlacePage {
 
   }
 
-
   showUser(id) {
     this.appCtrl.getRootNav().push('UserProfilePage', { id: id });
   }
@@ -78,10 +77,12 @@ export class PlacePage {
 
 
   ionViewDidLoad() {
-    this.placesProvider.getOnePlace(this.navParams.get('placeSlug')).then(data => {
+    this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
+    .subscribe(data => {
       this.place = data;
       this.placesProvider.setPlace(data);
-      this.placesProvider.getCommentsPlace(this.place._id).then(comments => {
+      this.placesProvider.getCommentsPlace(this.place._id)
+      .subscribe(comments => {
         this.comments = comments;
       });
       // this.loadMap();

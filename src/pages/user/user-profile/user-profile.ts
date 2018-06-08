@@ -45,7 +45,7 @@ export class UserProfilePage {
 
     this.userProvider.getHostComments(this.navParams.get('id'))
       .subscribe(data => {
-        this.guestComments = data;
+        this.hostComments = data;
         this.userProvider.setHostComments(data);
       }, err => {
         console.log(err);

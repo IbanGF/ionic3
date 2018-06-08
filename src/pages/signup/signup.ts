@@ -18,12 +18,6 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook, public userProvider: User) { }
 
-
-  // doSignin(){
-  //   let data = {identity.firstName : ,
-  //               lastName: req.body.identity.lastName}
-  // }
-
   doSignup() {
     this.authProvider.login(this.email, this.password).subscribe((resp) => {
       this.navCtrl.pop();

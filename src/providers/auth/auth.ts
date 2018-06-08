@@ -6,11 +6,15 @@ import 'rxjs/add/operator/map'
 import { NativeStorage } from '@ionic-native/native-storage';
 import moment from 'moment';
 
+export interface SignIn{
+  email: string;
+  password: string;
+}
 
 @Injectable()
 export class AuthProvider {
 
-  data: {};
+  data: SignIn;
   isLog: boolean;
 
   constructor(private api: Api, private http: HttpClient, private nativeStorage: NativeStorage) { }

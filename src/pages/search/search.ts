@@ -186,7 +186,8 @@ export class SearchPage {
   }
 
   getPlacesInBounds() {
-    this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).then((data: any) => {
+    this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
+    .subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;
       this.placesSlider.update();
@@ -250,7 +251,8 @@ export class SearchPage {
     });
     if ((this.currentPlaces.length - this.currentPlaceIndex - 1) < 2 && (this.totalPlacesCount - this.currentPlaces.length) > 0) {
       this.placesSearchQuery.page++;
-      this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).then((data: any) => {
+      this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
+      .subscribe((data: any) => {
         this.currentPlaces = this.currentPlaces.concat(data.places);
         for (let i in data.places) {
           this.map.addMarker({
@@ -306,10 +308,12 @@ export class SearchPage {
 
   ionViewDidLoad() {
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
-    this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).then((data: any) => {
+    this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
+    .subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;
-      this.spotsProvider.getSpots().then(data => {
+      this.spotsProvider.getSpots()
+      .subscribe(data => {
         this.currentSpots = data;
         this.platform.ready().then(() => {
           this.loadMap();

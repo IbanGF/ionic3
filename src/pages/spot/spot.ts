@@ -31,11 +31,16 @@ export class SpotPage {
   }
 
   ionViewDidLoad() {
-    this.spotsProvider.getOneSpot(this.navParams.get('spotSlug')).then(data => {
-      this.spot = data;
-      // this.loadMap();
-      this.spotsProvider.getComments(this.spot._id).then(comments => {this.comments = comments; console.log(this.comments)});
-    });
+    this.spotsProvider.getOneSpot(this.navParams.get('spotSlug'))
+      .subscribe(data => {
+        this.spot = data;
+      });
+
+    // this.loadMap();
+    this.spotsProvider.getComments(this.spot._id)
+      .subscribe(comments => {
+        this.comments = comments;
+      });
   }
 
 }
