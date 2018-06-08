@@ -10,7 +10,8 @@
 <ion-content padding>
   <div *ngIf="user">
     <img class="imageUserProfile" width="60px" height="60px" [src]="user.avatar && 'https://test.sportihome.com/uploads/users/'+user._id+'/thumb/'+user.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="">
-    <h1 class="pb30 mt10">{{user.identity.firstName}}</h1>
+    <h1 class="mt10">{{user.identity.firstName}}</h1>
+    <p *ngIf="user.hobbies && user.hobbies.length" class="mb1"><span *ngFor="let hobby of user.hobbies"><i class="sp-mobile-{{hobby}} f20"></i> </span></p>
 
     <div class="border relative p5 mt15" *ngIf="user.identity.about">
       <span class="title_about_user bold">En savoir plus sur {{user.identity.firstName}}</span>
