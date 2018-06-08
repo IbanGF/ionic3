@@ -64,13 +64,13 @@
     <h2>A propos de ce logement</h2>
     <p text-justify>{{place.about}}</p>
     <ion-list>
-      <button class="pl1" ion-item (click)="equipementsModal()">
+      <button *ngIf="place.equipments && (place.equipments.cosiness.length || place.equipments.entertainment.length || place.equipments.hygiene.length || place.equipments.kitchen.length || place.equipments.serenity.length)" class="pl1" ion-item (click)="equipementsModal()">
           Équipements
       </button>
-      <button class="pl1" ion-item (click)="servicesModal()">
+      <button *ngIf="place.services && place.services.length" class="pl1" ion-item (click)="servicesModal()">
           Services
       </button>
-      <button class="pl1" ion-item>
+      <button *ngIf="place.rules && place.rules.length" class="pl1" ion-item (click)="reglementsModal()">
           Règlement
       </button>
     </ion-list>

@@ -71,6 +71,11 @@ export class PlacePage {
      servicesModalModal.present();
    }
 
+  reglementsModal() {
+     let reglementsModalModal = this.modalCtrl.create("ReglementsPage");
+     reglementsModalModal.present();
+   }
+
 
   ionViewDidLoad() {
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug')).then(data => {
