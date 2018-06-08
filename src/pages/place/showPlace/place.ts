@@ -6,9 +6,10 @@
 // } from '@ionic-native/google-maps';
 
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
+import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 
-import { PlacesProvider } from '../../providers/places/places';
+import { PlacesProvider } from '../../../providers/places/places';
+import { EquipementsPage } from './modals/equipements/equipements';
 
 @IonicPage()
 @Component({
@@ -22,8 +23,9 @@ export class PlacePage {
   showNavbar: boolean = false;
   sliderHeight: number = 0;
   place: any;
+  comments: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -54,16 +56,29 @@ export class PlacePage {
 
   }
 
+
+  showUser(id) {
+    this.appCtrl.getRootNav().push('UserProfilePage', { id: id });
+  }
+
+  equipementsModal() {
+   let equipementsModalModal = this.modalCtrl.create("EquipementsPage");
+   equipementsModalModal.present();
+ }
+
+
   ionViewDidLoad() {
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug')).then(data => {
       this.place = data;
+      this.placesProvider.setPlace(data);
+      this.placesProvider.getCommentsPlace(this.place._id).then(comments => {
+        this.comments = comments;
+        console.log("this.comments");
+        console.log(this.comments);
+      });
       // this.loadMap();
       console.log(this.place);
     });
-  }
-
-  ionViewDidLeave() {
-    this.place = {};
   }
 
 }

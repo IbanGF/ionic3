@@ -4,7 +4,7 @@ import { Api } from '../api/api';
 
 @Injectable()
 export class PlacesProvider {
-
+    place : any;
   constructor(public api: Api) { }
 
     getPlacesInBounds(southwest: Array<number>, northeast: Array<number>, placesQuery?: any) {
@@ -29,6 +29,22 @@ export class PlacesProvider {
           resolve(data);
         });
       });
+    }
+
+    getCommentsPlace(id: any) {
+      return new Promise(resolve => {
+        this.api.get('places/getComments/' + id).subscribe(data => {
+          resolve(data);
+        });
+      });
+    }
+
+    setPlace(place) {
+      this.place = place;
+    }
+
+    getPlace() {
+      return this.place;
     }
 
   // getUsers() {

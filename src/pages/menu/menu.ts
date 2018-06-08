@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { AboutPage } from './about/about';
 import { WhyPage } from './why/why';
 import { ConditionPage } from './condition/condition';
@@ -20,7 +20,7 @@ export class MenuPage {
   contact = ContactPage;
   comment = CommentPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController) {}
 
   goTo(elem) {
     this.navCtrl.setRoot(AboutPage);

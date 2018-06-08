@@ -11,6 +11,13 @@ page-place {
   .scroll-content {
     padding-top: 0 !important;
   }
+  .img-user {
+    object-fit: cover;
+    object-position: 50% 0;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    overflow: hidden;
+  }
 
   ion-navbar {
     transition: all 0.3s;
@@ -86,5 +93,22 @@ page-place {
     width: 100%;
     background: white;
     position: absolute;
+  }
+
+  .rating {
+    ul {
+      padding: 0px;
+
+      &.rating li {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: none;
+        color: #ffb400;
+
+        ion-icon {
+          font-size: 15px;
+        }
+      }
+    }
   }
 }
