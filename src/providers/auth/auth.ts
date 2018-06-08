@@ -4,6 +4,7 @@ import { Api } from '../api/api';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import { NativeStorage } from '@ionic-native/native-storage';
+import moment from 'moment';
 
 
 @Injectable()
@@ -35,19 +36,22 @@ export class AuthProvider {
       });
   }
 
-  getTokenAndIsExpire() {
-    this.nativeStorage.getItem('currentUser')
-      .then(
-        data => {
-          if(this.parseJwtandGetExpDate(data) < ){
-            
-          }
-        },
-        error => {
-
-        }
-      );
-  }
+  // getTokenAndIsExpire() {
+  //   this.nativeStorage.getItem('currentUser')
+  //     .then(
+  //       data => {
+  //         if (data.token && data.token !== null && this.parseJwtandGetExpDate(data.token) < moment().unix()) {
+  //           return this.isLog = true;
+  //         }
+  //         else {
+  //           this.isLog = false;
+  //         }
+  //       },
+  //       error => {
+  //         this.isLog = false;
+  //       }
+  //     );
+  // }
 
   isLoggedin() {
     return this.http.get('https://test.sportihome.com/api/users/loggedin')
@@ -92,9 +96,8 @@ export class AuthProvider {
   }
 
   parseJwtandGetExpDate(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    console.log(JSON.parse(window.atob(base64)));
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace('-', '+').replace('_', '/');
     const exDate = JSON.parse(window.atob(base64)).exp;
     return exDate;
   }

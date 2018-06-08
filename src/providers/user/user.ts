@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/toPromise';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
@@ -28,6 +27,8 @@ import { Api } from '../api/api';
 @Injectable()
 export class User {
   _user: any;
+  guestComments: any;
+  hostComments: any;
   userData: any;
   constructor(public api: Api, public http: HttpClient) { }
 
@@ -84,12 +85,12 @@ export class User {
     this._user = resp.user;
   }
 
-  getUserData(){
+  getUserData() {
     return this.userData;
   }
 
   getMe() {
-    let getMe = this.http.get('https://test.sportihome.com/api/users/me');
+    let getMe = this.api.get('users/me');
     getMe.subscribe((res: any) => {
       this.userData = res;
     }, err => {
@@ -98,13 +99,31 @@ export class User {
     return getMe;
   }
 
+  setGuestComments(comments) {
+    this.guestComments = comments;
+  }
+
+  getCurrentGuestComments() {
+    return this.guestComments;
+  }
+
+  setHostComments(comments) {
+    this.hostComments = comments;
+  }
+
+  getCurrentHostComments() {
+    return this.hostComments;
+  }
+
   getOne(id: any) {
-    return new Promise(resolve => {
-      this.api.get('users/' + id).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
+    return this.api.get('users/' + id);
+  }
+
+  getGuestComments(id: any) {
+    return this.api.get('booking/getGuestComments/' + id);
+  }
+
+  getHostComments(id: any) {
+    return this.api.get('booking/getHostComments/' + id);
   }
 }

@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Voyageur<span *ngIf="guestComments && guestComments.length > 1">s</span></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content fullscreen>
+  <div *ngIf="guestComments && guestComments.length">
+    <ion-item *ngFor="let comment of guestComments">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 text-center>
+            <a (click)="showUser(comment.guest._id._id)">
+              <img class="img-user" width="50px" height="50px" [src]="comment.guest._id.avatar && 'https://test.sportihome.com/uploads/users/'+comment.guest._id._id+ '/large/'+comment.guest._id.avatar || comment.guest._id.facebook.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="{{comment.guest._id.identity.firstName}}" />
+            </a>
+          </ion-col>
+          <ion-col col-5 text-center>
+            <p>{{comment.guest._id.identity.firstName}}</p>
+            <p class="rating"><rating [ngModel]="comment.host.comment.overallRating" readOnly="true"></rating></p>
+          </ion-col>
+          <ion-col col-4 text-center *ngIf="comment && comment.guest && comment.guest._id.hobbies && comment.guest._id.hobbies.length">
+            <div style="display: inline-flex" *ngIf="comment.guest._id.hobbies[0]"> <i class="sp-mobile-{{comment.guest._id.hobbies[0]}} f20"></i></div>
+            <div style="display: inline-flex" *ngIf="comment.guest._id.hobbies[1]"> <i class="sp-mobile-{{comment.guest._id.hobbies[1]}} f20"></i></div>
+            <div style="display: inline-flex" *ngIf="comment.guest._id.hobbies[2]"> <i class="sp-mobile-{{comment.guest._id.hobbies[2]}} f20"></i></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p text-justify text-wrap>{{comment.host.comment.content}}</p>
+    </ion-item>
+  </div>
+</ion-content>
