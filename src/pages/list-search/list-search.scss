@@ -1,0 +1,20 @@
+page-list-search {
+
+  .toolbar-ios {
+    min-height: auto;
+  }
+
+  card-place {
+    img.main {
+      border-radius: 6px 6px 0 0;
+    }
+  }
+
+  .containerCard {
+    margin-top: 30px
+  }
+
+  .containerCard:first-child {
+    margin-top: 0px
+  }
+}

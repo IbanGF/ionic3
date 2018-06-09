@@ -15,7 +15,7 @@ import { CguPage } from './condition/cgu/cgu';
 import { LegalPage } from './condition/legal/legal';
 import { AnnulationPage } from './condition/annulation/annulation';
 import { SignupPage } from '../signup/signup';
-import { MyprofilePage } from '../my-profile/my-profile';
+import { MyprofilePage } from '../user/my-profile/my-profile';
 import { SigninPage } from '../signin/signin';
 
 

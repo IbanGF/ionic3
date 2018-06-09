@@ -6,7 +6,7 @@ import { ConditionPage } from './condition/condition';
 import { ContactPage } from './contact/contact';
 import { CommentPage } from './comment/comment';
 import { SignupPage } from '../signup/signup';
-import { MyprofilePage } from '../my-profile/my-profile';
+import { MyprofilePage } from '../user/my-profile/my-profile';
 import { SigninPage } from '../signin/signin';
 
 import { AuthProvider } from '../../providers/auth/auth'

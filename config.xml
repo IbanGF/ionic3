@@ -97,6 +97,12 @@
     <engine name="android" spec="~6.3.0" />
     <allow-navigation href="http://192.168.1.6:8100" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+<<<<<<< HEAD
     <allow-navigation href="http://192.168.0.18:8100" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.1" />
+=======
+    <allow-navigation href="http://192.168.1.27:8100" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <allow-navigation href="http://192.168.1.18:8100" />
+>>>>>>> a534138d76950c267f6943aa66f2d776694a0b63
 </widget>

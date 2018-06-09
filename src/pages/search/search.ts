@@ -4,19 +4,19 @@ import {
   GoogleMapsEvent,
   GoogleMapOptions,
   VisibleRegion,
+  ILatLng,
+  LatLngBounds,
   // CameraPosition,
   // MarkerOptions,
   // Marker
 } from '@ionic-native/google-maps';
 
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { App, IonicPage, ModalController, NavController, Platform, Slides } from 'ionic-angular';
+import { Component, ViewChild, NgZone, Renderer2 } from '@angular/core';
+import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewController } from 'ionic-angular';
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
-
-declare let google: any;
 
 @IonicPage({ segment: 'map' })
 @Component({
@@ -27,6 +27,7 @@ export class SearchPage {
 
   @ViewChild(Slides) placesSlider: Slides;
   @ViewChild(Slides) spotsSlider: Slides;
+  @ViewChild('searchBar') searchBar;
 
   map: GoogleMap;
   currentPlacesMarkers = [];
@@ -36,59 +37,49 @@ export class SearchPage {
   currentPlaces: any;
   totalPlacesCount: number = 0;
   currentPlaceIndex: number = 0;
-  bounds = {
-    southwest: [0.19748888593744596, 41.14594933613824],
-    northeast: [6.536600214062446, 45.943861212538316]
-  };
+  bounds: any;
+  formatted_address: string;
   // prevPlaceIndex: number = 0;
   currentSpots: any;
   currentSpotIndex: number = 0;
   drawerOptions: any;
   showRelaunch: boolean = false;
 
-  GoogleAutocomplete: any;
-  autocomplete = { input: '' };
-  autocompleteItems = [];
 
-
-  constructor(public appCtrl: App, public navCtrl: NavController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone) {
+  constructor(public appCtrl: App, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
     // this.drawerOptions = {
     //   handleHeight: 50,
     //   thresholdFromBottom: 200,
     //   thresholdFromTop: 200,
     //   bounceBack: true
     // };
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
   }
 
-  presentModal() {
-    const modal = this.modalCtrl.create('ModalGoogleAutocompletePage');
-    modal.present();
+  closeMapModal() {
+    this.view.dismiss();
   }
 
-  updateSearchResults() {
-    if (this.autocomplete.input == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-      (predictions, status) => {
-        this.autocompleteItems = [];
-        this.zone.run(() => {
-          predictions.forEach((prediction) => {
-            this.autocompleteItems.push(prediction);
-          });
-        });
+  presentAutocompleteModal() {
+    const autocompleteModal = this.modalCtrl.create('ModalGoogleAutocompletePage');
+    autocompleteModal.present();
+
+    autocompleteModal.onDidDismiss((data) => {
+      if (!data) return;
+      this.formatted_address = data.formatted_address;
+      this.searchProvider.setAddress(this.formatted_address);
+      let northeast: ILatLng = {
+        lat: data.geometry.viewport.getNorthEast().lat(),
+        lng: data.geometry.viewport.getNorthEast().lng()
+      };
+      let southwest: ILatLng = {
+        lat: data.geometry.viewport.getSouthWest().lat(),
+        lng: data.geometry.viewport.getSouthWest().lng()
+      };
+      let bounds: LatLngBounds = new LatLngBounds([northeast, southwest]);
+      this.map.animateCamera({ 'target': bounds }).then(() => {
+        this.relaunchSearch();
       });
-  }
-
-  selectSearchResult(item) {
-    this.autocompleteItems = [];
-    // this.geocoder.geocode({ 'placeId': item.place_id }, (results, status) => {
-    //   if (status === 'OK' && results[0]) {
-    //     console.log(results[0])
-    //   }
-    // })
+    });
   }
 
   loadMap() {
@@ -101,7 +92,7 @@ export class SearchPage {
           lat: this.currentPlaces[0].loc.coordinates[1],
           lng: this.currentPlaces[0].loc.coordinates[0]
         },
-        zoom: 18,
+        zoom: 15,
         tilt: 30
       }
     };
@@ -178,11 +169,12 @@ export class SearchPage {
     let visibleRegion: VisibleRegion = this.map.getVisibleRegion();
     this.bounds.southwest = [visibleRegion.southwest.lng, visibleRegion.southwest.lat];
     this.bounds.northeast = [visibleRegion.northeast.lng, visibleRegion.northeast.lat];
+    this.searchProvider.setBounds(this.bounds);
     this.placesSearchQuery.page = 1;
     for (let i in this.currentPlacesMarkers) {
       this.currentPlacesMarkers[i].remove();
     }
-    this.getPlacesInBounds()
+    this.getPlacesInBounds();
   }
 
   getPlacesInBounds() {
@@ -245,7 +237,7 @@ export class SearchPage {
     // this.currentPlacesMarkers[this.currentPlaceIndex].setAnimation('BOUNCE');
     this.map.animateCamera({
       target: this.currentPlacesMarkers[this.currentPlaceIndex].get("position"),
-      zoom: 10,
+      zoom: 15,
       duration: 500,
       padding: 0
     });
@@ -283,7 +275,7 @@ export class SearchPage {
     this.currentSpotIndex = this.spotsSlider.getActiveIndex();
     this.map.animateCamera({
       target: this.currentSpotsMarkers[this.currentSpotIndex].get("position"),
-      zoom: 10,
+      zoom: 15,
       duration: 500,
       padding: 0 // default = 20px
     }).then(() => console.log('spot camera changed !'));
@@ -291,13 +283,14 @@ export class SearchPage {
   }
 
   ionViewDidLoad() {
+    this.bounds = this.searchProvider.getBounds();
+    this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
     .subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;
-      this.spotsProvider.getSpots()
-      .subscribe(data => {
+      this.spotsProvider.getSpots().subscribe((data: any) => {
         this.currentSpots = data;
         this.platform.ready().then(() => {
           this.loadMap();
