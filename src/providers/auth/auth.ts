@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-import { NativeStorage } from '@ionic-native/native-storage';
+import { IonicStorageModule, Storage } from '@ionic/storage';
 import moment from 'moment';
 
 export interface SignIn{
@@ -17,7 +17,7 @@ export class AuthProvider {
   data: SignIn;
   isLog: boolean;
 
-  constructor(private api: Api, private http: HttpClient, private nativeStorage: NativeStorage) { }
+  constructor(private api: Api, private http: HttpClient, private storage: Storage) { }
 
   signIn(data: any, redirectUrl: any) {
     const url = '';
@@ -30,7 +30,7 @@ export class AuthProvider {
       .map(user => {
         if (user && user.token) {
           this.isLog = true;
-          this.nativeStorage.setItem('currentUser', { property: 'token', anotherProperty: JSON.stringify(user.token) })
+          this.storage.set('currentUser', JSON.stringify(user.token))
             .then(
               () => console.log('Stored item!'),
               error => console.error('Error storing item', error)
@@ -79,7 +79,7 @@ export class AuthProvider {
       .map(user => {
         if (user) {
           this.isLog = true;
-          this.nativeStorage.setItem('currentUser', { property: 'token', anotherProperty: JSON.stringify(user) })
+          this.storage.set('currentUser', JSON.stringify(user))
             .then(
               () => console.log('Stored item!'),
               error => console.error('Error storing item', error)
@@ -90,7 +90,7 @@ export class AuthProvider {
   }
 
   logout() {
-    this.nativeStorage.remove('currentUser')
+    this.storage.remove('currentUser')
       .then(
         data => console.log(data),
         error => console.log(error)

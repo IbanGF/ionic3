@@ -2,8 +2,6 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Camera } from '@ionic-native/camera';
-import { NativeStorage } from '@ionic-native/native-storage';
-import { Keyboard } from '@ionic-native/keyboard';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
@@ -62,8 +60,6 @@ export function createTranslateLoader(http: HttpClient) {
     Api,
     User,
     Camera,
-    Keyboard,
-    NativeStorage,
     SplashScreen,
     StatusBar,
     GoogleMaps,
