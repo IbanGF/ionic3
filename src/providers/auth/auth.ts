@@ -5,8 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import moment from 'moment';
+import { User } from '../../providers/user/user'
 
-export interface SignIn{
+export interface SignIn {
   email: string;
   password: string;
 }
@@ -17,22 +18,25 @@ export class AuthProvider {
   data: SignIn;
   isLog: boolean;
 
-  constructor(private api: Api, private http: HttpClient, private storage: Storage) { }
+  constructor(private api: Api, private http: HttpClient, private storage: Storage, private userProvider: User) { }
 
   signIn(data: any, redirectUrl: any) {
     const url = '';
-    return this.http.post('https://test.sportihome.com/api/users' + url, data);
+    return this.api.post('users' + url, data);
   }
 
   login(email: string, password: string) {
     this.data = { email: email, password: password };
-    return this.http.post<any>('https://test.sportihome.com/api/users/login', this.data)
-      .map(user => {
-        if (user && user.token) {
+    return this.api.post('users/login', this.data)
+      .map((user: any) => {
+        if (user) {
           this.isLog = true;
           this.storage.set('currentUser', JSON.stringify(user.token))
             .then(
-              () => console.log('Stored item!'),
+              () => {
+                this.userProvider.getMe();
+                this.userProvider.getFavorites();
+              },
               error => console.error('Error storing item', error)
             );
         }
@@ -40,28 +44,13 @@ export class AuthProvider {
       });
   }
 
-  // getTokenAndIsExpire() {
-  //   this.nativeStorage.getItem('currentUser')
-  //     .then(
-  //       data => {
-  //         if (data.token && data.token !== null && this.parseJwtandGetExpDate(data.token) < moment().unix()) {
-  //           return this.isLog = true;
-  //         }
-  //         else {
-  //           this.isLog = false;
-  //         }
-  //       },
-  //       error => {
-  //         this.isLog = false;
-  //       }
-  //     );
-  // }
-
   isLoggedin() {
-    return this.http.get('https://test.sportihome.com/api/users/loggedin')
-      .subscribe(response => {
+    return this.api.get('users/loggedin')
+      .subscribe((response:any) => {
         if (response === true) {
           this.isLog = true;
+          this.userProvider.getMe();
+          this.userProvider.getFavorites();
         }
         return true;
       }, err => {
@@ -75,13 +64,16 @@ export class AuthProvider {
   }
 
   loginFb(token) {
-    return this.http.get('https://test.sportihome.com/api/' + 'facebook/token?access_token=' + token)
+    return this.api.get('facebook/token?access_token=' + token)
       .map(user => {
         if (user) {
           this.isLog = true;
           this.storage.set('currentUser', JSON.stringify(user))
             .then(
-              () => console.log('Stored item!'),
+              () => {
+                this.userProvider.getMe();
+                this.userProvider.getFavorites();
+              },
               error => console.error('Error storing item', error)
             );
         }

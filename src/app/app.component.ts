@@ -11,7 +11,7 @@ import { FirstRunPage } from '../pages/pages';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnInit{
+export class MyApp implements OnInit {
   rootPage = FirstRunPage;
 
   @ViewChild(Nav) nav: Nav;
@@ -57,10 +57,7 @@ export class MyApp implements OnInit{
     });
   }
 
-  ngOnInit(){
-    if(this.authProvider.getLogStatus){
-      this.user.getMe();
-    }
+  ngOnInit() {
   }
 
   openPage(page) {

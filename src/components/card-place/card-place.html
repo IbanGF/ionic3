@@ -1,5 +1,7 @@
-
 <div class="cardPlaceSpot" *ngIf="place">
+  <div class="heart">
+    <i [ngClass]="{'sp-mobile-heart': !isFavoritePlace(place._id), 'sp-mobile-heart-full':!isFavoritePlace(place._id)}"></i>
+  </div>
   <div class="right_avatar">
     <img src="https://test.sportihome.com/assets/users/default-avatar.png" class="img_user">
     <!-- <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg"> -->
@@ -7,7 +9,8 @@
   <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
   <ion-item>
     <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
-    <p class="rating"><rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
+    <p class="rating">
+      <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
     <p><b>{{place.home.price.defaultPrice | number: '1.0-2'}}€</b> {{place.name}}</p>
   </ion-item>
 </div>

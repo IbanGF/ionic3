@@ -27,7 +27,6 @@ export class SignupPage {
         position: 'top'
       });
       toast.present();
-      this.userProvider.getMe();
     }, (err) => {
       this.navCtrl.pop();
       let toast = this.toastCtrl.create({

@@ -11,8 +11,13 @@ export class User {
   guestComments: any;
   hostComments: any;
   userData: any;
-  constructor(public api: Api, public http: HttpClient) { }
-  
+  url: string;
+  favSpots: Array<any>;
+  favPlaces: Array<any>;
+  constructor(public api: Api, public http: HttpClient) {
+    this.url = this.api.getUrl();
+   }
+
   getUserData() {
     return this.userData;
   }
@@ -25,6 +30,30 @@ export class User {
       console.log('non connecté');
     });
     return getMe;
+  }
+
+  getFavorites(){
+    return this.api.get('users/favorites')
+    .subscribe((res: any)=>{
+      if(res.favorites && res.favorites.places.length){
+        this.favPlaces = res.favorites.places;
+      }
+      if(res.favorites && res.favorites.spots.length){
+        this.favSpots = res.favorites.spots;
+
+      }
+    })
+  }
+
+  isFavoritePlace(placeId: string){
+    if(this.favPlaces){
+      for(var i = 0; i< this.favPlaces.length; i++){
+        if(placeId === this.favPlaces[i]._id){
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   setGuestComments(comments) {

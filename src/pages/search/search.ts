@@ -14,7 +14,7 @@ import { App, IonicPage, ModalController, NavController, Platform, Slides } from
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
-import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider, User } from '../../providers/providers';
 
 declare let google: any;
 
@@ -51,7 +51,7 @@ export class SearchPage {
   autocompleteItems = [];
 
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone) {
+  constructor(public appCtrl: App, public userProvider: User, public navCtrl: NavController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone) {
     // this.drawerOptions = {
     //   handleHeight: 50,
     //   thresholdFromBottom: 200,
@@ -305,6 +305,7 @@ export class SearchPage {
       spotSlug: spot.slug
     });
   }
+
 
   ionViewDidLoad() {
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();

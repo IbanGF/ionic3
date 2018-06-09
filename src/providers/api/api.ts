@@ -8,6 +8,10 @@ export class Api {
   constructor(public http: HttpClient) {
   }
 
+  getUrl(){
+    return this.url;
+  }
+
   get(endpoint: string, params?: any, reqOpts?: any) {
     if (!reqOpts) {
       reqOpts = {

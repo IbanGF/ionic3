@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { User } from '../../providers/user/user'
 
 @Component({
   selector: 'card-place',
@@ -6,5 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class CardPlaceComponent {
   @Input() place: any;
-  constructor() {}
+  constructor(public userProvider: User) {}
+
+  isFavoritePlace(id){
+    return this.userProvider.isFavoritePlace(id);
+  }
 }
