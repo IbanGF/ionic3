@@ -21,6 +21,8 @@ import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { PlacesProvider, SpotsProvider, SearchProvider, AuthProvider } from '../providers/providers';
 import { MyApp } from './app.component';
+import { ComponentsModule } from '../components/components.module';
+
 
 
 // The translate loader needs to know where to load i18n files
@@ -35,6 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    ComponentsModule,
     MenuPageModule,
     HttpClientModule,
     TranslateModule.forRoot({

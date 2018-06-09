@@ -11,6 +11,11 @@ export class PlacesProvider {
     return this.api.post('places/getPlacesInBounds/' + southwest + '/' + northeast, placesQuery);
   }
 
+  getPlacesNearBy(center: Array<number>, maxDistance: number) {
+    console.log('places/placesNearBy/' + center + '/' + maxDistance)
+      return this.api.get('places/placesNearBy/' + center + '/' + maxDistance);
+  }
+
   getNewestPlaces() {
     return this.api.get('places/getNewests');
   }

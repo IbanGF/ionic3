@@ -8,7 +8,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 
-import { PlacesProvider } from '../../../providers/places/places';
+import { PlacesProvider, SpotsProvider } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
 
 @IonicPage()
@@ -23,9 +23,11 @@ export class PlacePage {
   showNavbar: boolean = false;
   sliderHeight: number = 0;
   place: any;
+  placesNearBy: any;
+  spotsNearBy: any;
   comments: any;
 
-  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider,public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -75,17 +77,28 @@ export class PlacePage {
      reglementsModalModal.present();
    }
 
+   openPlace(place) {
+     this.appCtrl.getRootNav().push('PlacePage', { placeSlug: place.slug });
+   }
+
+   openSpot(spot) {
+     this.appCtrl.getRootNav().push('SpotPage', { spotSlug: spot.slug });
+   }
 
   ionViewDidLoad() {
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
     .subscribe(data => {
       this.place = data;
       this.placesProvider.setPlace(data);
+
       this.placesProvider.getCommentsPlace(this.place._id)
-      .subscribe(comments => {
-        this.comments = comments;
-      });
-      // this.loadMap();
+      .subscribe(comments => this.comments = comments );
+
+      this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
+      .subscribe(placesNearBy => this.placesNearBy = placesNearBy);
+
+      this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
+      .subscribe(spotsNearBy => this.spotsNearBy = spotsNearBy);
     });
   }
 

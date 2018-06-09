@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>contact</ion-title>
+    <ion-title>Contact</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,23 +14,23 @@
   <ion-list>
       <ion-item>
         <ion-label floating>Nom</ion-label>
-        <ion-input  [(ngModel)]="contactForm.lastName" type="text" name="lastName" required></ion-input>
+        <ion-input [(ngModel)]="contactForm.lastName" type="text" name="lastName" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Prénom</ion-label>
-        <ion-input  [(ngModel)]="contactForm.firstName" type="text" name="firstName" required></ion-input>
+        <ion-input [(ngModel)]="contactForm.firstName" type="text" name="firstName" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Email</ion-label>
-        <ion-input  [(ngModel)]="contactForm.email" type="email" name="email" required></ion-input>
+        <ion-input [(ngModel)]="contactForm.email" type="email" name="email" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Sujet</ion-label>
-        <ion-input  [(ngModel)]="contactForm.subject" type="text" name="subject" required></ion-input>
+        <ion-input [(ngModel)]="contactForm.subject" type="text" name="subject" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Votre message</ion-label>
-        <ion-textarea  [(ngModel)]="contactForm.message" type="text" name="message" required></ion-textarea>
+        <ion-textarea [(ngModel)]="contactForm.message" type="text" name="message" required></ion-textarea>
       </ion-item>
   </ion-list>
   <p *ngIf="error" text-center>Vous devez remplir tous les champs.</p>

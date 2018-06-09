@@ -142,5 +142,19 @@
     </div>
     <!-- <div id="placeMap" style="width: 100%; height: 40vh;"></div> -->
 
+    <h2 *ngIf="spotsNearBy && spotsNearBy.length">Spots à proximités</h2>
+    <ion-slides *ngIf="spotsNearBy" zoom="false" class="mt20">
+      <ion-slide *ngFor="let spot of spotsNearBy" (click)="openSpot(spot)">
+        <!-- <card-place [place]="spot"></card-place> -->
+      </ion-slide>
+    </ion-slides>
+
+    <h2 *ngIf="placesNearBy && placesNearBy.length">Logement à proximités</h2>
+    <ion-slides *ngIf="placesNearBy" zoom="false" class="mt20">
+      <ion-slide *ngFor="let place of placesNearBy" (click)="openPlace(place)">
+        <card-place [place]="place"></card-place>
+      </ion-slide>
+    </ion-slides>
+
   </div>
 </ion-content>

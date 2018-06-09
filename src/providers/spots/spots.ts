@@ -17,6 +17,10 @@ export class SpotsProvider {
     return this.api.get('spots/getNewsest');
   }
 
+  getSpotsNearBy(center: Array<number>, maxDistance: number) {
+    return this.api.get('/api/spots/spotsNearBy/' + center + '/' + maxDistance);
+  }
+
   getComments(id) {
     return this.api.get('spots/getComments/' + id);
   }
