@@ -98,7 +98,7 @@
         <variable name="APP_ID" value="1828651970757532" />
         <variable name="APP_NAME" value="Sportihome" />
     </plugin>
+    <allow-navigation href="http://192.168.1.18:8100" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />
-    <allow-navigation href="http://192.168.1.18:8100" />
 </widget>

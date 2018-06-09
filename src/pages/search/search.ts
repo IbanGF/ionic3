@@ -281,27 +281,7 @@ export class SearchPage {
     }).then(() => console.log('spot camera changed !'));
     this.spotsSlider.update();
   }
-
-<<<<<<< HEAD
-=======
-  openPlace(place) {
-    this.appCtrl.getRootNav().push('PlacePage', {
-      placeSlug: place.slug
-    })
-    // this.appCtrl.getRootNav().push('ItemDetailPage', {
-    //   placeSlug: place.slug
-    // });
-  }
-
-  openSpot(spot) {
-    console.log('go to spot page')
-    this.appCtrl.getRootNav().push('SpotPage', {
-      spotSlug: spot.slug
-    });
-  }
-
-
->>>>>>> 77dca09e12731eabf7035bf5bc860d4fa9474428
+  
   ionViewDidLoad() {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
