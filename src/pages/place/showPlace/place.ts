@@ -92,7 +92,7 @@ export class PlacePage {
       this.placesProvider.setPlace(data);
 
       this.placesProvider.getCommentsPlace(this.place._id)
-      .subscribe(comments => this.comments = comments );
+      .subscribe(comments => this.comments = comments);
 
       this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
       .subscribe(placesNearBy => this.placesNearBy = placesNearBy);

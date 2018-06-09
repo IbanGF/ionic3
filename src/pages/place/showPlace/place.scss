@@ -35,4 +35,10 @@ page-place {
   //   background: #3db5e7;
   // }
 
+  card-spot, card-place {
+    img.main {
+      border-radius: 6px 6px 0 0;
+    }
+  }
+
 }
