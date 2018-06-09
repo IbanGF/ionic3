@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { App } from 'ionic-angular';
+import { User } from '../../providers/user/user'
 
 @Component({
   selector: 'card-place',
@@ -7,7 +8,13 @@ import { App } from 'ionic-angular';
 })
 export class CardPlaceComponent {
   @Input() place: any;
-  constructor(public appCtrl: App) {}
+  
+  constructor(public appCtrl: App, public userProvider: User) {}
+
+
+  isFavoritePlace(id){
+    return this.userProvider.isFavoritePlace(id);
+  }
 
   openPlace(place) {
     this.appCtrl.getRootNav().push('PlacePage', {

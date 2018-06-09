@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Keyboard } from '@ionic-native/keyboard';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 import { AuthProvider } from '../providers/auth/auth';
@@ -12,7 +11,7 @@ import { FirstRunPage } from '../pages/pages';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnInit{
+export class MyApp implements OnInit {
   rootPage = FirstRunPage;
 
   @ViewChild(Nav) nav: Nav;
@@ -31,15 +30,14 @@ export class MyApp implements OnInit{
   //   { title: 'Search', component: 'SearchPage' }
   // ]
 
-  constructor(private user: User, private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private keyboard: Keyboard, private authProvider: AuthProvider) {
+  constructor(private user: User, private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private authProvider: AuthProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      
+
       this.authProvider.isLoggedin();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.keyboard.disableScroll(true);
     });
     this.initTranslate();
   }
@@ -59,10 +57,7 @@ export class MyApp implements OnInit{
     });
   }
 
-  ngOnInit(){
-    if(this.authProvider.getLogStatus){
-      this.user.getMe();
-    }
+  ngOnInit() {
   }
 
   openPage(page) {

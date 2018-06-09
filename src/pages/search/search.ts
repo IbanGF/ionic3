@@ -16,7 +16,7 @@ import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewC
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
-import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider, User } from '../../providers/providers';
 
 @IonicPage({ segment: 'map' })
 @Component({
@@ -282,6 +282,26 @@ export class SearchPage {
     this.spotsSlider.update();
   }
 
+<<<<<<< HEAD
+=======
+  openPlace(place) {
+    this.appCtrl.getRootNav().push('PlacePage', {
+      placeSlug: place.slug
+    })
+    // this.appCtrl.getRootNav().push('ItemDetailPage', {
+    //   placeSlug: place.slug
+    // });
+  }
+
+  openSpot(spot) {
+    console.log('go to spot page')
+    this.appCtrl.getRootNav().push('SpotPage', {
+      spotSlug: spot.slug
+    });
+  }
+
+
+>>>>>>> 77dca09e12731eabf7035bf5bc860d4fa9474428
   ionViewDidLoad() {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();

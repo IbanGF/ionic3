@@ -17,6 +17,13 @@ card-place {
       object-position: 50% 50% !important;
     }
 
+    .heart{
+      margin: 5px;
+      position: absolute;
+      top: 0;
+      right: 10px;
+      z-index: 2;
+    }
     .right_avatar {
       position: absolute;
       top: 103px;

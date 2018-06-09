@@ -12,7 +12,7 @@ export class PlacesProvider {
   }
 
   getPlacesNearBy(center: Array<number>, maxDistance: number) {
-      return this.api.get('places/placesNearBy/' + center + '/' + maxDistance);
+    return this.api.get('places/placesNearBy/' + center + '/' + maxDistance);
   }
 
   getNewestPlaces() {
@@ -34,15 +34,5 @@ export class PlacesProvider {
   getPlace() {
     return this.place;
   }
-
-  // getUsers() {
-  //   return new Promise(resolve => {
-  //     this.http.get(this.apiUrl + '/users').subscribe(data => {
-  //       resolve(data);
-  //     }, err => {
-  //       console.log(err);
-  //     });
-  //   });
-  // }
 
 }
