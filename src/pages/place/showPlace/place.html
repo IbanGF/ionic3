@@ -140,17 +140,21 @@
         <p text-justify text-wrap>{{comment.host.comment.content}}</p>
       </ion-item>
     </div>
+
+    <div text-center class="mt20">
+      <img class="object-fit_cover br6" width="95%" height="auto"  src="https://maps.googleapis.com/maps/api/staticmap?center={{place.loc.coordinates[1]+0.0003}},{{place.loc.coordinates[0]+0.0003}}&zoom=10&scale=false&size=1200x300&maptype=roadmap&key=AIzaSyBYYCQdKfSXGriTYBXEyrFPzxXVJoegbHQ&format=jpg&visual_refresh=true&markers=icon:https://sportihome.com/assets/search/{{place.home.propertyType}}.png%7Cshadow:false%7C{{place.loc.coordinates[1]+0.0003}},{{place.loc.coordinates[0]+0.0003}}" alt="Google Map of {{place.loc.coordinates[1]+0.0003}},{{place.loc.coordinates[0]+0.0003}}">
+    </div>
     <!-- <div id="placeMap" style="width: 100%; height: 40vh;"></div> -->
 
     <h2 *ngIf="spotsNearBy && spotsNearBy.length">Spots à proximités</h2>
-    <ion-slides *ngIf="spotsNearBy" zoom="false" class="mt20">
+    <ion-slides *ngIf="spotsNearBy && spotsNearBy.length" zoom="false" class="mt20">
       <ion-slide *ngFor="let spot of spotsNearBy" (click)="openSpot(spot)">
-        <!-- <card-place [place]="spot"></card-place> -->
+        <card-spot [spot]="spot"></card-spot>
       </ion-slide>
     </ion-slides>
 
     <h2 *ngIf="placesNearBy && placesNearBy.length">Logement à proximités</h2>
-    <ion-slides *ngIf="placesNearBy" zoom="false" class="mt20">
+    <ion-slides *ngIf="placesNearBy && placesNearBy.length" zoom="false" class="mt20">
       <ion-slide *ngFor="let place of placesNearBy" (click)="openPlace(place)">
         <card-place [place]="place"></card-place>
       </ion-slide>

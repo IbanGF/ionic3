@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 
@@ -18,15 +18,15 @@ export class SpotsProvider {
   }
 
   getSpotsNearBy(center: Array<number>, maxDistance: number) {
-    return this.api.get('/api/spots/spotsNearBy/' + center + '/' + maxDistance);
+    return this.api.get('/spots/spotsNearBy/' + center + '/' + maxDistance);
   }
 
   getComments(id) {
-    return this.api.get('spots/getComments/' + id);
+    return this.api.get('/spots/getComments/' + id);
   }
 
   getOneSpot(spotSlug: any) {
-    return this.api.get('spots/' + spotSlug);
+    return this.api.get('/spots/' + spotSlug);
   }
 
 }

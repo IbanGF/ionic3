@@ -8,6 +8,6 @@
   <ion-item>
     <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
     <p class="rating"><rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
-    <p><b>{{place.home.price.defaultPrice|currency:'EUR':'€':0}}</b> {{place.name}}</p>
+    <p><b>{{place.home.price.defaultPrice | number: '1.0-2'}}€</b> {{place.name}}</p>
   </ion-item>
 </div>

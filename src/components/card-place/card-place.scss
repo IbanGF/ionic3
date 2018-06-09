@@ -12,6 +12,9 @@ card-place {
 
     img.main {
       height: 140px;
+      width: 95%;
+      object-fit: cover !important;
+      object-position: 50% 50% !important;
     }
 
     .right_avatar {

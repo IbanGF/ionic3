@@ -11,6 +11,7 @@
 @mixin fontSize { @for $i from 1 through 60 { .f#{$i} { font-size: #{$i}px !important; } } }
 @include fontSize;
 
+
 // =================================================================
 // ====================== PADDING / example > p10 = padding: 10px;
 .no_padding { padding: 0px; }
@@ -46,3 +47,8 @@
 
 @mixin marginLeft { @for $i from 1 through 60 { .ml#{$i} { margin-left: #{$i}px !important; } } }
 @include marginLeft;
+
+// ===================================================================
+// ====================== BORDER RADIUS / example > br10 = font-size: 10px;
+@mixin borderRadius { @for $i from 1 through 60 { .br#{$i} { border-radius: #{$i}px !important; } } }
+@include borderRadius;
