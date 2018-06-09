@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../../providers/user/user';
+import { AuthProvider } from '../../../providers/auth/auth';
+import { UserData } from '../../../models/userdata';
 import moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-user-profile',
-  templateUrl: 'user-profile.html',
+  selector: 'page-my-profile',
+  templateUrl: 'my-profile.html',
 })
-export class UserProfilePage {
-
+export class MyprofilePage implements OnInit {
   user: any = false;
   guestComments: any = false;
   hostComments: any = false;
   places: any = false;
   spots: any = false;
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User) { }
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider) { }
+
+  IonViewCanEnter() {
+    return this.authProvider.getLogStatus();
+  }
 
   guestCommentsModal() {
     let guestCommentsModal = this.modalCtrl.create("GuestCommentsPage", {guestComments: this.guestComments});
@@ -38,21 +43,9 @@ export class UserProfilePage {
     spotModal.present();
   }
 
-  ionViewDidLoad(): any {
-    this.userProvider.getOne(this.navParams.get('id'))
-      .subscribe(data => {
-        this.user = data;
-        this.user.creation = moment(this.user.creation).format('MMM YYYY')
-      }, err =>{
-        console.log(err);
-      });
-
-    this.userProvider.getGuestComments(this.navParams.get('id'))
-      .subscribe(data => {
-        this.guestComments = data;
-      }, err => {
-        console.log(err);
-      });
+  ngOnInit() {
+    this.user = this.userProvider.getUserData();
+    this.user.creation = moment(this.user.creation).format('MMM YYYY');
 
     this.userProvider.getHostComments(this.navParams.get('id'))
       .subscribe(data => {
@@ -74,6 +67,6 @@ export class UserProfilePage {
       }, err => {
         console.log(err);
       });
-
   }
+
 }

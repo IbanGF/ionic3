@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { User } from '../../../../../providers/user/user';
+import { User } from '../../../../providers/user/user';
 
 @IonicPage()
 @Component({
-  selector: 'page-host-comments',
-  templateUrl: 'host-comments.html',
+  selector: 'page-annonces',
+  templateUrl: 'annonces.html',
 })
-export class HostCommentsPage {
-
-  hostComments: any = false;
-
+export class AnnoncesPage {
+  places: any = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public userProvider: User) {}
 
   closeModal() {
     this.viewCtrl.dismiss();
   }
 
+
   ionViewDidLoad() {
-    this.hostComments = this.userProvider.getCurrentHostComments();
-    console.log(this.hostComments);
+    this.places = this.navParams.get('places');
+    console.log(this.places)
   }
 
 }

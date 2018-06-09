@@ -38,23 +38,14 @@
     <div id="cards" [ngSwitch]="selectedSecondaryTab">
 
       <ion-slides *ngSwitchCase="'places'" [initialSlide]="this.currentPlaceIndex" slidesPerView="auto" #placesSlider (ionSlideDidChange)="placeSlideChanged()" zoom="false">
-        <ion-slide *ngFor="let place of currentPlaces" (click)="openPlace(place)">
+        <ion-slide *ngFor="let place of currentPlaces">
           <card-place [place]="place"></card-place>
         </ion-slide>
       </ion-slides>
 
       <ion-slides *ngSwitchCase="'spots'" [initialSlide]="this.currentSpotIndex" slidesPerView="auto" #spotsSlider (ionSlideDidChange)="spotSlideChanged()" zoom="false">
-        <ion-slide *ngFor="let spot of currentSpots" (click)="openSpot(spot)">
-          <ion-card nowrap no-margin>
-            <img [src]="'https://test.sportihome.com/uploads/spots/' + spot._id + '/thumb/' + spot.pictures[0]" />
-            <div class="card-title">{{spot.name}}</div>
-            <div class="card-subtitle"><span *ngFor="let hobby of spot.hobbies">{{hobby}} </span></div>
-            <ion-card-content>
-              <p>
-                The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
-              </p>
-            </ion-card-content>
-          </ion-card>
+        <ion-slide *ngFor="let spot of currentSpots">
+          <card-spot [spot]="spot"></card-spot>
         </ion-slide>
       </ion-slides>
 

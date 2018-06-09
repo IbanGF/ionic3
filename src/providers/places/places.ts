@@ -12,7 +12,6 @@ export class PlacesProvider {
   }
 
   getPlacesNearBy(center: Array<number>, maxDistance: number) {
-    console.log('places/placesNearBy/' + center + '/' + maxDistance)
       return this.api.get('places/placesNearBy/' + center + '/' + maxDistance);
   }
 

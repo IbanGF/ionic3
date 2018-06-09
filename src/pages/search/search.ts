@@ -290,22 +290,6 @@ export class SearchPage {
     this.spotsSlider.update();
   }
 
-  openPlace(place) {
-    this.appCtrl.getRootNav().push('PlacePage', {
-      placeSlug: place.slug
-    })
-    // this.appCtrl.getRootNav().push('ItemDetailPage', {
-    //   placeSlug: place.slug
-    // });
-  }
-
-  openSpot(spot) {
-    console.log('go to spot page')
-    this.appCtrl.getRootNav().push('SpotPage', {
-      spotSlug: spot.slug
-    });
-  }
-
   ionViewDidLoad() {
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)

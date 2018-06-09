@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { App } from 'ionic-angular';
 
 @Component({
   selector: 'card-place',
@@ -6,5 +7,11 @@ import { Component, Input } from '@angular/core';
 })
 export class CardPlaceComponent {
   @Input() place: any;
-  constructor() {}
+  constructor(public appCtrl: App) {}
+
+  openPlace(place) {
+    this.appCtrl.getRootNav().push('PlacePage', {
+      placeSlug: place.slug
+    })
+  }
 }

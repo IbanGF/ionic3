@@ -35,6 +35,7 @@ export class JwtInterceptor implements HttpInterceptor {
     );
   }
   private is2xxStatus(response: HttpResponseBase) {
+    console.log(response)
     return response.status >= 200 && response.status < 300 && response.statusText === 'OK';
   }
 

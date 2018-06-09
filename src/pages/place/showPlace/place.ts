@@ -27,7 +27,7 @@ export class PlacePage {
   spotsNearBy: any;
   comments: any;
 
-  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider,public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -75,14 +75,6 @@ export class PlacePage {
   reglementsModal() {
      let reglementsModalModal = this.modalCtrl.create("ReglementsPage");
      reglementsModalModal.present();
-   }
-
-   openPlace(place) {
-     this.appCtrl.getRootNav().push('PlacePage', { placeSlug: place.slug });
-   }
-
-   openSpot(spot) {
-     this.appCtrl.getRootNav().push('SpotPage', { spotSlug: spot.slug });
    }
 
   ionViewDidLoad() {

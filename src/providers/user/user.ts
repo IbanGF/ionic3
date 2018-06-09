@@ -7,12 +7,9 @@ import { Api } from '../api/api';
 
 @Injectable()
 export class User {
-  _user: any;
-  guestComments: any;
-  hostComments: any;
   userData: any;
   constructor(public api: Api, public http: HttpClient) { }
-  
+
   getUserData() {
     return this.userData;
   }
@@ -27,22 +24,6 @@ export class User {
     return getMe;
   }
 
-  setGuestComments(comments) {
-    this.guestComments = comments;
-  }
-
-  getCurrentGuestComments() {
-    return this.guestComments;
-  }
-
-  setHostComments(comments) {
-    this.hostComments = comments;
-  }
-
-  getCurrentHostComments() {
-    return this.hostComments;
-  }
-
   getOne(id: any) {
     return this.api.get('users/' + id);
   }
@@ -53,5 +34,13 @@ export class User {
 
   getHostComments(id: any) {
     return this.api.get('booking/getHostComments/' + id);
+  }
+
+  getUserPlaces(id: any) {
+    return this.api.get('places/user/' + id);
+  }
+
+  getUserSpots(id: any) {
+    return this.api.get('spots/user/' + id);
   }
 }
