@@ -1,0 +1,47 @@
+<!--
+  Generated template for the ListSearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header [style.opacity]="isModal ? 0 : 1" no-border>
+  <ion-toolbar color="light">
+    <ion-searchbar #searchBar [ngModel]="formatted_address" (click)="presentAutocompleteModal()" placeholder="Search for a place"></ion-searchbar>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="options" ></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-toolbar>
+  <shrinking-segment-header [scrollArea]="myContent">
+    <ion-toolbar color="light">
+      <ion-buttons style="padding: 0 8px" left>
+        <button ion-button color="dark" round outline>Filtres</button>
+        <button ion-button color="dark" round outline>Dates</button>
+      </ion-buttons>
+    </ion-toolbar>
+  </shrinking-segment-header>
+</ion-header>
+
+
+<ion-content [style.opacity]="isModal ? 0 : 1" fullscreen #myContent>
+  <ion-card *ngFor="let place of currentPlaces">
+    <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
+    <ion-card-content>
+      <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
+      <h2>{{place.name}}</h2>
+      <h3>{{place.address && place.address.locality}}</h3>
+      <h3>À partir de {{place.home.price.defaultPrice|currency:'EUR':'€':0}} par nuit</h3>
+      <p>
+        <ion-icon name="text"></ion-icon>
+        <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)" *ngIf="currentPlaces && currentPlaces.length < totalPlacesCount">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-fab bottom right>
+    <button ion-fab (click)="presentMapModal()"><ion-icon name="map"></ion-icon></button>
+  </ion-fab>
+</ion-content>

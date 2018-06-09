@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "5.0.3",
     "@ionic-native/camera": "4.3.3",
     "@ionic-native/core": "^4.7.0",
+    "@ionic-native/geolocation": "^4.7.0",
     "@ionic-native/google-maps": "^4.8.2",
     "@ionic-native/keyboard": "^4.7.0",
     "@ionic-native/splash-screen": "4.4.0",
@@ -32,6 +33,7 @@
     "cordova-android": "6.3.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.3.4",
     "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git#2.7.0",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
@@ -43,9 +45,11 @@
     "ionic-plugin-keyboard": "^2.2.1",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
+    "minimist": "^1.2.0",
     "run": "1.4.0",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
+    "xml2js": "^0.4.19",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
@@ -67,7 +71,8 @@
         "PLAY_SERVICES_VERSION": "15.0.1",
         "ANDROID_SUPPORT_V4_VERSION": "26.1.0"
       },
-      "ionic-plugin-keyboard": {}
+      "ionic-plugin-keyboard": {},
+      "cordova-plugin-geolocation": {}
     },
     "platforms": [
       "android",

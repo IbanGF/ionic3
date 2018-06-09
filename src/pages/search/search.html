@@ -1,21 +1,15 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="presentModal()" placeholder="Search for a place"></ion-searchbar>
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="options"></ion-icon>
+<ion-header no-border>
+  <ion-toolbar color="clear">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="closeMapModal()">
+        <ion-icon name="close" ></ion-icon>
       </button>
     </ion-buttons>
+    <ion-searchbar #searchBar [ngModel]="formatted_address" (click)="presentAutocompleteModal()" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-list [hidden]="autocompleteItems.length == 0" style="position: absolute; z-index: 1000; width: 100%;">
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-      {{ item.description }}
-    </ion-item>
-  </ion-list>
 
   <div #map id="map">
     <div class="search_relaunch" *ngIf="showRelaunch">
@@ -74,6 +68,10 @@
           </ion-card>
         </ion-slide>
       </ion-slides>
+
+      <!-- <ion-fab bottom right>
+        <button ion-fab (click)="closeMapModal()"><ion-icon name="list"></ion-icon></button>
+      </ion-fab> -->
 
     </div>
   </div>

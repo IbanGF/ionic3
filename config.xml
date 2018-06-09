@@ -96,4 +96,7 @@
     </plugin>
     <allow-navigation href="http://192.168.1.20:8100" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <allow-navigation href="http://192.168.1.27:8100" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <allow-navigation href="http://192.168.1.18:8100" />
 </widget>
