@@ -29,16 +29,16 @@
       <p class="pl5" *ngIf="user.facebook && user.facebook.id">Compte Facebook</p>
     </ion-item>
     <ion-list>
-      <button *ngIf="places && places.length" class="pl1" ion-item (click)="annoncesModal()">
+      <button *ngIf="places && places.length" class="pl1 ios" ion-item (click)="annoncesModal()">
           {{places.length}} Annonce<span *ngIf="places && places.length > 1">s</span>
       </button>
-      <button *ngIf="spots && spots.length" class="pl1" ion-item (click)="spotModal()">
+      <button *ngIf="spots && spots.length" class="pl1 ios" ion-item (click)="spotModal()">
           {{spots.length}} Spot<span *ngIf="spots.length > 1">s</span>
       </button>
-      <button *ngIf="hostComments && hostComments.length" class="pl1" ion-item (click)="hostCommentsModal()">
+      <button *ngIf="hostComments && hostComments.length" class="pl1 ios" ion-item (click)="hostCommentsModal()">
           {{hostComments.length}} Commentaire<span *ngIf="hostComments.length > 1">s</span> d'hôte<span *ngIf="hostComments.length > 1">s</span>
       </button>
-      <button *ngIf="guestComments && guestComments.length" class="pl1" ion-item (click)="guestCommentsModal()">
+      <button *ngIf="guestComments && guestComments.length" class="pl1 ios" ion-item (click)="guestCommentsModal()">
           {{guestComments.length}} Commentaire<span *ngIf="guestComments.length > 1">s</span> de voyageur<span *ngIf="guestComments.length > 1">s</span>
       </button>
     </ion-list>

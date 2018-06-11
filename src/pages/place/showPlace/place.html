@@ -77,13 +77,13 @@
     <p text-center><img width="70px" height="70px" [src]="'/assets/imgs/engagements/' + place.engagement + '.svg'" alt="Engagement {{place.engagement}}"></p>
     <p text-justify>{{place.about}}</p>
     <ion-list>
-      <button *ngIf="place.equipments && (place.equipments.cosiness.length || place.equipments.entertainment.length || place.equipments.hygiene.length || place.equipments.kitchen.length || place.equipments.serenity.length)" class="pl1" ion-item (click)="equipementsModal()">
+      <button *ngIf="place.equipments && (place.equipments.cosiness.length || place.equipments.entertainment.length || place.equipments.hygiene.length || place.equipments.kitchen.length || place.equipments.serenity.length)" class="pl1 ios" ion-item (click)="equipementsModal()">
           Équipements
       </button>
-      <button *ngIf="place.services && place.services.length" class="pl1" ion-item (click)="servicesModal()">
+      <button *ngIf="place.services && place.services.length" class="pl1 ios" ion-item (click)="servicesModal()">
           Services
       </button>
-      <button *ngIf="place.rules && place.rules.length" class="pl1" ion-item (click)="reglementsModal()">
+      <button *ngIf="place.rules && place.rules.length" class="pl1 ios" ion-item (click)="reglementsModal()">
           Règlement
       </button>
     </ion-list>
@@ -141,21 +141,27 @@
       </ion-item>
     </div>
 
+    <!-- =================================================================================  -->
+    <!-- ================================= MAP ===========================================  -->
+    <!-- =================================================================================  -->
     <div text-center class="mt20">
       <img class="object-fit_cover br6" width="95%" height="auto"  src="https://maps.googleapis.com/maps/api/staticmap?center={{place.loc.coordinates[1]+0.0003}},{{place.loc.coordinates[0]+0.0003}}&zoom=10&scale=false&size=1200x300&maptype=roadmap&key=AIzaSyBYYCQdKfSXGriTYBXEyrFPzxXVJoegbHQ&format=jpg&visual_refresh=true&markers=icon:https://sportihome.com/assets/search/{{place.home.propertyType}}.png%7Cshadow:false%7C{{place.loc.coordinates[1]+0.0003}},{{place.loc.coordinates[0]+0.0003}}" alt="Google Map of {{place.loc.coordinates[1]+0.0003}},{{place.loc.coordinates[0]+0.0003}}">
     </div>
     <!-- <div id="placeMap" style="width: 100%; height: 40vh;"></div> -->
 
+    <!-- =================================================================================  -->
+    <!-- ============================== Places, Spots Near ===============================  -->
+    <!-- =================================================================================  -->
     <h2 *ngIf="spotsNearBy && spotsNearBy.length">Spots à proximités</h2>
     <ion-slides *ngIf="spotsNearBy && spotsNearBy.length" zoom="false" class="mt20">
-      <ion-slide *ngFor="let spot of spotsNearBy" (click)="openSpot(spot)">
+      <ion-slide *ngFor="let spot of spotsNearBy">
         <card-spot [spot]="spot"></card-spot>
       </ion-slide>
     </ion-slides>
 
     <h2 *ngIf="placesNearBy && placesNearBy.length">Logement à proximités</h2>
     <ion-slides *ngIf="placesNearBy && placesNearBy.length" zoom="false" class="mt20">
-      <ion-slide *ngFor="let place of placesNearBy" (click)="openPlace(place)">
+      <ion-slide *ngFor="let place of placesNearBy">
         <card-place [place]="place"></card-place>
       </ion-slide>
     </ion-slides>

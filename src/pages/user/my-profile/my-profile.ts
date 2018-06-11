@@ -47,21 +47,28 @@ export class MyprofilePage implements OnInit {
     this.user = this.userProvider.getUserData();
     this.user.creation = moment(this.user.creation).format('MMM YYYY');
 
-    this.userProvider.getHostComments(this.navParams.get('id'))
+    this.userProvider.getHostComments(this.user._id)
       .subscribe(data => {
         this.hostComments = data;
       }, err => {
         console.log(err);
       });
 
-    this.userProvider.getUserPlaces(this.navParams.get('id'))
-      .subscribe( (data:any) => {
-        this.places = data.filter(place => place.isActive && place.finished);
+    this.userProvider.getGuestComments(this.user._id)
+      .subscribe(data => {
+        this.guestComments = data;
       }, err => {
         console.log(err);
       });
 
-    this.userProvider.getUserSpots(this.navParams.get('id'))
+    this.userProvider.getUserPlaces(this.user._id)
+      .subscribe( (data:any) => {
+        if(data && data.length) this.places = data.filter(place => place.isActive && place.finished);
+      }, err => {
+        console.log(err);
+      });
+
+    this.userProvider.getUserSpots(this.user._id)
       .subscribe( (data:any) => {
         this.spots = data;
       }, err => {

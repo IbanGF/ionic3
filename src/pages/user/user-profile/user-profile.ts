@@ -63,7 +63,7 @@ export class UserProfilePage {
 
     this.userProvider.getUserPlaces(this.navParams.get('id'))
       .subscribe( (data:any) => {
-        this.places = data.filter(place => place.isActive && place.finished);
+        if(data && data.length) this.places = data.filter(place => place.isActive && place.finished);
       }, err => {
         console.log(err);
       });
