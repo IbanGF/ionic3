@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+<widget id="com.sportihome.com" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Sportihome</name>
+    <description>Sportihome est la première application 100% dédié aux vacances sport et aventure</description>
+    <author email="contact@sportihome.com" href="http://sportihome.com/">Sportihome team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -80,25 +80,21 @@
     <allow-navigation href="http://192.168.1.108:8100" />
     <allow-navigation href="http://192.168.1.32:8100" />
     <allow-navigation href="http://192.168.1.10:8100" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-device" spec="^2.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
-    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.2" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <allow-navigation href="http://192.168.1.18:8100" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.3.4">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBYYCQdKfSXGriTYBXEyrFPzxXVJoegbHQ" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyBYYCQdKfSXGriTYBXEyrFPzxXVJoegbHQ" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="26.1.0" />
     </plugin>
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
-    <plugin name="cordova-plugin-facebook4" spec="~2.1.0">
-        <variable name="APP_ID" value="1828651970757532" />
-        <variable name="APP_NAME" value="Sportihome" />
-    </plugin>
-    <allow-navigation href="http://192.168.1.18:8100" />
-    <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.2" />
     <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="^7.0.0" />
+    <allow-navigation href="http://192.168.1.27:8100" />
 </widget>
