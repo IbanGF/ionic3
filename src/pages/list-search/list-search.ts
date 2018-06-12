@@ -44,6 +44,11 @@ export class ListSearchPage {
     this.sportSelect.open();
   }
 
+  calendarModal() {
+    const calendarModal = this.modalCtrl.create('CalendarSearchPage');
+    calendarModal.present();
+  }
+
   presentMapModal() {
     const mapModal = this.modalCtrl.create('SearchPage');
     mapModal.present();

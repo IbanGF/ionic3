@@ -10,8 +10,6 @@ firstDayInMonth,
 lastDayInMonth,
 numberOfDaysInMonth,
 minDate;
-let startWeek = null;
-let endWeek = null;
 let today = moment().startOf('day');
 let initCalendarIsfinished = true;
 

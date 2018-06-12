@@ -9,7 +9,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider } from '../../../providers/providers';
-import { EquipementsPage } from './modals/equipements/equipements';
 
 @IonicPage()
 @Component({

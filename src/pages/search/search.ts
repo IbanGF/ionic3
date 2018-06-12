@@ -16,7 +16,7 @@ import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewC
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
-import { PlacesProvider, SpotsProvider, SearchProvider, User } from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
 
 @IonicPage({ segment: 'map' })
 @Component({
