@@ -1,11 +1,24 @@
 page-my-profile {
 
-  .imageMyProfile {
+  .imageUserProfile {
     float: right;
     object-fit: cover;
     object-position: 50% 0;
     border-radius: 100%;
     border: 2px solid #fff;
     overflow: hidden;
+  }
+
+  .border {
+    border: 0.55px solid #c8c7cc;
+    border-radius: 6px;
+  }
+
+  .title_about_user {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    padding: 0 5px;
+    background: white;
   }
 }

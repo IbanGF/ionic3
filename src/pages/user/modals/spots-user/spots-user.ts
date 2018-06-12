@@ -17,7 +17,6 @@ export class SpotsUserPage {
 
   ionViewDidLoad() {
     this.spots = this.navParams.get('spots');
-    console.log(this.spots)
   }
 
 }
