@@ -11,16 +11,16 @@
 <ion-content hide-tabs>
   <ion-list>
     <button *ngIf="!isLog"[navPush]="login" ion-item>
-      Se connecter
+      <i item-start class="sp-mobile-login f20"></i> Se connecter
     </button>
     <button *ngIf="!isLog"[navPush]="signin" ion-item>
-      S'inscrire
+      <i item-start class="sp-mobile-login f20"></i> S'inscrire
     </button>
     <button *ngIf="isLog" (click)="logout()" ion-item>
-      Se déconnecter
+      <i item-start class="sp-mobile-close f20"></i> Se déconnecter
     </button>
     <button *ngIf="isLog"[navPush]="myProfile" ion-item>
-      Mon profil
+      <i item-start class="sp-mobile-profil f20"></i> Mon profil
     </button>
     <button [navPush]="comment" ion-item>
       <i item-start class="sp-mobile-compas f20"></i> Comment ça marche

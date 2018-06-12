@@ -46,7 +46,7 @@ export class SearchPage {
   showRelaunch: boolean = false;
 
 
-  constructor(public appCtrl: App, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
+  constructor(public appCtrl: App, public userProvider: User, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
     // this.drawerOptions = {
     //   handleHeight: 50,
     //   thresholdFromBottom: 200,
@@ -281,7 +281,7 @@ export class SearchPage {
     }).then(() => console.log('spot camera changed !'));
     this.spotsSlider.update();
   }
-  
+
   ionViewDidLoad() {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
@@ -300,7 +300,9 @@ export class SearchPage {
   }
 
 
-
+  isFavoritePlace(place){
+    return this.userProvider.isFavoritePlace(place);
+  }
   // panEvent() {
   //   console.log('panned!')
   // }

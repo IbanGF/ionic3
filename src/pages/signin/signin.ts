@@ -4,7 +4,6 @@ import { Facebook } from '@ionic-native/facebook';
 import { AuthProvider } from '../../providers/auth/auth'
 import { MainPage } from '../pages';
 
-@IonicPage()
 @Component({
   selector: 'page-signin',
   templateUrl: 'signin.html'

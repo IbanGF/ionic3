@@ -11,30 +11,28 @@
   <form (submit)="doSignin()">
     <ion-list>
       <ion-item>
-        <ion-label fixed>email</ion-label>
+        <ion-label fixed>Email</ion-label>
         <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>first Name</ion-label>
+        <ion-label fixed>Prénom</ion-label>
         <ion-input type="test" [(ngModel)]="firstName" name="firstName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>last Name</ion-label>
+        <ion-label fixed>Nom</ion-label>
         <ion-input type="text" [(ngModel)]="lastName" name="lastName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>password</ion-label>
+        <ion-label fixed>Mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>confirm password</ion-label>
+        <ion-label fixed>Confirmer le mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button type="submit">S'INSCrIRE</button>
+    <button ion-button full color="secondary"  type="submit">S'inscrire</button>
   </form>
-  <ion-item>
-    <button ion-button (click)="doFbSignin()">S'INSCRIRE AVEC FB</button>
-  </ion-item>
+    <button ion-button full color="fb" (click)="doFbSignin()">S'inscrire avec Facebook</button>
 
 </ion-content>

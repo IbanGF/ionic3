@@ -11,8 +11,10 @@ export class User {
   url: string;
   favSpots: Array<any>;
   favPlaces: Array<any>;
+  favPlacesIds: Array<any>;
   constructor(public api: Api, public http: HttpClient) {
     this.url = this.api.getUrl();
+    this.favPlacesIds = [];
    }
 
   getUserData() {
@@ -34,25 +36,40 @@ export class User {
     .subscribe((res: any)=>{
       if(res.favorites && res.favorites.places.length){
         this.favPlaces = res.favorites.places;
+        for(var i = 0; i< this.favPlaces.length; i++){
+          this.favPlacesIds.push(this.favPlaces[i]._id);
+        }
       }
       if(res.favorites && res.favorites.spots.length){
         this.favSpots = res.favorites.spots;
-
       }
     })
   }
 
   isFavoritePlace(placeId: string){
-    if(this.favPlaces){
-      for(var i = 0; i< this.favPlaces.length; i++){
-        if(placeId === this.favPlaces[i]._id){
-          return true;
+    let fav = false;
+    if(this.favPlacesIds){
+      for(var i = 0; i< this.favPlacesIds.length; i++){
+        if(placeId == this.favPlacesIds[i]){
+          return fav = true;
         }
       }
     }
-    return false;
+    return fav;
   }
 
+  getFavoritePlaceArray(){
+    return this.favPlaces;
+  }
+  addPlaceFavorite(placeId: any){
+    this.favPlacesIds.push(placeId);
+    return this.api.put('users/favoritePlace/' + placeId);
+  }
+
+  removePlaceFavorite(placeId:any){
+    this.favPlacesIds = this.favPlacesIds.filter(e => e !== placeId);
+    return this.api.delete('users/favoritePlace/' + placeId);
+  }
 
   getOne(id: any) {
     return this.api.get('users/' + id);

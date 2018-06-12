@@ -2,9 +2,10 @@
 
   <ion-navbar>
   </ion-navbar>
-
+  <div class="heart" (click)="setFavoriteStatus($event ,place._id)" end>
+    <i class ="f38" [ngClass]='(favorite === true)? "sp-mobile-heart-full" : "sp-mobile-heart"'></i>
+  </div>
 </ion-header>
-
 
 <ion-content fullscreen #myContent>
   <!-- =================================================================================  -->
@@ -16,6 +17,7 @@
         <img [src]="'https://test.sportihome.com/uploads/places/'+place._id+'/large/'+picture">
       </ion-slide>
     </ion-slides>
+
     <a (click)="showUser(place.owner._id)">
       <img class="profilePic" width="80" height="80" [src]="place.owner && place.owner.avatar && 'https://test.sportihome.com/uploads/users/'+place.owner._id+'/thumb/'+place.owner.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="Olivier">
     </a>

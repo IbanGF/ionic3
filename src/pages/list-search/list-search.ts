@@ -5,7 +5,7 @@ import {
 import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
-import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider , User} from '../../providers/providers';
 
 /**
  * Generated class for the ListSearchPage page.
@@ -32,7 +32,7 @@ export class ListSearchPage {
   formatted_address: string;
   isModal: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  constructor(public navCtrl: NavController, public userProvider: User, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
   }
 
   presentMapModal() {
@@ -85,6 +85,9 @@ export class ListSearchPage {
   ngOnInit() {
     let input = this.searchBar.getElementRef().nativeElement.querySelector('input');
     this.renderer.setAttribute(input, 'disabled', 'true');
+  }
+  isFavoritePlace(place){
+    return this.userProvider.isFavoritePlace(place);
   }
 
   ionViewDidLoad() {

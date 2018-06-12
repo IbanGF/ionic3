@@ -33,7 +33,7 @@
 
       <ion-slides *ngSwitchCase="'places'" [initialSlide]="this.currentPlaceIndex" slidesPerView="auto" #placesSlider (ionSlideDidChange)="placeSlideChanged()" zoom="false">
         <ion-slide *ngFor="let place of currentPlaces">
-          <card-place [place]="place"></card-place>
+          <card-place [place]="place" [favorite]="isFavoritePlace(place._id)"></card-place>
         </ion-slide>
       </ion-slides>
 

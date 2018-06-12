@@ -5,17 +5,19 @@ import { IonicModule  } from 'ionic-angular';
 import { CardPlaceComponent } from './card-place/card-place';
 import { Ionic2RatingModule } from "ionic2-rating";
 import { CardSpotComponent } from './card-spot/card-spot';
-// import { ExpandableHeaderComponent } from './expandable-header/expandable-header';
+import { ExpandableHeaderComponent } from './expandable-header/expandable-header';
 
 @NgModule({
 	declarations: [ContentDrawerComponent,
     ShrinkingSegmentHeaderComponent,
 		CardPlaceComponent,
-    CardSpotComponent],
+    CardSpotComponent,
+	ExpandableHeaderComponent],
 	imports: [IonicModule, Ionic2RatingModule],
 	exports: [ContentDrawerComponent,
     ShrinkingSegmentHeaderComponent,
 		CardPlaceComponent,
-		CardSpotComponent]
+		CardSpotComponent,
+	ExpandableHeaderComponent]
 })
 export class ComponentsModule {}

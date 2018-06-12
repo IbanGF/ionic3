@@ -8,7 +8,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 
-import { PlacesProvider, SpotsProvider } from '../../../providers/providers';
+import { PlacesProvider, SpotsProvider, User } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
 
 @IonicPage()
@@ -26,8 +26,9 @@ export class PlacePage {
   placesNearBy: any;
   spotsNearBy: any;
   comments: any;
+  favorite:boolean;
 
-  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -63,35 +64,48 @@ export class PlacePage {
   }
 
   equipementsModal() {
-     let equipementsModalModal = this.modalCtrl.create("EquipementsPage");
-     equipementsModalModal.present();
-   }
-
-  servicesModal() {
-     let servicesModalModal = this.modalCtrl.create("ServicesPage");
-     servicesModalModal.present();
-   }
-
-  reglementsModal() {
-     let reglementsModalModal = this.modalCtrl.create("ReglementsPage");
-     reglementsModalModal.present();
-   }
-
-  ionViewDidLoad() {
-    this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
-    .subscribe(data => {
-      this.place = data;
-      this.placesProvider.setPlace(data);
-
-      this.placesProvider.getCommentsPlace(this.place._id)
-      .subscribe(comments => this.comments = comments);
-
-      this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
-      .subscribe(placesNearBy => this.placesNearBy = placesNearBy);
-
-      this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
-      .subscribe(spotsNearBy => this.spotsNearBy = spotsNearBy);
-    });
+    let equipementsModalModal = this.modalCtrl.create("EquipementsPage");
+    equipementsModalModal.present();
   }
 
+  servicesModal() {
+    let servicesModalModal = this.modalCtrl.create("ServicesPage");
+    servicesModalModal.present();
+  }
+
+  reglementsModal() {
+    let reglementsModalModal = this.modalCtrl.create("ReglementsPage");
+    reglementsModalModal.present();
+  }
+
+  ionViewDidLoad() {
+    this.favorite = this.navParams.get('favorite');
+    this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
+      .subscribe(data => {
+        this.place = data;
+        this.placesProvider.setPlace(data);
+
+        this.placesProvider.getCommentsPlace(this.place._id)
+          .subscribe(comments => this.comments = comments);
+
+        this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
+          .subscribe(placesNearBy => this.placesNearBy = placesNearBy);
+
+        this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
+          .subscribe(spotsNearBy => this.spotsNearBy = spotsNearBy);
+      });
+  }
+
+  setFavoriteStatus(event, placeId) {
+    event.preventDefault();
+    if (this.userProvider.isFavoritePlace(placeId) === false) {
+      this.favorite = true;
+      this.userProvider.addPlaceFavorite(placeId)
+        .subscribe();
+    } else {
+      this.favorite = false;
+      this.userProvider.removePlaceFavorite(placeId)
+        .subscribe();
+    }
+  }
 }

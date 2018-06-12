@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { App } from 'ionic-angular';
-import { User } from '../../providers/user/user'
+import { User } from '../../providers/providers';
 
 @Component({
   selector: 'card-place',
@@ -8,17 +8,26 @@ import { User } from '../../providers/user/user'
 })
 export class CardPlaceComponent {
   @Input() place: any;
-  
-  constructor(public appCtrl: App, public userProvider: User) {}
+  @Input() favorite: boolean;
+  favArray: any;
+  constructor(public appCtrl: App, public userProvider: User) { }
 
-
-  isFavoritePlace(id){
-    return this.userProvider.isFavoritePlace(id);
+  ngOnInit() {
   }
-
   openPlace(place) {
     this.appCtrl.getRootNav().push('PlacePage', {
-      placeSlug: place.slug
+      placeSlug: place.slug,
+      favorite: this.favorite
     })
+  }
+  setFavoriteStatus(event, placeId){
+    event.preventDefault();
+    if(this.userProvider.isFavoritePlace(placeId) === false){
+      this.userProvider.addPlaceFavorite(placeId)
+      .subscribe();
+    }else{
+      this.userProvider.removePlaceFavorite(placeId)
+      .subscribe();
+    }
   }
 }

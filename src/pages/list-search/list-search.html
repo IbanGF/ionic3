@@ -38,7 +38,7 @@
       </p>
     </ion-card-content> -->
   <div *ngFor="let place of currentPlaces" class="containerCard">
-    <card-place [place]="place"></card-place>
+    <card-place [place]="place" [favorite]="isFavoritePlace(place._id)"></card-place>
   </div>
   <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)" *ngIf="currentPlaces && currentPlaces.length < totalPlacesCount">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement..."></ion-infinite-scroll-content>

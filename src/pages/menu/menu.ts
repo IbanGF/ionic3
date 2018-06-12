@@ -5,7 +5,7 @@ import { WhyPage } from './why/why';
 import { ConditionPage } from './condition/condition';
 import { ContactPage } from './contact/contact';
 import { CommentPage } from './comment/comment';
-import { SignupPage } from '../signup/signup';
+import { LoginPage } from '../login/login';
 import { MyprofilePage } from '../user/my-profile/my-profile';
 import { SigninPage } from '../signin/signin';
 
@@ -25,7 +25,7 @@ export class MenuPage {
   condition = ConditionPage;
   contact = ContactPage;
   comment = CommentPage;
-  login = SignupPage;
+  login = LoginPage;
   myProfile = MyprofilePage;
   signin = SigninPage;
 

@@ -1,13 +1,16 @@
-
-<div class="cardPlaceSpot" *ngIf="place" (click)="openPlace(place)">
+<div class="cardPlaceSpot" *ngIf="place" (tap)="openPlace(place)">
+  <div class="heart" (click)="setFavoriteStatus($event ,place._id)">
+    <i class ="f38" [ngClass]='(favorite === true)? "sp-mobile-heart-full" : "sp-mobile-heart"'></i>
+  </div>
   <div class="right_avatar">
     <img src="https://test.sportihome.com/assets/users/default-avatar.png" class="img_user">
     <!-- <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg"> -->
   </div>
   <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
   <ion-item>
-    <p *ngIf="place.private && place.home && place.home.travellers">{{place.private}} - {{place.home.travellers}} voyageurs</p>
-    <p class="rating"><rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
+    <p *ngIf="place.private && place.home && place.home.travellers">{{place.private}} - {{place.home.travellers}} voyageurs FAVORITE: {{ favorite }}</p>
+    <p class="rating">
+      <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
     <p><b>{{place.home.price.defaultPrice | number: '1.0-2'}}€</b> {{place.name}}</p>
   </ion-item>
 </div>
