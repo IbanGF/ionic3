@@ -19,7 +19,7 @@ export class LoginPage {
 
   doSignup() {
     this.authProvider.login(this.email, this.password).subscribe((resp) => {
-      this.navCtrl.pop();
+      this.view.dismiss(true);
       let toast = this.toastCtrl.create({
         message: 'Vous êtes connecté',
         duration: 3000,
@@ -27,7 +27,7 @@ export class LoginPage {
       });
       toast.present();
     }, (err) => {
-      this.navCtrl.pop();
+      this.view.dismiss(false);
       let toast = this.toastCtrl.create({
         message: 'Une erreur est survenue pendant la connection',
         duration: 3000,

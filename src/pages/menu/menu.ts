@@ -7,7 +7,6 @@ import { ContactPage } from './contact/contact';
 import { CommentPage } from './comment/comment';
 import { LoginPage } from '../login/login';
 import { SigninPage } from '../signin/signin';
-
 import { MyprofilePage } from '../user/my-profile/my-profile';
 
 import { AuthProvider } from '../../providers/auth/auth'
@@ -54,6 +53,9 @@ export class MenuPage {
 
   goToLogin(){
     const loginModel = this.modalCtrl.create(LoginPage);
+    loginModel.onDidDismiss(data =>{
+      this.isLog = data;
+    });
     loginModel.present();
   }
 

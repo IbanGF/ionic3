@@ -48,6 +48,23 @@ export class User {
     })
   }
 
+  getFavoritesForUser(){
+    return this.api.get('users/favorites')
+    .map((res: any)=>{
+      if(res.favorites && res.favorites.places.length){
+        this.favPlaces = res.favorites.places;
+        for(var i = 0; i< this.favPlaces.length; i++){
+          this.favPlacesIds.push(this.favPlaces[i]._id);
+        }
+      }
+      if(res.favorites && res.favorites.spots.length){
+        this.favSpots = res.favorites.spots;
+      }
+      let data;
+      return data = [this.favPlaces, this.favSpots];
+    })
+  }
+
 
   isFavoritePlace(placeId: string){
     let fav = false;

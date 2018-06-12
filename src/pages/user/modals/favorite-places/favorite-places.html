@@ -1,20 +1,18 @@
 
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{places.length}} Annonces</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()"><ion-icon name="close"></ion-icon></button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
     <div *ngIf="places && places.length">
       <div *ngFor="let place of places" class="containerCard" tappable (click)="closeModal()">
-        <card-place [place]="place"></card-place>
+        <card-place [place]="place" [favorite]='true'></card-place>
       </div>
     </div>
 </ion-content>

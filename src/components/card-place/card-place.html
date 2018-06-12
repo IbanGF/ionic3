@@ -1,5 +1,5 @@
 <div class="cardPlaceSpot" [ngClass]="{'vertical': isVertical}" *ngIf="place" (tap)="openPlace(place)">
-  <div class="heart" (click)="setFavoriteStatus($event ,place._id)">
+  <div class="heart">
     <i class ="f38" [ngClass]='(favorite === true)? "sp-mobile-heart-full" : "sp-mobile-heart"'></i>
   </div>
   <div class="right_avatar">

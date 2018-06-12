@@ -5,7 +5,6 @@ import { AuthProvider } from '../../../providers/auth/auth';
 import { UserData } from '../../../models/userdata';
 import moment from 'moment';
 
-@IonicPage()
 @Component({
   selector: 'page-my-profile',
   templateUrl: 'my-profile.html',
@@ -46,6 +45,11 @@ export class MyprofilePage implements OnInit {
     spotModal.present();
   }
 
+  favoritePlacesModal(){
+    let favPlacesModal = this.modalCtrl.create("FavoritePlaces", { places: this.favPlaces });
+    favPlacesModal.present();
+  }
+
   ngOnInit() {
     this.user = this.userProvider.getUserData();
     this.user.creation = moment(this.user.creation).format('MMM YYYY');
@@ -77,13 +81,12 @@ export class MyprofilePage implements OnInit {
       }, err => {
         console.log(err);
       });
-      // let prom = new Promise(function (resolve, reject){
-      //     return this.userProvider.getFavorites()
-      // });
-      // prom.then(data =>{
-      //   console.log(data);
-      //   this.favPlaces = data[0];
-      // })
+
+      this.userProvider.getFavoritesForUser()
+      .subscribe(data =>{
+        this.favPlaces = data[0];
+      })
+
   }
 
 }

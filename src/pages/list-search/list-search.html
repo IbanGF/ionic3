@@ -6,7 +6,7 @@
 -->
 <ion-header no-border>
   <ion-toolbar color="light">
-    <ion-searchbar #searchBar [ngModel]="formatted_address" (click)="presentAutocompleteModal()" placeholder="Search for a place"></ion-searchbar>
+    <ion-searchbar #searchBar [ngModel]="formatted_address" tappable (click)="presentAutocompleteModal()" placeholder="Search for a place"></ion-searchbar>
     <!-- <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="options" ></ion-icon>

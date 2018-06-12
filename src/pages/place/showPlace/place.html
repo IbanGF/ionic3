@@ -2,7 +2,7 @@
 
   <ion-navbar>
   </ion-navbar>
-  <div class="heart" (click)="setFavoriteStatus($event ,place._id)" end>
+  <div class="heart" tappable (click)="setFavoriteStatus($event ,place._id)" end>
     <i class ="f38" [ngClass]='(favorite === true)? "sp-mobile-heart-full" : "sp-mobile-heart"'></i>
   </div>
 </ion-header>
