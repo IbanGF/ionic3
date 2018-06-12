@@ -42,7 +42,6 @@ export class SearchPage {
   // prevPlaceIndex: number = 0;
   currentSpots: any;
   currentSpotIndex: number = 0;
-  drawerOptions: any;
   showRelaunch: boolean = false;
 
 

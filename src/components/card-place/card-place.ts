@@ -7,10 +7,13 @@ import { User } from '../../providers/providers';
   templateUrl: 'card-place.html'
 })
 export class CardPlaceComponent {
-  @Input() place: any;
-  @Input() favorite: boolean;
+  @Input('place') place: any;
+  @Input('favorite') favorite: any;
+  @Input('isVertical') isVertical: any;
+  
   favArray: any;
-  constructor(public appCtrl: App, public userProvider: User) { }
+
+  constructor(public appCtrl: App, public userProvider: User) {}
 
   ngOnInit() {
   }

@@ -15,7 +15,7 @@ import { Tab2Root } from '../pages';
 export class TabsPage {
   // tab1Root: any = Tab1Root;
   tab2Root: any = Tab2Root;
-  tab2Title = " ";
+  tab2Title = "Search";
   tab3Root: any = MenuPage;
   tab3Title = "Menu";
   // tab3Root: any = Tab3Root;
@@ -26,7 +26,7 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public translateService: TranslateService) {
     translateService.get(['TAB1_TITLE', 'TAB2_TITLE', 'TAB3_TITLE']).subscribe(values => {
       // this.tab1Title = values['TAB1_TITLE'];
-      this.tab2Title = values['TAB2_TITLE'];
+      // this.tab2Title = values['TAB2_TITLE'];
       // this.tab3Title = values['TAB3_TITLE'];
     });
   }
