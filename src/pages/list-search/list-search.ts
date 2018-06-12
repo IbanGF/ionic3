@@ -3,11 +3,12 @@ import {
 } from '@ionic-native/google-maps';
 
 import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Select } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
 
-import { CalendarSearchPage } from '../search/calendar-search/calendar-search';
+import * as Constants from '../../constants/constants';
+
 /**
  * Generated class for the ListSearchPage page.
  *
@@ -23,6 +24,7 @@ import { CalendarSearchPage } from '../search/calendar-search/calendar-search';
 export class ListSearchPage {
 
   @ViewChild('searchBar') searchBar;
+  @ViewChild('sportSelect') sportSelect: Select;
 
   placesSearchQuery: any;
   currentPlaces: any;
@@ -32,13 +34,14 @@ export class ListSearchPage {
   bounds: any;
   formatted_address: string;
   isModal: boolean = false;
+  sports: Array<any>;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+    this.sports = Constants.SPORTS;
   }
 
-  openCalendarPicker() {
-    const calendarModal = this.modalCtrl.create('CalendarSearchPage');
-    calendarModal.present();
+  openSportSelect() {
+    this.sportSelect.open();
   }
 
   presentMapModal() {
@@ -81,6 +84,7 @@ export class ListSearchPage {
   }
 
   loadMorePlaces(infiniteScroll) {
+    console.log('loadMorePlaces')
     this.placesSearchQuery.page++;
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = this.currentPlaces.concat(data.places);

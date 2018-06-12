@@ -1,21 +1,27 @@
 page-list-search {
-
   .toolbar-ios {
     min-height: auto;
   }
 
-  card-place {
-    img.main {
-      border-radius: 6px 6px 0 0;
+  .header-image {
+    background-image: url("https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950");
+    height: calc(100% - 30px);
+    color: white;
+
+    ion-grid {
+      height: 100%;
+      justify-content: flex-end;
+      padding-bottom: 35px;
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 
   .containerCard {
-    margin-top: 30px
+    margin-top: 30px;
   }
 
   .containerCard:first-child {
-    margin-top: 0px
+    margin-top: 0;
   }
 
 }

@@ -16,15 +16,40 @@
   <shrinking-segment-header [scrollArea]="myContent">
     <ion-toolbar color="light">
       <ion-buttons style="padding: 0 8px" left>
+
+        <ion-select [(ngModel)]="selectedSports" multiple="true" #sportSelect hidden=true>
+          <ion-option *ngFor="let sport of sports" [value]="sport">{{sport}}</ion-option>
+        </ion-select>
+
+        <button ion-button color="dark" round outline (click)="openSportSelect()">Sports</button>
+        <button ion-button color="dark" round outline>Dates</button>
         <button ion-button color="dark" round outline>Filtres</button>
-        <button ion-button color="dark" (click)="openCalendarPicker()" round outline>Dates</button>
       </ion-buttons>
     </ion-toolbar>
   </shrinking-segment-header>
 </ion-header>
 
 
-<ion-content [style.opacity]="isModal ? 0 : 1" fullscreen #myContent>
+<ion-content [style.opacity]="isModal ? 0 : 1" fullscreen #myContent parallax-header>
+  <div class="header-image">
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <img width="220" src="https://sportihome.com/assets/icones/sportihome-white.svg" alt="Sportihome logo">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <h3>Vivons nos sports plus fort ensemble</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <h6>La communauté qui vous guide et vous héberge au plus près des spots.</h6>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
   <!-- <ion-card *ngFor="let place of currentPlaces">
     <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
     <ion-card-content>
@@ -37,13 +62,17 @@
         <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)
       </p>
     </ion-card-content> -->
-  <div *ngFor="let place of currentPlaces" class="containerCard">
-    <card-place [place]="place"></card-place>
-  </div>
-  <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)" *ngIf="currentPlaces && currentPlaces.length < totalPlacesCount">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement..."></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <!-- <ion-list [virtualScroll]="currentPlaces" [approxItemHeight]="'200px'">
+    <div *virtualItem="let place" class="containerCard"> -->
+  <ion-list>
+    <div *ngFor="let place of currentPlaces">
+      <card-place [place]="place" isVertical="true"></card-place>
+    </div>
+  </ion-list>
   <ion-fab bottom right>
     <button ion-fab (click)="presentMapModal()"><ion-icon name="map"></ion-icon></button>
   </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)" threshold="120px" *ngIf="currentPlaces && currentPlaces.length < totalPlacesCount">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

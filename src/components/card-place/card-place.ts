@@ -7,8 +7,9 @@ import { User } from '../../providers/user/user'
   templateUrl: 'card-place.html'
 })
 export class CardPlaceComponent {
-  @Input() place: any;
-  
+  @Input('place') place: any;
+  @Input('isVertical') isVertical: any;
+
   constructor(public appCtrl: App, public userProvider: User) {}
 
 
