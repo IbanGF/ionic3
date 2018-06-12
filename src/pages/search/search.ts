@@ -11,8 +11,8 @@ import {
   // Marker
 } from '@ionic-native/google-maps';
 
-import { Component, ViewChild, NgZone, Renderer2 } from '@angular/core';
-import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewController } from 'ionic-angular';
+import { Component, ViewChild, NgZone, Renderer2, OnInit } from '@angular/core';
+import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewController, LoadingController } from 'ionic-angular';
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
@@ -23,7 +23,7 @@ import { PlacesProvider, SpotsProvider, SearchProvider, User, AuthProvider } fro
   selector: 'page-search',
   templateUrl: 'search.html'
 })
-export class SearchPage {
+export class SearchPage implements OnInit {
 
   @ViewChild(Slides) placesSlider: Slides;
   @ViewChild(Slides) spotsSlider: Slides;
@@ -43,9 +43,9 @@ export class SearchPage {
   currentSpots: any;
   currentSpotIndex: number = 0;
   showRelaunch: boolean = false;
+  loading: any;
 
-
-  constructor(public authProvider: AuthProvider, public appCtrl: App, public userProvider: User, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
+  constructor(public loadingCtrl: LoadingController, public authProvider: AuthProvider, public appCtrl: App, public userProvider: User, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
     // this.drawerOptions = {
     //   handleHeight: 50,
     //   thresholdFromBottom: 200,
@@ -56,6 +56,14 @@ export class SearchPage {
 
   closeMapModal() {
     this.view.dismiss();
+  }
+
+  ngOnInit() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present();
+
   }
 
   presentAutocompleteModal() {
@@ -126,6 +134,7 @@ export class SearchPage {
               lng: this.currentPlaces[i].loc.coordinates[0]
             }
           }).then(marker => {
+            this.loading.dismiss();
             this.currentPlacesMarkers.push(marker);
           })
         }
