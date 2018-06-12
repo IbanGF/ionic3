@@ -16,8 +16,14 @@
   <shrinking-segment-header [scrollArea]="myContent">
     <ion-toolbar color="light">
       <ion-buttons style="padding: 0 8px" left>
-        <button ion-button color="dark" round outline>Filtres</button>
+
+        <ion-select [(ngModel)]="selectedSports" multiple="true" #sportSelect hidden=true>
+          <ion-option *ngFor="let sport of sports" [value]="sport">{{sport}}</ion-option>
+        </ion-select>
+
+        <button ion-button color="dark" round outline (click)="openSportSelect()">Sports</button>
         <button ion-button color="dark" round outline>Dates</button>
+        <button ion-button color="dark" round outline>Filtres</button>
       </ion-buttons>
     </ion-toolbar>
   </shrinking-segment-header>
@@ -30,7 +36,7 @@
       <ion-row>
         <ion-col text-center>
           <img width="220" src="https://sportihome.com/assets/icones/sportihome-white.svg" alt="Sportihome logo">
-      </ion-col>
+        </ion-col>
       </ion-row>
       <ion-row>
         <ion-col text-center>
@@ -60,7 +66,7 @@
     <div *virtualItem="let place" class="containerCard"> -->
   <ion-list>
     <div *ngFor="let place of currentPlaces">
-      <card-place [place]="place"></card-place>
+      <card-place [place]="place" isVertical="true"></card-place>
     </div>
   </ion-list>
   <ion-fab bottom right>

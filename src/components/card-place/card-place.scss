@@ -1,90 +1,106 @@
 card-place {
+  position: relative;
+  width: 100%;
+  // height: 252px;
+  margin: 0;
+  text-align: center;
+
+  .cardPlaceSpot {
+    background-color: white;
     position: relative;
+  }
+
+  img {
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  img.main {
+    height: 140px;
     width: 100%;
-    height: 252px;
-    margin: 0;
-    text-align: center;
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+  }
 
-    .cardPlaceSpot {
-      padding-top: 10px;
-      background-color: white;
-    }
-
-    img {
-      object-fit: cover;
-      object-position: 50% 50%;
-    }
+  .cardPlaceSpot.vertical {
+    padding-top: 15px;
 
     img.main {
-      height: 140px;
-      width: 95%;
-      object-fit: cover !important;
-      object-position: 50% 50% !important;
+      height: 220px;
     }
 
-    .heart{
-      margin: 5px;
-      position: absolute;
-      top: 0;
-      right: 10px;
-      z-index: 2;
-    }
-
-    .right_avatar {
-      position: absolute;
-      top: 103px;
-      right: 10px;
-      z-index: 2;
-    }
-
-    .img_user {
-      max-width: 50px;
-      min-width: auto;
-      border-radius: 100%;
-      width: 50px;
-      height: 50px;
-      border: 3px solid #fff;
-      object-position: 50% 0;
-    }
-
-    .engagementIcon {
-      position: absolute;
-      background-color: white;
-      border-radius: 100%;
-      width: 30px;
-      height: 30px;
-      top: 24px;
-      right: 35px;
-      min-width: auto;
-    }
-
-    .item-md {
+    .item {
       padding-left: 8px;
     }
 
-    .label {
-      margin: 8px 0 0 0;
+    .right_avatar {
+      top: 196px;
     }
+  }
 
-    .item-inner {
-      border-bottom: unset !important;
+  .heart {
+    margin: 5px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    z-index: 2;
+  }
+
+  .right_avatar {
+    position: absolute;
+    top: 103px;
+    right: 10px;
+    z-index: 2;
+  }
+
+  .img_user {
+    max-width: 50px;
+    min-width: auto;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    border: 3px solid #fff;
+    object-position: 50% 0;
+  }
+
+  .engagementIcon {
+    position: absolute;
+    background-color: white;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    top: 24px;
+    right: 35px;
+    min-width: auto;
+  }
+
+  .item {
+    padding-left: 0;
+  }
+
+  .label {
+    margin: 8px 0 0;
+  }
+
+  .item-inner {
+    border-bottom: unset !important;
+  }
+
+  .item p,
+  .item-md h2 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  ul.rating {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+
+    &.rating li {
+      padding: 0 !important;
+      background: none;
+      color: #ffb400;
     }
-
-    .item p,
-    .item-md h2 {
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    ul.rating {
-      padding: 0;
-      margin: 0;
-      display: inline-block;
-
-      &.rating li {
-        padding: 0 !important;
-        background: none;
-        color: #ffb400;
-      }
-    }
+  }
 }

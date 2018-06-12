@@ -42,17 +42,10 @@ export class SearchPage {
   // prevPlaceIndex: number = 0;
   currentSpots: any;
   currentSpotIndex: number = 0;
-  drawerOptions: any;
   showRelaunch: boolean = false;
 
 
   constructor(public appCtrl: App, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
-    // this.drawerOptions = {
-    //   handleHeight: 50,
-    //   thresholdFromBottom: 200,
-    //   thresholdFromTop: 200,
-    //   bounceBack: true
-    // };
   }
 
   closeMapModal() {
@@ -281,7 +274,7 @@ export class SearchPage {
     }).then(() => console.log('spot camera changed !'));
     this.spotsSlider.update();
   }
-  
+
   ionViewDidLoad() {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();

@@ -1,5 +1,5 @@
 
-<div class="cardPlaceSpot" *ngIf="place" (click)="openPlace(place)">
+<div class="cardPlaceSpot" [ngClass]="{'vertical': isVertical}" *ngIf="place" (click)="openPlace(place)">
   <div class="right_avatar">
     <img src="https://test.sportihome.com/assets/users/default-avatar.png" class="img_user">
     <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg">

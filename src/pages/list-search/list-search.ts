@@ -3,9 +3,11 @@ import {
 } from '@ionic-native/google-maps';
 
 import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Select } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
+
+import * as Constants from '../../constants/constants';
 
 /**
  * Generated class for the ListSearchPage page.
@@ -22,6 +24,7 @@ import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/p
 export class ListSearchPage {
 
   @ViewChild('searchBar') searchBar;
+  @ViewChild('sportSelect') sportSelect: Select;
 
   placesSearchQuery: any;
   currentPlaces: any;
@@ -31,8 +34,14 @@ export class ListSearchPage {
   bounds: any;
   formatted_address: string;
   isModal: boolean = false;
+  sports: Array<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+    this.sports = Constants.SPORTS;
+  }
+
+  openSportSelect() {
+    this.sportSelect.open();
   }
 
   presentMapModal() {
