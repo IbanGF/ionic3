@@ -103,6 +103,7 @@ export class ListSearchPage {
   }
 
   ionViewDidLoad() {
+    console.log("ionViewDidLoad")
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
@@ -114,6 +115,10 @@ export class ListSearchPage {
         this.totalSpotsCount = data.count;
       });
     });
+  }
+
+  viewDidEnter() {
+    console.log("test")
   }
 
 }

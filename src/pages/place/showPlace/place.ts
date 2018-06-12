@@ -6,10 +6,10 @@
 // } from '@ionic-native/google-maps';
 
 import { Component, ViewChild } from '@angular/core';
-import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
+import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform, Slides } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider } from '../../../providers/providers';
-
+let placesNearByData, spotsNearByData;
 @IonicPage()
 @Component({
   selector: 'page-place',
@@ -18,6 +18,8 @@ import { PlacesProvider, SpotsProvider } from '../../../providers/providers';
 export class PlacePage {
 
   @ViewChild(Content) content: Content;
+  @ViewChild(Slides) placesNearBySlider: Slides;
+  @ViewChild(Slides) spotsNearBySlider: Slides;
   // map: GoogleMap;
   showNavbar: boolean = false;
   sliderHeight: number = 0;
@@ -76,6 +78,14 @@ export class PlacePage {
      reglementsModalModal.present();
    }
 
+   slidePlacesChanged(){
+     if(placesNearByData && placesNearByData.length) placesNearByData.splice(0,2).map(place => this.placesNearBy.push(place));
+   }
+
+   slideSpotsChanged(){
+     if(spotsNearByData && spotsNearByData.length) spotsNearByData.splice(0,2).map(place => this.spotsNearBy.push(place));
+   }
+
   ionViewDidLoad() {
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
     .subscribe(data => {
@@ -86,10 +96,16 @@ export class PlacePage {
       .subscribe(comments => this.comments = comments);
 
       this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
-      .subscribe(placesNearBy => this.placesNearBy = placesNearBy);
+      .subscribe(placesNearBy => {
+        placesNearByData = placesNearBy;
+        this.placesNearBy = placesNearByData.splice(0,2);
+      });
 
       this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
-      .subscribe(spotsNearBy => this.spotsNearBy = spotsNearBy);
+      .subscribe(spotsNearBy => {
+        spotsNearByData = spotsNearBy;
+        this.spotsNearBy = spotsNearByData.splice(0,2);
+      });
     });
   }
 
