@@ -4,12 +4,12 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 let currentMonth,
-currentDateCalendar,
 currentYear,
 firstDayInMonth,
 lastDayInMonth,
 numberOfDaysInMonth,
-minDate;
+minDate,
+nextMonthDate;
 let today = moment().startOf('day');
 let initCalendarIsfinished = true;
 
@@ -70,11 +70,11 @@ export class CalendarSearchPage {
 
   createCalendar(date) {
       this.weekInMonth = [];
-  		currentDateCalendar = moment(date).toDate();
-  		currentMonth = currentDateCalendar.getMonth() + 1;
-  		currentYear = currentDateCalendar.getFullYear();
-  		firstDayInMonth = moment(currentDateCalendar).clone().startOf('month').startOf('day').toDate();
-  		lastDayInMonth = moment(currentDateCalendar).clone().endOf('month').startOf('day').toDate();
+  		this.currentDateCalendar = moment(date).toDate();
+  		currentMonth = this.currentDateCalendar.getMonth() + 1;
+  		currentYear = this.currentDateCalendar.getFullYear();
+  		firstDayInMonth = moment(this.currentDateCalendar).clone().startOf('month').startOf('day').toDate();
+  		lastDayInMonth = moment(this.currentDateCalendar).clone().endOf('month').startOf('day').toDate();
   		numberOfDaysInMonth = new Date(currentYear, currentMonth, 0).getDate();
   		this.daysArray = [];
   		if (firstDayInMonth.getDay() == 1) { // ================ if first day is Monday
@@ -99,23 +99,26 @@ export class CalendarSearchPage {
   			else week.push(this.daysArray[i]);
   		}
   		this.weekInMonth.push({days: week});
+
   		week = [];
+
       return this.weekInMonth;
   	}
 
 
-    initCalendar(date) {
+    initCalendar(date, monthGenerate) {
       if (initCalendarIsfinished === false) return;
   		initCalendarIsfinished = false;
       let i = 0;
-      this.calendarArray = [];
-      var dateMonth = date.clone();
-      while (i <= 12) {
+      if (monthGenerate < 3) this.calendarArray = [];
+      let dateMonth = date.clone();
+      while (i <= monthGenerate) {
         let month:any = {};
         month.weekInMonth = this.createCalendar(dateMonth);
         month.currentMonth = dateMonth.format('MMMM YYYY');
         this.calendarArray.push(month);
         dateMonth = date.add(1, 'M');
+        nextMonthDate = dateMonth.clone();
         i++;
       }
       initCalendarIsfinished = true;
@@ -195,11 +198,19 @@ export class CalendarSearchPage {
       this.viewCtrl.dismiss();
     }
 
+    nextMonth(){
+      console.log('sdlkflsdjfhljshdfbljksdfljhbgvsdfbjhkk')
+      this.initCalendar(nextMonthDate, 3);
+    }
 
     ionViewDidLoad() {
-      currentDateCalendar = today.clone();
+      this.currentDateCalendar = today.clone();
       this.currentDate = today.clone();
-      this.initCalendar(currentDateCalendar);
+      this.initCalendar(this.currentDateCalendar, 1);
+      setTimeout(function() {
+        console.log(nextMonthDate.toDate());
+        this.initCalendar(nextMonthDate, 3);
+      }.bind(this), 2000);
     }
 
 }

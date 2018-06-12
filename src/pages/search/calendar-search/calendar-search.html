@@ -78,14 +78,16 @@
           <ion-col class="cellWrapper center white_text relative vertical_center" *ngFor='let day of week.days' (click)='!day.hide && daysSelected(day)' text-center>
             <div class="background_selected" *ngIf="day && day.date">
               <div *ngIf="!day.hide" class="cellDate" [ngClass]="{'previous_date': day.disabled, 'text_selected': !day.hide && ((selectedMinDate && selectedMinDate?.date.isSame(day.date)) || dayInSelectedRange(day.date))}"><div [ngClass]="{'current_date': currentDate?.isSame(day.date)}">{{day.date.date()}}</div></div>
-              <div *ngIf="!day.hide" [ngClass]="{'minDay_selected': !day.hide && !selectedMaxDate && selectedMinDate?.date?.isSame(day.date)}"></div>
-              <div *ngIf="!day.hide" [ngClass]="{'first_selected': !day.hide && selectedMaxDate && selectedMinDate?.date?.isSame(day.date)}"></div>
-              <div *ngIf="!day.hide" [ngClass]="{'last_selected': !day.hide && selectedMaxDate && selectedMaxDate?.date?.isSame(day.date)}"></div>
-              <div *ngIf="!day.hide" [ngClass]="{'middle_selected': !day.hide && !selectedMinDate?.date?.isSame(day.date) && !selectedMaxDate?.date?.isSame(day.date) && dayInSelectedRange(day.date)}"></div>
+              <div *ngIf="!day.hide" [ngClass]="{'minDay_selected': !day.hide && !selectedMaxDate && selectedMinDate?.date?.isSame(day.date),'first_selected': !day.hide && selectedMaxDate && selectedMinDate?.date?.isSame(day.date),'last_selected': !day.hide && selectedMaxDate && selectedMaxDate?.date?.isSame(day.date),'middle_selected': !day.hide && !selectedMinDate?.date?.isSame(day.date) && !selectedMaxDate?.date?.isSame(day.date) && dayInSelectedRange(day.date)}"></div>
             </div>
           </ion-col>
       </ion-row>
     </div>
+    <ion-row class="mt20">
+      <ion-col col-12>
+        <p class="no_margin white_text pb30" (click)="nextMonth()" text-center>Afficher les mois suivants</p>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
 
