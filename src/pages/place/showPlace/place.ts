@@ -8,7 +8,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 
-import { PlacesProvider, SpotsProvider, User } from '../../../providers/providers';
+import { PlacesProvider, SpotsProvider, User, AuthProvider } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
 
 @IonicPage()
@@ -28,7 +28,7 @@ export class PlacePage {
   comments: any;
   favorite:boolean;
 
-  constructor(public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public authProvider: AuthProvider, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -98,14 +98,18 @@ export class PlacePage {
 
   setFavoriteStatus(event, placeId) {
     event.preventDefault();
-    if (this.userProvider.isFavoritePlace(placeId) === false) {
-      this.favorite = true;
-      this.userProvider.addPlaceFavorite(placeId)
-        .subscribe();
-    } else {
-      this.favorite = false;
-      this.userProvider.removePlaceFavorite(placeId)
-        .subscribe();
+    if(this.authProvider.getLogStatus() === true){
+      if (this.userProvider.isFavoritePlace(placeId) === false) {
+        this.favorite = true;
+        this.userProvider.addPlaceFavorite(placeId)
+          .subscribe();
+      } else {
+        this.favorite = false;
+        this.userProvider.removePlaceFavorite(placeId)
+          .subscribe();
+      }
+    }else{
+      console.log('pas connecté');
     }
   }
 }

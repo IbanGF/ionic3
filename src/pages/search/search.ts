@@ -16,7 +16,7 @@ import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewC
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
-import { PlacesProvider, SpotsProvider, SearchProvider, User } from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider, User, AuthProvider } from '../../providers/providers';
 
 @IonicPage({ segment: 'map' })
 @Component({
@@ -45,7 +45,7 @@ export class SearchPage {
   showRelaunch: boolean = false;
 
 
-  constructor(public appCtrl: App, public userProvider: User, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
+  constructor(public authProvider: AuthProvider, public appCtrl: App, public userProvider: User, public navCtrl: NavController, private view: ViewController, public platform: Platform, public googleMaps: GoogleMaps, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private zone: NgZone, private renderer: Renderer2) {
     // this.drawerOptions = {
     //   handleHeight: 50,
     //   thresholdFromBottom: 200,
@@ -178,39 +178,39 @@ export class SearchPage {
 
   getPlacesInBounds() {
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
-    .subscribe((data: any) => {
-      this.currentPlaces = data.places;
-      this.totalPlacesCount = data.count;
-      this.placesSlider.update();
-      this.placesSlider.slideTo(0);
-      // this.prevPlaceIndex = 0;
-      this.currentPlacesMarkers = [];
-      for (let i in this.currentPlaces) {
-        this.map.addMarker({
-          title: this.currentPlaces[i].name,
-          icon: i != '0' ? {
-            url: 'https://test.sportihome.com/assets/search/nanoPlaceIcon.png',
-            size: {
-              width: 12,
-              height: 18
-            }
-          } : {
-              url: 'https://sportihome.com/assets/search/' + this.currentPlaces[i].home.propertyType + '.png',
+      .subscribe((data: any) => {
+        this.currentPlaces = data.places;
+        this.totalPlacesCount = data.count;
+        this.placesSlider.update();
+        this.placesSlider.slideTo(0);
+        // this.prevPlaceIndex = 0;
+        this.currentPlacesMarkers = [];
+        for (let i in this.currentPlaces) {
+          this.map.addMarker({
+            title: this.currentPlaces[i].name,
+            icon: i != '0' ? {
+              url: 'https://test.sportihome.com/assets/search/nanoPlaceIcon.png',
               size: {
-                width: 35,
-                height: 42
+                width: 12,
+                height: 18
               }
-            },
-          animation: 'DROP',
-          position: {
-            lat: this.currentPlaces[i].loc.coordinates[1],
-            lng: this.currentPlaces[i].loc.coordinates[0]
-          }
-        }).then(marker => {
-          this.currentPlacesMarkers.push(marker);
-        })
-      }
-    });
+            } : {
+                url: 'https://sportihome.com/assets/search/' + this.currentPlaces[i].home.propertyType + '.png',
+                size: {
+                  width: 35,
+                  height: 42
+                }
+              },
+            animation: 'DROP',
+            position: {
+              lat: this.currentPlaces[i].loc.coordinates[1],
+              lng: this.currentPlaces[i].loc.coordinates[0]
+            }
+          }).then(marker => {
+            this.currentPlacesMarkers.push(marker);
+          })
+        }
+      });
   }
 
   placeSlideChanged() {
@@ -243,29 +243,29 @@ export class SearchPage {
     if ((this.currentPlaces.length - this.currentPlaceIndex - 1) < 2 && (this.totalPlacesCount - this.currentPlaces.length) > 0) {
       this.placesSearchQuery.page++;
       this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
-      .subscribe((data: any) => {
-        this.currentPlaces = this.currentPlaces.concat(data.places);
-        for (let i in data.places) {
-          this.map.addMarker({
-            title: data.places[i].name,
-            icon: {
-              url: 'https://test.sportihome.com/assets/search/nanoPlaceIcon.png',
-              size: {
-                width: 12,
-                height: 18
+        .subscribe((data: any) => {
+          this.currentPlaces = this.currentPlaces.concat(data.places);
+          for (let i in data.places) {
+            this.map.addMarker({
+              title: data.places[i].name,
+              icon: {
+                url: 'https://test.sportihome.com/assets/search/nanoPlaceIcon.png',
+                size: {
+                  width: 12,
+                  height: 18
+                }
+              },
+              animation: 'DROP',
+              position: {
+                lat: data.places[i].loc.coordinates[1],
+                lng: data.places[i].loc.coordinates[0]
               }
-            },
-            animation: 'DROP',
-            position: {
-              lat: data.places[i].loc.coordinates[1],
-              lng: data.places[i].loc.coordinates[0]
-            }
-          }).then(marker => {
-            this.currentPlacesMarkers.push(marker);
-          });
-        }
-        this.placesSlider.update();
-      });
+            }).then(marker => {
+              this.currentPlacesMarkers.push(marker);
+            });
+          }
+          this.placesSlider.update();
+        });
     }
   }
 
@@ -286,21 +286,25 @@ export class SearchPage {
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
-    .subscribe((data: any) => {
-      this.currentPlaces = data.places;
-      this.totalPlacesCount = data.count;
-      this.spotsProvider.getSpots().subscribe((data: any) => {
-        this.currentSpots = data;
-        this.platform.ready().then(() => {
-          this.loadMap();
+      .subscribe((data: any) => {
+        this.currentPlaces = data.places;
+        this.totalPlacesCount = data.count;
+        this.spotsProvider.getSpots().subscribe((data: any) => {
+          this.currentSpots = data;
+          this.platform.ready().then(() => {
+            this.loadMap();
+          });
         });
       });
-    });
   }
 
 
-  isFavoritePlace(place){
-    return this.userProvider.isFavoritePlace(place);
+  isFavoritePlace(place) {
+    if (this.authProvider.getLogStatus() === true) {
+      return this.userProvider.isFavoritePlace(place);
+    } else {
+      return false;
+    }
   }
   // panEvent() {
   //   console.log('panned!')
