@@ -3,9 +3,9 @@ import {
 } from '@ionic-native/google-maps';
 
 import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Select } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ModalController, Select } from 'ionic-angular';
 
-import { PlacesProvider, SpotsProvider, SearchProvider , User} from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider, User } from '../../providers/providers';
 
 import * as Constants from '../../constants/constants';
 /**
@@ -32,10 +32,9 @@ export class ListSearchPage {
   totalSpotsCount: number = 0;
   bounds: any;
   formatted_address: string;
-  isModal: boolean = false;
   sports: Array<any>;
 
-  constructor(public navCtrl: NavController, public userProvider: User, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  constructor(public appCtrl: App, public navCtrl: NavController, public userProvider: User, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
     this.sports = Constants.SPORTS;
   }
 
@@ -43,14 +42,15 @@ export class ListSearchPage {
     this.sportSelect.open();
   }
 
-  presentMapModal() {
-    const mapModal = this.modalCtrl.create('SearchPage');
-    mapModal.present();
-    this.isModal = true;
-
-    mapModal.onDidDismiss(() => {
-      this.isModal = false;
-    });
+  openMap() {
+    // const mapModal = this.modalCtrl.create('SearchPage');
+    // mapModal.present();
+    // this.isModal = true;
+    //
+    // mapModal.onDidDismiss(() => {
+    //   this.isModal = false;
+    // });
+    this.appCtrl.getRootNav().push('SearchPage');
   }
 
   presentAutocompleteModal() {
@@ -95,7 +95,7 @@ export class ListSearchPage {
     let input = this.searchBar.getElementRef().nativeElement.querySelector('input');
     this.renderer.setAttribute(input, 'disabled', 'true');
   }
-  isFavoritePlace(place){
+  isFavoritePlace(place) {
     return this.userProvider.isFavoritePlace(place);
   }
 
