@@ -75,6 +75,7 @@ export class ListSearchPage {
   }
 
   loadMorePlaces(infiniteScroll) {
+    console.log('loadMorePlaces')
     this.placesSearchQuery.page++;
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = this.currentPlaces.concat(data.places);

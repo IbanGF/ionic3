@@ -5,6 +5,11 @@ card-place {
     margin: 0;
     text-align: center;
 
+    .cardPlaceSpot {
+      padding-top: 10px;
+      background-color: white;
+    }
+
     img {
       object-fit: cover;
       object-position: 50% 50%;
@@ -24,7 +29,7 @@ card-place {
       right: 10px;
       z-index: 2;
     }
-    
+
     .right_avatar {
       position: absolute;
       top: 103px;

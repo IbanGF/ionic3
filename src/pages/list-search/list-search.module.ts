@@ -4,6 +4,7 @@ import { Ionic2RatingModule } from "ionic2-rating";
 
 import { ListSearchPage } from './list-search';
 import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ComponentsModule } from '../../components/components.module';
     IonicModule,
     IonicPageModule.forChild(ListSearchPage),
     Ionic2RatingModule,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ],
   exports: [
     ListSearchPage

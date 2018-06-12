@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
-import { ContentDrawerComponent } from './content-drawer/content-drawer';
-import { ShrinkingSegmentHeaderComponent } from './shrinking-segment-header/shrinking-segment-header';
-import { IonicModule  } from 'ionic-angular';
-import { CardPlaceComponent } from './card-place/card-place';
+import { IonicModule } from 'ionic-angular';
 import { Ionic2RatingModule } from "ionic2-rating";
+
+import { ShrinkingSegmentHeaderComponent } from './shrinking-segment-header/shrinking-segment-header';
+import { ContentDrawerComponent } from './content-drawer/content-drawer';
+import { CardPlaceComponent } from './card-place/card-place';
 import { CardSpotComponent } from './card-spot/card-spot';
-// import { ExpandableHeaderComponent } from './expandable-header/expandable-header';
 
 @NgModule({
-	declarations: [ContentDrawerComponent,
+  declarations: [ContentDrawerComponent,
     ShrinkingSegmentHeaderComponent,
-		CardPlaceComponent,
+    CardPlaceComponent,
     CardSpotComponent],
-	imports: [IonicModule, Ionic2RatingModule],
-	exports: [ContentDrawerComponent,
+  imports: [IonicModule, Ionic2RatingModule],
+  exports: [ContentDrawerComponent,
     ShrinkingSegmentHeaderComponent,
-		CardPlaceComponent,
-		CardSpotComponent]
+    CardPlaceComponent,
+    CardSpotComponent]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }
