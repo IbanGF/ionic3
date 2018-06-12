@@ -8,7 +8,7 @@
   </div>
   <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
   <ion-item>
-    <p *ngIf="place.private && place.home && place.home.travellers">{{place.private}} - {{place.home.travellers}} voyageurs FAVORITE: {{ favorite }}</p>
+    <p *ngIf="place.private && place.home && place.home.travellers">{{place.private}} - {{place.home.travellers}} voyageurs</p>
     <p class="rating">
       <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)</p>
     <p><b>{{place.home.price.defaultPrice | number: '1.0-2'}}€</b> {{place.name}}</p>

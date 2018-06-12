@@ -16,8 +16,11 @@ export class MyprofilePage implements OnInit {
   hostComments: any = false;
   places: any = false;
   spots: any = false;
+  favPlaces: Array<any>;
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider) { }
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider) {
+
+  }
 
   IonViewCanEnter() {
     return this.authProvider.getLogStatus();
@@ -74,6 +77,13 @@ export class MyprofilePage implements OnInit {
       }, err => {
         console.log(err);
       });
+      // let prom = new Promise(function (resolve, reject){
+      //     return this.userProvider.getFavorites()
+      // });
+      // prom.then(data =>{
+      //   console.log(data);
+      //   this.favPlaces = data[0];
+      // })
   }
 
 }

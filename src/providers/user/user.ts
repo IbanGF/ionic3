@@ -43,8 +43,11 @@ export class User {
       if(res.favorites && res.favorites.spots.length){
         this.favSpots = res.favorites.spots;
       }
+      let data;
+      return data = [this.favPlaces, this.favSpots];
     })
   }
+
 
   isFavoritePlace(placeId: string){
     let fav = false;
