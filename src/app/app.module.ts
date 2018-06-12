@@ -14,6 +14,8 @@ import { JwtInterceptor } from '../helpers/jwt.interceptor';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { MenuPageModule } from '../pages/menu/menu.module';
+import { LoginPageModule } from '../pages/login/login.module';
+import { SigninPageModule } from '../pages/signin/signin.module';
 
 import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
@@ -37,6 +39,8 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     ComponentsModule,
     MenuPageModule,
+    LoginPageModule,
+    SigninPageModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

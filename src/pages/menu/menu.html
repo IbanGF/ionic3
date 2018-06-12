@@ -10,10 +10,10 @@
 
 <ion-content hide-tabs>
   <ion-list>
-    <button *ngIf="!isLog"[navPush]="login" ion-item>
+    <button *ngIf="!isLog" (click)="goToLogin()" ion-item>
       <i item-start class="sp-mobile-login f20"></i> Se connecter
     </button>
-    <button *ngIf="!isLog"[navPush]="signin" ion-item>
+    <button *ngIf="!isLog" (click)="goToSignin()" ion-item>
       <i item-start class="sp-mobile-login f20"></i> S'inscrire
     </button>
     <button *ngIf="isLog" (click)="logout()" ion-item>

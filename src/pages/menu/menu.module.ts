@@ -14,8 +14,6 @@ import { AssurancesPage } from './condition/assurances/assurances';
 import { CguPage } from './condition/cgu/cgu';
 import { LegalPage } from './condition/legal/legal';
 import { AnnulationPage } from './condition/annulation/annulation';
-import { LoginPage } from '../login/login';
-import { SigninPage } from '../signin/signin';
 import { MyprofilePage } from '../user/my-profile/my-profile';
 
 
@@ -35,8 +33,6 @@ import { MyprofilePage } from '../user/my-profile/my-profile';
     CguPage,
     LegalPage,
     AnnulationPage,
-    LoginPage,
-    SigninPage,
     MyprofilePage,
   ],
   imports: [
@@ -57,8 +53,6 @@ import { MyprofilePage } from '../user/my-profile/my-profile';
     CguPage,
     LegalPage,
     AnnulationPage,
-    LoginPage,
-    SigninPage,
     MyprofilePage,
   ]
 })

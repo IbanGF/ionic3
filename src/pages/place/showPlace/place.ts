@@ -10,6 +10,7 @@ import { ModalController, App, IonicPage, NavController, NavParams, Content, Pla
 
 import { PlacesProvider, SpotsProvider, User, AuthProvider } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
+import { LoginPage } from '../../../pages/login/login'
 
 @IonicPage()
 @Component({
@@ -26,7 +27,7 @@ export class PlacePage {
   placesNearBy: any;
   spotsNearBy: any;
   comments: any;
-  favorite:boolean;
+  favorite: boolean;
 
   constructor(public authProvider: AuthProvider, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
@@ -98,7 +99,8 @@ export class PlacePage {
 
   setFavoriteStatus(event, placeId) {
     event.preventDefault();
-    if(this.authProvider.getLogStatus() === true){
+    event.stopPropagation();
+    if (this.authProvider.getLogStatus() === true) {
       if (this.userProvider.isFavoritePlace(placeId) === false) {
         this.favorite = true;
         this.userProvider.addPlaceFavorite(placeId)
@@ -108,8 +110,9 @@ export class PlacePage {
         this.userProvider.removePlaceFavorite(placeId)
           .subscribe();
       }
-    }else{
-      console.log('pas connecté');
+    } else {
+      let loginModal = this.modalCtrl.create(LoginPage);
+      loginModal.present();
     }
   }
 }

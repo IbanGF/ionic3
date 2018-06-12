@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ViewController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../providers/user/user'
@@ -15,7 +15,7 @@ export class LoginPage {
   password: string;
   facebookAccessToken: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook, public userProvider: User) { }
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook, public userProvider: User, public view: ViewController) { }
 
   doSignup() {
     this.authProvider.login(this.email, this.password).subscribe((resp) => {
@@ -63,4 +63,8 @@ export class LoginPage {
       })
       .catch(e => console.log('Error logging into Facebook', e));
   }
+
+    closeModal() {
+      this.view.dismiss();
+    }
 }

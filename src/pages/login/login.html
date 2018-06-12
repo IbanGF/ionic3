@@ -1,9 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>SIGN UP</ion-title>
+    <button ion-button icon-only clear (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
   <form (submit)="doSignup()">
     <ion-list>
@@ -18,7 +19,5 @@
     </ion-list>
     <button ion-button full color="secondary" type="submit">Se connecter</button>
   </form>
-
   <button ion-button full color="fb" (click)="doFbSignup()">Se connecter avec Facebook</button>
-
 </ion-content>
