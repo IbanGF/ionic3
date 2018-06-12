@@ -1,0 +1,95 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="resetDate()">Réinitialiser</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="blue_gradient_background">
+
+  <ion-grid class="pb0 pr15 pl15">
+    <ion-row class="no_padding" style="align-content: center">
+      <ion-col col-5 class="no_padding vertical_center" >
+        <p class="no_margin white_text" text-center><i class="sp-mobile-landline f35"></i></p>
+        <div class="full_width relative date_text_wrapper">
+          <div class="date_text_position" *ngIf="!arrivalFormat">
+            <p class="no_margin white_text" text-center>Arrivée</p>
+          </div>
+          <div class="date_text_position" *ngIf="arrivalFormat">
+            <p class="no_margin white_text" text-center>{{arrivalFormat}}</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-2 class="no_padding vertical_center">
+        <div class="slash"></div>
+      </ion-col>
+      <ion-col col-5 class="no_padding vertical_center">
+        <p class="no_margin white_text" text-center><i class="sp-mobile-takeoffline f35"></i></p>
+        <div class="full_width relative date_text_wrapper">
+          <div class="date_text_position" *ngIf="!departureFormat">
+            <p class="no_margin white_text" text-center>Départ</p>
+          </div>
+          <div class="date_text_position" *ngIf="departureFormat">
+            <p class="no_margin white_text" text-center>{{departureFormat}}</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="mt20">
+      <ion-col class="white_text" text-center>
+        lun.
+      </ion-col>
+      <ion-col class="white_text" text-center>
+        mar.
+      </ion-col>
+      <ion-col class="white_text" text-center>
+        mer.
+      </ion-col>
+      <ion-col class="white_text" text-center>
+        jeu.
+      </ion-col>
+      <ion-col class="white_text" text-center>
+        ven.
+      </ion-col>
+      <ion-col class="white_text" text-center>
+        sam.
+      </ion-col>
+      <ion-col class="white_text" text-center>
+        dim.
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="pb0 pr15 pl15 calendar_section">
+    <div *ngFor='let month of calendarArray' class="pb10">
+      <ion-row class="mt20">
+        <ion-col col-12>
+          <p class="no_margin white_text">{{month.currentMonth}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="no_padding" *ngFor='let week of month.weekInMonth'>
+          <ion-col class="cellWrapper center white_text relative vertical_center" *ngFor='let day of week.days' (click)='!day.hide && daysSelected(day)' text-center>
+            <div class="background_selected" *ngIf="day && day.date">
+              <div *ngIf="!day.hide" class="cellDate" [ngClass]="{'previous_date': day.disabled, 'text_selected': !day.hide && ((selectedMinDate && selectedMinDate?.date.isSame(day.date)) || dayInSelectedRange(day.date))}"><div [ngClass]="{'current_date': currentDate?.isSame(day.date)}">{{day.date.date()}}</div></div>
+              <div *ngIf="!day.hide" [ngClass]="{'minDay_selected': !day.hide && !selectedMaxDate && selectedMinDate?.date?.isSame(day.date)}"></div>
+              <div *ngIf="!day.hide" [ngClass]="{'first_selected': !day.hide && selectedMaxDate && selectedMinDate?.date?.isSame(day.date)}"></div>
+              <div *ngIf="!day.hide" [ngClass]="{'last_selected': !day.hide && selectedMaxDate && selectedMaxDate?.date?.isSame(day.date)}"></div>
+              <div *ngIf="!day.hide" [ngClass]="{'middle_selected': !day.hide && !selectedMinDate?.date?.isSame(day.date) && !selectedMaxDate?.date?.isSame(day.date) && dayInSelectedRange(day.date)}"></div>
+            </div>
+          </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar text-center>
+    <button class="btn_footer" (click)="saveDate()">
+      Sauvegarder
+    </button>
+  </ion-toolbar>
+</ion-footer>

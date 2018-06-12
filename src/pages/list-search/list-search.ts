@@ -3,10 +3,11 @@ import {
 } from '@ionic-native/google-maps';
 
 import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
 
+import { CalendarSearchPage } from '../search/calendar-search/calendar-search';
 /**
  * Generated class for the ListSearchPage page.
  *
@@ -32,7 +33,11 @@ export class ListSearchPage {
   formatted_address: string;
   isModal: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  }
+
+  openCalendarPicker() {
+    this.appCtrl.getRootNav().push('CalendarSearchPage');
   }
 
   presentMapModal() {

@@ -5,6 +5,11 @@
 .absolute { position: absolute; }
 .relative { position: relative; }
 .inline { display: inline-block; }
+.vertical_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 // ===================================================================
 // ====================== FONT SIZE / example > f10 = font-size: 10px;
@@ -14,7 +19,7 @@
 
 // =================================================================
 // ====================== PADDING / example > p10 = padding: 10px;
-.no_padding { padding: 0px; }
+.no_padding { padding: 0px !important; }
 @mixin padding { @for $i from 1 through 60 { .p#{$i} { padding: #{$i}px !important; }  } }
 @include padding;
 
@@ -32,7 +37,7 @@
 
 // =================================================================
 // ====================== MARGIN / example > m10 = margin: 10px;
-.no_margin { margin: 0px; }
+.no_margin { margin: 0px !important; }
 @mixin margin { @for $i from 1 through 60 { .m#{$i} { margin: #{$i}px !important; } } }
 @include margin;
 
