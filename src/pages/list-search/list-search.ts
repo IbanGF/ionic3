@@ -37,7 +37,8 @@ export class ListSearchPage {
   }
 
   openCalendarPicker() {
-    this.appCtrl.getRootNav().push('CalendarSearchPage');
+    const calendarModal = this.modalCtrl.create('CalendarSearchPage');
+    calendarModal.present();
   }
 
   presentMapModal() {

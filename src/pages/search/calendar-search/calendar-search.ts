@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
@@ -34,7 +34,7 @@ export class CalendarSearchPage {
   minNights: any = false;
   messageBottom: any = false;
   departure: any = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {}
 
 
   setDaysCurrentMonth(firstDayInMonth, numberOfDaysInMonth) {
@@ -194,7 +194,7 @@ export class CalendarSearchPage {
     }
 
     saveDate() {
-      this.navCtrl.pop();
+      this.viewCtrl.dismiss();
     }
 
 
