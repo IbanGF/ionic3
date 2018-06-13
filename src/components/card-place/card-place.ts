@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 import { App, ModalController } from 'ionic-angular';
 import { User, AuthProvider } from '../../providers/providers';
 import { LoginPage } from '../../pages/login/login'
@@ -19,6 +19,7 @@ export class CardPlaceComponent {
 
 
   openPlace(place, favorite) {
+    console.log('ta maman chienne '+favorite);
     this.appCtrl.getRootNav().push('PlacePage', {
       placeSlug: place.slug,
       favorite: favorite,

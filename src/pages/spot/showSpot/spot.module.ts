@@ -4,6 +4,7 @@ import { SpotPage } from './spot';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { Ionic2RatingModule } from "ionic2-rating";
 import { ComponentsModule } from "../../../components/components.module";
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ComponentsModule } from "../../../components/components.module";
     IonicPageModule.forChild(SpotPage),
     Ionic2RatingModule,
     DirectivesModule,
-    ComponentsModule
+    ComponentsModule,
+    LazyLoadImageModule,
   ],
   exports: [
     SpotPage
