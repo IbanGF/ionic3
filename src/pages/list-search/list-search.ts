@@ -48,6 +48,12 @@ export class ListSearchPage implements OnInit {
     calendarModal.present();
   }
 
+  filtersModal() {
+    console.log("hey")
+    const filtersModal = this.modalCtrl.create('FiltersPage');
+    filtersModal.present();
+  }
+
   sportsModal() {
     const sportsModal = this.modalCtrl.create('HobbiesSelectMultiplePage');
     sportsModal.present();

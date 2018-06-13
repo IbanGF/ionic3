@@ -1,0 +1,52 @@
+page-filters {
+
+  img {
+    padding: 4px;
+    border-radius: 50%;
+    background: #fff;
+    overflow: hidden;
+    transition: .1s;
+    opacity: .5;
+  }
+
+  color: white;
+  .filters_section {
+    height: 100%;
+    overflow: auto;
+    box-shadow: inset 0 11px 8px -10px rgba(0,0,0,0.2), inset 0 -11px 8px -10px rgba(0,0,0,0.2);
+  }
+
+  .toolbar-background {
+    background: transparent;
+    border: unset !important;
+    border-color: unset !important;
+  }
+
+  .toolbar-background {
+    background: transparent;
+    border: unset !important;
+    border-color: unset !important;
+  }
+
+  .toolbar-title {
+    color: white;
+  }
+
+  .button-inner {
+    color: white;
+  }
+
+  .btn_footer {
+    color: white;
+    background: transparent;
+    font-size: 18px;
+    padding: 6px 20px;
+    border: 1px solid white;
+    border-radius: 40px;
+    width: 60%;
+  }
+
+  .btn_footer:active {
+    opacity: 0.5;
+  }
+}
