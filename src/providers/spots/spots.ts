@@ -13,15 +13,20 @@ export class SpotsProvider {
 
   constructor(public api: Api) { }
 
-  getSpots() {
-    return this.api.get('spots/getNewsest');
+
+  getSpotsInBounds(southwest: Array<number>, northeast: Array<number>, placesQuery?: any) {
+    return this.api.post('spots/getSpotsInBounds/' + southwest + '/' + northeast, placesQuery);
   }
 
   getSpotsNearBy(center: Array<number>, maxDistance: number) {
-    return this.api.get('/spots/spotsNearBy/' + center + '/' + maxDistance);
+    return this.api.get('spots/spotsNearBy/' + center + '/' + maxDistance);
   }
 
-  getComments(id) {
+  getNewestSpots() {
+    return this.api.get('spots/getNewsest');
+  }
+
+  getCommentsSpot(id) {
     return this.api.get('/spots/getComments/' + id);
   }
 

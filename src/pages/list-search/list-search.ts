@@ -26,6 +26,7 @@ export class ListSearchPage implements OnInit {
   @ViewChild('sportSelect') sportSelect: Select;
 
   selectedSecondaryTab = 'places';
+  spotsSearchQuery: any;
   placesSearchQuery: any;
   currentPlaces: any;
   totalPlacesCount: number = 0;
@@ -35,7 +36,7 @@ export class ListSearchPage implements OnInit {
   formatted_address: string;
   sports: Array<any>;
 
-  constructor(public authProvider: AuthProvider,public appCtrl: App, public navCtrl: NavController, public userProvider: User, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  constructor(public authProvider: AuthProvider, public appCtrl: App, public navCtrl: NavController, public userProvider: User, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
     this.sports = Constants.SPORTS;
   }
 
@@ -85,7 +86,9 @@ export class ListSearchPage implements OnInit {
   relaunchSearch() {
     this.searchProvider.setBounds(this.bounds);
     this.placesSearchQuery.page = 1;
+    this.spotsSearchQuery.page = 1;
     this.getPlacesInBounds();
+    this.getSpotsInBounds();
   }
 
   getPlacesInBounds() {
@@ -95,11 +98,25 @@ export class ListSearchPage implements OnInit {
     });
   }
 
+  getSpotsInBounds() {
+    this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery).subscribe((data: any) => {
+      this.currentSpots = this.currentSpots.concat(data.spots);
+      this.totalSpotsCount = data.count;
+    });
+  }
+
   loadMorePlaces(infiniteScroll) {
-    console.log('loadMorePlaces')
     this.placesSearchQuery.page++;
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = this.currentPlaces.concat(data.places);
+      infiniteScroll.complete();
+    });
+  }
+
+  loadMoreSpots(infiniteScroll) {
+    this.spotsSearchQuery.page++;
+    this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery).subscribe((data: any) => {
+      this.currentSpots = this.currentSpots.concat(data.spots);
       infiniteScroll.complete();
     });
   }
@@ -119,22 +136,21 @@ export class ListSearchPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad')
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;
-      this.spotsProvider.getSpots().subscribe((data: any) => {
-        this.currentSpots = data;
+      this.spotsSearchQuery = this.searchProvider.getSpotsQuery();
+      this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery).subscribe((data: any) => {
+        this.currentSpots = data.spots;
         this.totalSpotsCount = data.count;
       });
     });
   }
 
   ionViewWillEnter() {
-
     console.log('ionViewWillEnter')
     if (this.bounds != this.searchProvider.getBounds()) {
       this.bounds = this.searchProvider.getBounds();

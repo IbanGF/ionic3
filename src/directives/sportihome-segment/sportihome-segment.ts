@@ -31,7 +31,7 @@ import { SportihomeSegmentButton } from '../../components/sportihome-segment-but
      renderer: Renderer,
      @Optional() ngControl: NgControl
    ) {
-     super(config, elementRef, renderer, 'segment', null, null, null, ngControl);
+     super(config, elementRef, renderer, 'sportihome-segment', null, null, null, ngControl);
    }
 
    /**
