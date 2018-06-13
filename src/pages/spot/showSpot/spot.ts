@@ -49,7 +49,7 @@ export class SpotPage implements OnDestroy {
       .subscribe(data => {
         this.spot = data;
         this.defaultImage = "'https://test.sportihome.com/uploads/places/'" + this.spot._id + '/large/' + this.spot.pictures[0];
-        this.spotsProvider.getComments(this.spot._id)
+        this.spotsProvider.getCommentsSpot(this.spot._id)
           .takeUntil(this.ngUnsubscribe)
           .subscribe(comments => this.comments = comments);
 
