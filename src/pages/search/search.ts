@@ -291,6 +291,7 @@ export class SearchPage implements OnInit {
   }
 
   ionViewDidLoad() {
+    console.log('map ionViewDidLoad')
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();

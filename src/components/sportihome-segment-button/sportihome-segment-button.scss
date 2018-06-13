@@ -1,0 +1,168 @@
+
+/// @prop - Background of the segment button
+$sportihome-segment-button-background-color:           transparent !default;
+
+/// @prop - Background of the activated segment button
+$sportihome-segment-button-background-color-activated: $toolbar-active-color !default;
+
+/// @prop - Text color of the segment button
+$sportihome-segment-button-text-color:                 color-contrast($colors-ios, $sportihome-segment-button-background-color-activated) !default;
+
+/// @prop - Transition of the activated segment button
+$sportihome-segment-button-transition-activated:       100ms all linear !default;
+
+/// @prop - Transition of the segment button on hover
+$sportihome-segment-button-transition-hover:           100ms all linear !default;
+
+/// @prop - Transition of the segment button when pressed
+$sportihome-segment-button-transition-active:          100ms all linear !default;
+
+/// @prop - Opacity of the segment button on hover
+$sportihome-segment-button-opacity-hover:              .1 !default;
+
+/// @prop - Opacity of the segment button when pressed
+$sportihome-segment-button-opacity-active:             .16 !default;
+
+/// @prop - Opacity of the activated segment button
+$sportihome-segment-button-opacity-activated:          1 !default;
+
+/// @prop - Opacity of the disabled segment button
+$sportihome-segment-button-opacity-disabled:           .3 !default;
+
+/// @prop - Border width of the segment button
+$sportihome-segment-button-border-width:               1px !default;
+
+/// @prop - Height of the segment button
+$sportihome-segment-button-height:                     3.2rem !default;
+
+/// @prop - Line height of the segment button
+$sportihome-segment-button-line-height:                3rem !default;
+
+/// @prop - Font size of the segment button
+$sportihome-segment-button-font-size:                  1.3rem !default;
+
+/// @prop - Border radius of the segment button
+$sportihome-segment-button-border-radius:              4px !default;
+
+/// @prop - Size of an icon in the segment button
+$sportihome-segment-button-icon-size:                  2.6rem !default;
+
+/// @prop - Line height of an icon in the segment button
+$sportihome-segment-button-icon-line-height:           2.8rem !default;
+
+/// @prop - Max width of the segment button in a toolbar
+$sportihome-segment-button-toolbar-button-max-width:   100px !default;
+
+/// @prop - Height of the segment button in a toolbar
+$sportihome-segment-button-toolbar-button-height:      2.6rem !default;
+
+/// @prop - Line height of the segment button in a toolbar
+$sportihome-segment-button-toolbar-line-height:        2.5rem !default;
+
+/// @prop - Font size of the segment button in a toolbar
+$sportihome-segment-button-toolbar-font-size:          1.2rem !default;
+
+/// @prop - Size of an icon in the segment button in a toolbar
+$sportihome-segment-button-toolbar-icon-size:          2.2rem !default;
+
+/// @prop - Line height of an icon in the segment button in a toolbar
+$sportihome-segment-button-toolbar-icon-line-height:   2.4rem !default;
+
+sportihome-segment {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .sportihome-segment-button {
+    @include margin-horizontal(0);
+    @include text-align(center);
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+}
+
+.sportihome-segment-button {
+
+  flex: 1;
+
+  width: 0;
+
+  height: $sportihome-segment-button-height;
+
+  border-width: $sportihome-segment-button-border-width;
+  border-style: solid;
+  border-color: $sportihome-segment-button-background-color-activated;
+
+  font-size: $sportihome-segment-button-font-size;
+  line-height: $sportihome-segment-button-line-height;
+
+  color: $sportihome-segment-button-background-color-activated;
+  background-color: $sportihome-segment-button-background-color;
+
+  ion-icon {
+    font-size: $sportihome-segment-button-icon-size;
+    line-height: $sportihome-segment-button-icon-line-height;
+  }
+
+  &.sportihome-segment-activated {
+    color: $sportihome-segment-button-text-color;
+    background-color: $sportihome-segment-button-background-color-activated;
+    opacity: $sportihome-segment-button-opacity-activated;
+    transition: $sportihome-segment-button-transition-activated;
+  }
+
+  &:hover:not(.sportihome-segment-activated) {
+    background-color: rgba($sportihome-segment-button-background-color-activated, $sportihome-segment-button-opacity-hover);
+    transition: $sportihome-segment-button-transition-hover;
+  }
+
+  &:active:not(.sportihome-segment-activated) {
+    background-color: rgba($sportihome-segment-button-background-color-activated, $sportihome-segment-button-opacity-active);
+    transition: $sportihome-segment-button-transition-active;
+  }
+
+  &:first-of-type {
+    @include border-radius($sportihome-segment-button-border-radius, 0, 0, $sportihome-segment-button-border-radius);
+    @include margin-horizontal(null, 0);
+  }
+
+  &:not(:first-of-type) {
+    border-left-width: 0;
+  }
+
+  &:last-of-type {
+    @include border-radius(0, $sportihome-segment-button-border-radius, $sportihome-segment-button-border-radius, 0);
+    @include margin-horizontal(0, null);
+
+    border-left-width: 0;
+  }
+}
+
+[dir="rtl"] .sportihome-segment-button {
+  &:first-of-type {
+    border-left-width: 0;
+  }
+
+  &:last-of-type {
+    border-left-width: $sportihome-segment-button-border-width;
+  }
+}
+
+
+.sportihome-segment-disabled {
+  opacity: .4;
+
+  pointer-events: none;
+}
+
+.sportihome-segment-button-disabled {
+  color: rgba($sportihome-segment-button-background-color-activated, $sportihome-segment-button-opacity-disabled);
+
+  pointer-events: none;
+}
