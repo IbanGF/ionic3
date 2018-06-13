@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { Ionic2RatingModule } from "ionic2-rating";
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { ShrinkingSegmentHeaderComponent } from './shrinking-segment-header/shrinking-segment-header';
 import { ContentDrawerComponent } from './content-drawer/content-drawer';
@@ -14,7 +15,7 @@ import { SportihomeSegmentButton } from './sportihome-segment-button/sportihome-
     CardPlaceComponent,
     CardSpotComponent,
     SportihomeSegmentButton],
-  imports: [IonicModule, Ionic2RatingModule],
+  imports: [IonicModule, Ionic2RatingModule, LazyLoadImageModule],
   exports: [ContentDrawerComponent,
     ShrinkingSegmentHeaderComponent,
     CardPlaceComponent,

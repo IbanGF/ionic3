@@ -1,36 +1,37 @@
-<ion-header>
+<ion-content class="gradient-bg" padding>
   <button ion-button icon-only clear (click)="closeModal()">
-      <ion-icon name="close"></ion-icon>
+      <ion-icon name="close" class="button-close" color='white'></ion-icon>
   </button>
-</ion-header>
-
-
-<ion-content>
-  <form (submit)="doSignin()">
+  <div class="logo-sportihome">
+    <img alt="Sportihome logo" src="https://sportihome.com/assets/icones/sportihome-white.svg">
+  </div>
+  <form class="mt10" (submit)="doSignin()">
     <ion-list>
-      <ion-item>
+      <ion-item color="transparent">
         <ion-label fixed>Email</ion-label>
         <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="mt10" color="transparent">
         <ion-label fixed>Prénom</ion-label>
         <ion-input type="test" [(ngModel)]="firstName" name="firstName"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="mt10" color="transparent">
         <ion-label fixed>Nom</ion-label>
         <ion-input type="text" [(ngModel)]="lastName" name="lastName"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="mt10" color="transparent">
         <ion-label fixed>Mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="mt10" color="transparent">
         <ion-label fixed>Confirmer le mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button full color="secondary"  type="submit">S'inscrire</button>
+    <button padding ion-button full color="secondary" class="rounded mt40" type="submit">S'inscrire</button>
   </form>
-    <button ion-button full color="fb" (click)="doFbSignin()">S'inscrire avec Facebook</button>
-
+  <div color="transparent" text-center padding>
+    <span class="txt-white">Ou</span>
+  </div>
+    <button padding ion-button full color="fb" (click)="doFbSignin()">S'inscrire avec Facebook</button>
 </ion-content>

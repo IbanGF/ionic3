@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { App, ModalController } from 'ionic-angular';
 import { User, AuthProvider } from '../../providers/providers';
 import { LoginPage } from '../../pages/login/login'
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @Component({
   selector: 'card-place',
@@ -17,10 +18,10 @@ export class CardPlaceComponent {
   constructor(public appCtrl: App, public userProvider: User, public authProvider: AuthProvider, public modalCtrl: ModalController) { }
 
 
-  openPlace(place) {
-    console.log('aio');
+  openPlace(place, favorite) {
     this.appCtrl.getRootNav().push('PlacePage', {
       placeSlug: place.slug,
+      favorite: favorite,
     })
   }
 }

@@ -30,9 +30,14 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #555F61,
-  fb:  #3B5998
+  white: #fff,
+  fb:  #3B5998,
+  transparent: rgba(0, 0, 0, 0)
 );
 
+$black: black;
+$white: #fff;
+$rounded: 5px;
 
 // =================================================================
 // ====================== PADDING / example > f10 = font-size: 10px;

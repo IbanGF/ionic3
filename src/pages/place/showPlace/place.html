@@ -2,8 +2,12 @@
 
   <ion-navbar>
   </ion-navbar>
+  <!-- <div class="heart" tappable (click)="setFavoriteStatus($event ,place._id)" end>
+    <i class ="f30" [ngClass]='(favorite === true)? "sp-mobile-heart-full" : "sp-mobile-heart"'></i>
+  </div> -->
   <div class="heart" tappable (click)="setFavoriteStatus($event ,place._id)" end>
-    <i class ="f38" [ngClass]='(favorite === true)? "sp-mobile-heart-full" : "sp-mobile-heart"'></i>
+    <i class='sp-mobile-heart f30' *ngIf="favorite === false"></i>
+    <i class="sp-mobile-heart-full f30" [ngClass]="{'heart-opacity': favorite === false}"></i>
   </div>
 </ion-header>
 
