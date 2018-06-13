@@ -1,3 +1,33 @@
-page-signup {
-
+page-login {
+  .logo-sportihome{
+    display: inline-block;
+    height: 36px;
+    line-height: 38px;
+    vertical-align: bottom;
+    text-align: center;
+    width: 80%;
+    img{
+      width: 120px;
+    }
+  }
+  .ion-md-close{
+    padding: 0;
+  }
+  .list-md .item-block .item-inner {
+    border-bottom: 0 solid #dedede;
+  }
+  .list-md .item-input:last-child {
+    border-bottom: 0 solid #dedede;
+  }
+  .txt-white {
+    color: $white;
+  }
+  .item-input{
+    color: $black;
+    border-radius: $rounded;
+    background-color: $white;
+  }
+  .rounded{
+    border-radius: $rounded;
+  }
 }

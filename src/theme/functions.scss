@@ -1,61 +1,156 @@
+.full_height {
+  height: 100% !important;
+}
 
-.full_height { height: 100% !important; }
-.full_width { width: 100% !important; }
-.bold { font-weight: bold; }
-.absolute { position: absolute; }
-.relative { position: relative; }
-.inline { display: inline-block; }
+.full_width {
+  width: 100% !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.inline {
+  display: inline-block;
+}
+
 .vertical_center {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.transparent { background: transparent !important; }
-.white_text { color: white; }
+.gradient-bg {
+  background: #67c9ff;
+  background: -moz-linear-gradient(-45deg, #67c9ff 0%, #3399e5 100%);
+  background: -webkit-linear-gradient(-45deg, #67c9ff 0%, #3399e5 100%);
+  background: linear-gradient(135deg, #67c9ff 0%, #3399e5 100%);
+}
+
+.transparent {
+  background: transparent !important;
+}
+
+.white_text {
+  color: white;
+}
 // ===================================================================
 // ====================== FONT SIZE / example > f10 = font-size: 10px;
-@mixin fontSize { @for $i from 1 through 60 { .f#{$i} { font-size: #{$i}px !important; } } }
+@mixin fontSize {
+  @for $i from 1 through 60 {
+    .f#{$i} {
+      font-size: #{$i}px !important;
+    }
+  }
+}
 @include fontSize;
-
-
 // =================================================================
 // ====================== PADDING / example > p10 = padding: 10px;
-.no_padding { padding: 0px !important; }
-@mixin padding { @for $i from 1 through 60 { .p#{$i} { padding: #{$i}px !important; }  } }
+
+.no_padding {
+  padding: 0 !important;
+}
+@mixin padding {
+  @for $i from 1 through 60 {
+    .p#{$i} {
+      padding: #{$i}px !important;
+    }
+  }
+}
 @include padding;
-
-@mixin paddingTop { @for $i from 1 through 60 { .pt#{$i} { padding-top: #{$i}px !important; } } }
+@mixin paddingTop {
+  @for $i from 1 through 60 {
+    .pt#{$i} {
+      padding-top: #{$i}px !important;
+    }
+  }
+}
 @include paddingTop;
-
-@mixin paddingBottom { @for $i from 1 through 60 { .pb#{$i} { padding-bottom: #{$i}px !important; } } }
+@mixin paddingBottom {
+  @for $i from 1 through 60 {
+    .pb#{$i} {
+      padding-bottom: #{$i}px !important;
+    }
+  }
+}
 @include paddingBottom;
-
-@mixin paddingRight { @for $i from 1 through 60 { .pr#{$i} { padding-right: #{$i}px !important; } } }
+@mixin paddingRight {
+  @for $i from 1 through 60 {
+    .pr#{$i} {
+      padding-right: #{$i}px !important;
+    }
+  }
+}
 @include paddingRight;
-
-@mixin paddingLeft { @for $i from 1 through 60 { .pl#{$i} { padding-left: #{$i}px !important; } } }
+@mixin paddingLeft {
+  @for $i from 1 through 60 {
+    .pl#{$i} {
+      padding-left: #{$i}px !important;
+    }
+  }
+}
 @include paddingLeft;
-
 // =================================================================
 // ====================== MARGIN / example > m10 = margin: 10px;
-.no_margin { margin: 0px !important; }
-@mixin margin { @for $i from 1 through 60 { .m#{$i} { margin: #{$i}px !important; } } }
+
+.no_margin {
+  margin: 0 !important;
+}
+@mixin margin {
+  @for $i from 1 through 60 {
+    .m#{$i} {
+      margin: #{$i}px !important;
+    }
+  }
+}
 @include margin;
-
-@mixin marginTop { @for $i from 1 through 60 { .mt#{$i} { margin-top: #{$i}px !important; } } }
+@mixin marginTop {
+  @for $i from 1 through 60 {
+    .mt#{$i} {
+      margin-top: #{$i}px !important;
+    }
+  }
+}
 @include marginTop;
-
-@mixin marginBottom { @for $i from 1 through 60 { .mb#{$i} { margin-bottom: #{$i}px !important; } } }
+@mixin marginBottom {
+  @for $i from 1 through 60 {
+    .mb#{$i} {
+      margin-bottom: #{$i}px !important;
+    }
+  }
+}
 @include marginBottom;
-
-@mixin marginRight { @for $i from 1 through 60 { .mr#{$i} { margin-right: #{$i}px !important; } } }
+@mixin marginRight {
+  @for $i from 1 through 60 {
+    .mr#{$i} {
+      margin-right: #{$i}px !important;
+    }
+  }
+}
 @include marginRight;
-
-@mixin marginLeft { @for $i from 1 through 60 { .ml#{$i} { margin-left: #{$i}px !important; } } }
+@mixin marginLeft {
+  @for $i from 1 through 60 {
+    .ml#{$i} {
+      margin-left: #{$i}px !important;
+    }
+  }
+}
 @include marginLeft;
-
 // ===================================================================
 // ====================== BORDER RADIUS / example > br10 = font-size: 10px;
-@mixin borderRadius { @for $i from 1 through 60 { .br#{$i} { border-radius: #{$i}px !important; } } }
+@mixin borderRadius {
+  @for $i from 1 through 60 {
+    .br#{$i} {
+      border-radius: #{$i}px !important;
+    }
+  }
+}
 @include borderRadius;

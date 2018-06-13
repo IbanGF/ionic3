@@ -58,6 +58,7 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   openPage(page) {

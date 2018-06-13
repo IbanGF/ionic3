@@ -1,23 +1,25 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button icon-only clear (click)="closeModal()">
-        <ion-icon name="close"></ion-icon>
-    </button>
-  </ion-navbar>
-</ion-header>
-<ion-content>
-  <form (submit)="doSignup()">
+<ion-content class="gradient-bg" padding>
+  <button ion-button icon-only clear (click)="closeModal()">
+        <ion-icon name="close" class="button-close" color='white'></ion-icon>
+  </button>
+  <div class="logo-sportihome">
+    <img alt="Sportihome logo" src="https://sportihome.com/assets/icones/sportihome-white.svg">
+  </div>
+  <form class="mt10" (submit)="doSignup()">
     <ion-list>
-      <ion-item>
+      <ion-item color="transparent">
         <ion-label fixed>Email</ion-label>
         <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="mt10" color="transparent">
         <ion-label fixed>Mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button full color="secondary" type="submit">Se connecter</button>
+    <button padding ion-button full color="secondary" class="rounded mt40" type="submit">Se connecter</button>
   </form>
-  <button ion-button full color="fb" (click)="doFbSignup()">Se connecter avec Facebook</button>
+  <div color="transparent" text-center padding>
+    <span class="txt-white">Ou</span>
+  </div>
+  <button padding ion-button full color="fb" class="rounded" (click)="doFbSignup()">Se connecter avec Facebook</button>
 </ion-content>
