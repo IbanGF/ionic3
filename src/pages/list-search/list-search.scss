@@ -3,14 +3,7 @@ page-list-search {
     position: fixed;
     bottom: 56px;
     width: 100%;
-    z-index: 1;
-  }
-
-  .custom_segment ion-segment {
-    width: 70%;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 4px;
+    z-index: 3;
   }
 
   .toolbar-ios {
@@ -18,7 +11,7 @@ page-list-search {
   }
 
   .header-image {
-    background-image: url("https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950");
+    background-image: url("https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950 https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950 ");
     height: calc(100% - 30px);
     color: white;
 
@@ -30,7 +23,7 @@ page-list-search {
     }
   }
 
-  .bar-button{
+  .bar-button {
     border-color: #dadada!important;
   }
 
