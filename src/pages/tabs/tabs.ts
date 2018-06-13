@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { MenuPage } from '../menu/menu';
+import { MyprofilePage } from '../user/my-profile/my-profile';
 
 // import { Tab1Root } from '../pages';
 import { Tab2Root } from '../pages';
@@ -13,11 +14,13 @@ import { Tab2Root } from '../pages';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  // tab1Root: any = Tab1Root;
+  tab1Root: any = MyprofilePage;
+  tab1Title = "Pour moi";
   tab2Root: any = Tab2Root;
   tab2Title = "Search";
   tab3Root: any = MenuPage;
   tab3Title = "Menu";
+  tab4Title = "Partager";
   // tab3Root: any = Tab3Root;
 
   // tab1Title = " ";
