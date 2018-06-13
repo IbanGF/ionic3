@@ -1,5 +1,4 @@
 page-place {
-
   .scroll-content {
     padding-top: 0 !important;
   }
@@ -34,11 +33,44 @@ page-place {
   //   border-style: none;
   //   background: #3db5e7;
   // }
-
-  card-spot, card-place {
+  card-place,
+  card-spot {
     img.main {
       border-radius: 6px 6px 0 0;
     }
   }
+}
 
+.lazyImg {
+  opacity: 0;
+}
+
+.lazyImg.ng-lazyloaded {
+  animation-name: fade-in;
+  animation-fill-mode: both;
+  animation-duration: 0.5s;
+}
+$animationDelay: 1;
+@for $i from 1 through 15 {
+  .projects div:nth-of-type(#{$i}) {
+    animation-delay: #{0.3+($i)/30}s;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.heart {
+  margin: 5px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 400;
+  color: white;
 }

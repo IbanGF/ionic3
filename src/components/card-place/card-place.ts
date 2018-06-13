@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { App } from 'ionic-angular';
-import { User } from '../../providers/user/user'
+import { App, ModalController } from 'ionic-angular';
+import { User, AuthProvider } from '../../providers/providers';
+import { LoginPage } from '../../pages/login/login'
 
 @Component({
   selector: 'card-place',
@@ -8,18 +9,18 @@ import { User } from '../../providers/user/user'
 })
 export class CardPlaceComponent {
   @Input('place') place: any;
+  @Input('favorite') favorite: any;
   @Input('isVertical') isVertical: any;
 
-  constructor(public appCtrl: App, public userProvider: User) {}
+  favArray: any;
 
+  constructor(public appCtrl: App, public userProvider: User, public authProvider: AuthProvider, public modalCtrl: ModalController) { }
 
-  isFavoritePlace(id){
-    return this.userProvider.isFavoritePlace(id);
-  }
 
   openPlace(place) {
+    console.log('aio');
     this.appCtrl.getRootNav().push('PlacePage', {
-      placeSlug: place.slug
+      placeSlug: place.slug,
     })
   }
 }

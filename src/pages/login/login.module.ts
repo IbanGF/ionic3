@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule, IonicModule } from 'ionic-angular';
+import { Ionic2RatingModule } from "ionic2-rating";
 
 import { LoginPage } from './login';
+import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
     LoginPage,
   ],
   imports: [
+    IonicModule,
     IonicPageModule.forChild(LoginPage),
-    TranslateModule.forChild()
+    Ionic2RatingModule,
+    ComponentsModule,
+    DirectivesModule
   ],
   exports: [
     LoginPage
   ]
 })
-export class LoginPageModule { }
+export class LoginPageModule {}

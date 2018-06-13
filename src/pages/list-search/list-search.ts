@@ -5,10 +5,9 @@ import {
 import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, ModalController, Select } from 'ionic-angular';
 
-import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
+import { PlacesProvider, SpotsProvider, SearchProvider, User, AuthProvider } from '../../providers/providers';
 
 import * as Constants from '../../constants/constants';
-
 /**
  * Generated class for the ListSearchPage page.
  *
@@ -35,7 +34,7 @@ export class ListSearchPage {
   formatted_address: string;
   sports: Array<any>;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
+  constructor(public authProvider: AuthProvider,public appCtrl: App, public navCtrl: NavController, public userProvider: User, public navParams: NavParams, public searchProvider: SearchProvider, public modalCtrl: ModalController, public placesProvider: PlacesProvider, public spotsProvider: SpotsProvider, private renderer: Renderer2) {
     this.sports = Constants.SPORTS;
   }
 
@@ -105,6 +104,15 @@ export class ListSearchPage {
   ngOnInit() {
     let input = this.searchBar.getElementRef().nativeElement.querySelector('input');
     this.renderer.setAttribute(input, 'disabled', 'true');
+  }
+
+  isFavoritePlace(place) {
+    if (this.authProvider.getLogStatus() === true) {
+      return this.userProvider.isFavoritePlace(place);
+    }
+    else {
+      return false;
+    }
   }
 
   ionViewDidLoad() {

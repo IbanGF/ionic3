@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule, IonicModule } from 'ionic-angular';
+import { Ionic2RatingModule } from "ionic2-rating";
 
 import { SigninPage } from './signin';
+import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
     SigninPage,
   ],
   imports: [
+    IonicModule,
     IonicPageModule.forChild(SigninPage),
-    TranslateModule.forChild()
+    Ionic2RatingModule,
+    ComponentsModule,
+    DirectivesModule
   ],
   exports: [
     SigninPage
   ]
 })
-export class SigninPageModule { }
+export class SigninPageModule {}

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { AboutPage } from './about/about';
 import { WhyPage } from './why/why';
 import { ConditionPage } from './condition/condition';
 import { ContactPage } from './contact/contact';
 import { CommentPage } from './comment/comment';
-import { SignupPage } from '../signup/signup';
-import { MyprofilePage } from '../user/my-profile/my-profile';
+import { LoginPage } from '../login/login';
 import { SigninPage } from '../signin/signin';
+import { MyprofilePage } from '../user/my-profile/my-profile';
 
 import { AuthProvider } from '../../providers/auth/auth'
 
@@ -25,11 +25,9 @@ export class MenuPage {
   condition = ConditionPage;
   contact = ContactPage;
   comment = CommentPage;
-  login = SignupPage;
   myProfile = MyprofilePage;
-  signin = SigninPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthProvider, public toastCtrl: ToastController) { }
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthProvider, public toastCtrl: ToastController) { }
 
   ionViewWillEnter() {
     if (this.authProvider.getLogStatus()) {
@@ -51,6 +49,19 @@ export class MenuPage {
       position: 'top'
     });
     toast.present();
+  }
+
+  goToLogin(){
+    const loginModel = this.modalCtrl.create(LoginPage);
+    loginModel.onDidDismiss(data =>{
+      this.isLog = data;
+    });
+    loginModel.present();
+  }
+
+  goToSignin(){
+    const signinModal = this.modalCtrl.create(SigninPage);
+    signinModal.present();
   }
 
 }

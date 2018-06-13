@@ -5,7 +5,6 @@ import { AuthProvider } from '../../../providers/auth/auth';
 import { UserData } from '../../../models/userdata';
 import moment from 'moment';
 
-@IonicPage()
 @Component({
   selector: 'page-my-profile',
   templateUrl: 'my-profile.html',
@@ -16,8 +15,11 @@ export class MyprofilePage implements OnInit {
   hostComments: any = false;
   places: any = false;
   spots: any = false;
+  favPlaces: Array<any>;
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider) { }
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider) {
+
+  }
 
   IonViewCanEnter() {
     return this.authProvider.getLogStatus();
@@ -41,6 +43,11 @@ export class MyprofilePage implements OnInit {
   spotModal() {
     let spotModal = this.modalCtrl.create("SpotsUserPage", { spots: this.spots });
     spotModal.present();
+  }
+
+  favoritePlacesModal(){
+    let favPlacesModal = this.modalCtrl.create("FavoritePlaces", { places: this.favPlaces });
+    favPlacesModal.present();
   }
 
   ngOnInit() {
@@ -74,6 +81,12 @@ export class MyprofilePage implements OnInit {
       }, err => {
         console.log(err);
       });
+
+      this.userProvider.getFavoritesForUser()
+      .subscribe(data =>{
+        this.favPlaces = data[0];
+      })
+
   }
 
 }

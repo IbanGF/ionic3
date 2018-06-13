@@ -5,7 +5,7 @@
         <ion-icon name="close" ></ion-icon>
       </button>
     </ion-buttons>
-    <ion-searchbar #searchBar [ngModel]="formatted_address" (click)="presentAutocompleteModal()" placeholder="Search for a place"></ion-searchbar>
+    <ion-searchbar #searchBar [ngModel]="formatted_address" tappable (click)="presentAutocompleteModal()" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -33,7 +33,7 @@
 
       <ion-slides *ngSwitchCase="'places'" [initialSlide]="this.currentPlaceIndex" slidesPerView="auto" #placesSlider (ionSlideDidChange)="placeSlideChanged()" zoom="false">
         <ion-slide *ngFor="let place of currentPlaces">
-          <card-place [place]="place"></card-place>
+          <card-place [place]="place" [favorite]="isFavoritePlace(place._id)"></card-place>
         </ion-slide>
       </ion-slides>
 

@@ -41,7 +41,7 @@ card-place {
   .heart {
     margin: 5px;
     position: absolute;
-    top: 0;
+    top: 15px;
     right: 10px;
     z-index: 2;
   }
@@ -103,4 +103,17 @@ card-place {
       color: #ffb400;
     }
   }
+}
+
+.heart{
+  margin: 5px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 2;
+  color: white;
+}
+
+.cardPlaceSpot{
+  position: relative;
 }

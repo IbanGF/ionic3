@@ -18,7 +18,7 @@
 
 <ion-content padding>
   <div *ngIf="spots && spots.length">
-    <div *ngFor="let spot of spots" class="containerCard" (click)="closeModal()">
+    <div *ngFor="let spot of spots" class="containerCard" tappable (click)="closeModal()">
       <card-spot [spot]="spot"></card-spot>
     </div>
   </div>

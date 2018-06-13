@@ -1,50 +1,70 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
-
-import { User } from '../../providers/providers';
+import { IonicPage, NavController, ToastController, ViewController } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook';
+import { AuthProvider } from '../../providers/auth/auth';
+import { User } from '../../providers/user/user'
 import { MainPage } from '../pages';
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
-  };
 
-  // Our translated text strings
-  private loginErrorString: string;
+  email: string;
+  password: string;
+  facebookAccessToken: string;
 
-  constructor(public navCtrl: NavController,
-    public user: User,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook, public userProvider: User, public view: ViewController) { }
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
+  doSignup() {
+    this.authProvider.login(this.email, this.password).subscribe((resp) => {
+      this.view.dismiss(true);
+      let toast = this.toastCtrl.create({
+        message: 'Vous êtes connecté',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+    }, (err) => {
+      this.view.dismiss(false);
+      let toast = this.toastCtrl.create({
+        message: 'Une erreur est survenue pendant la connection',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+    });
+  }
+  doFbSignup() {
+    this.fb.login(['public_profile', 'email'])
+      .then(res => {
+        return this.facebookAccessToken = res.authResponse.accessToken;
+      })
+      .then(res => {
+        this.authProvider.loginFb(this.facebookAccessToken)
+          .subscribe(res => {
+            this.navCtrl.pop();
+            let toast = this.toastCtrl.create({
+              message: 'Vous êtes connecté',
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
+          }, (err) => {
+            this.navCtrl.pop();
+            let toast = this.toastCtrl.create({
+              message: 'Une erreur est survenue pendant la connection',
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
+          })
+      })
+      .catch(e => console.log('Error logging into Facebook', e));
   }
 
-  // Attempt to login in through our User service
-  doLogin() {
-    // this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
-    // }, (err) => {
-    //   this.navCtrl.push(MainPage);
-    //   // Unable to log in
-    //   let toast = this.toastCtrl.create({
-    //     message: this.loginErrorString,
-    //     duration: 3000,
-    //     position: 'top'
-    //   });
-    //   toast.present();
-    // });
-  }
+    closeModal() {
+      this.view.dismiss();
+    }
 }

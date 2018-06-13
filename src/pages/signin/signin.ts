@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ViewController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { AuthProvider } from '../../providers/auth/auth'
 import { MainPage } from '../pages';
 
-@IonicPage()
 @Component({
   selector: 'page-signin',
   templateUrl: 'signin.html'
@@ -18,7 +17,7 @@ export class SigninPage {
   firstName: string;
   facebookAccessToken: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook) { }
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public authProvider: AuthProvider, public fb: Facebook, public view: ViewController) { }
 
   doFbSignin(){
     this.fb.login(['public_profile', 'email'])
@@ -60,6 +59,10 @@ export class SigninPage {
     }, err=>{
       console.log(err);
     })
+  }
+
+  closeModal() {
+    this.view.dismiss();
   }
 
 }
