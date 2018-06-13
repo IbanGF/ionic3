@@ -5,9 +5,10 @@
 //   GoogleMapOptions,
 // } from '@ionic-native/google-maps';
 
-import { Component, ViewChild , ChangeDetectionStrategy, ElementRef, NgZone} from '@angular/core';
-import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform, Slides} from 'ionic-angular';
+import { Component, ViewChild, ChangeDetectionStrategy, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform, Slides } from 'ionic-angular';
 import { Observable, Subject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 
 import { PlacesProvider, SpotsProvider, User, AuthProvider } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
@@ -19,7 +20,7 @@ let placesNearByData, spotsNearByData;
   selector: 'page-place',
   templateUrl: 'place.html'
 })
-export class PlacePage {
+export class PlacePage implements OnDestroy {
 
   @ViewChild(Content) content: Content;
   @ViewChild(Slides) placesNearBySlider: Slides;
@@ -35,15 +36,17 @@ export class PlacePage {
   favorite: boolean;
   imageChange$ = new Subject();
   defaultImage: any;
+  private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(public authProvider: AuthProvider,public zone:NgZone, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
+
+  constructor(public authProvider: AuthProvider, public zone: NgZone, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
 
   }
 
   slideChanged() {
-  this.imageChange$.next(1000);
-}
+    this.imageChange$.next(1000);
+  }
 
   loadMap() {
 
@@ -91,44 +94,48 @@ export class PlacePage {
     reglementsModalModal.present();
   }
 
-   slidePlacesChanged(){
-     if(placesNearByData && placesNearByData.length) placesNearByData.splice(0,2).map(place => this.placesNearBy.push(place));
-   }
+  slidePlacesChanged() {
+    if (placesNearByData && placesNearByData.length) placesNearByData.splice(0, 2).map(place => this.placesNearBy.push(place));
+  }
 
-   slideSpotsChanged(){
-     if(spotsNearByData && spotsNearByData.length) spotsNearByData.splice(0,2).map(place => this.spotsNearBy.push(place));
-   }
+  slideSpotsChanged() {
+    if (spotsNearByData && spotsNearByData.length) spotsNearByData.splice(0, 2).map(place => this.spotsNearBy.push(place));
+  }
 
-   scrolledToggle(){
-     this.zone.run(() => {
-       this.scrolled = true;
-     });
-   }
+  scrolledToggle() {
+    this.zone.run(() => {
+      this.scrolled = true;
+    });
+  }
 
   ionViewDidLoad() {
     this.favorite = this.navParams.get('favorite');
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
-    .subscribe(data => {
-      this.place = data;
-      this.defaultImage ="'https://test.sportihome.com/uploads/places/'"+this.place._id+'/large/'+this.place.pictures[0];
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(data => {
+        this.place = data;
+        this.defaultImage = "'https://test.sportihome.com/uploads/places/'" + this.place._id + '/large/' + this.place.pictures[0];
 
-      this.placesProvider.setPlace(data);
+        this.placesProvider.setPlace(data);
 
-      this.placesProvider.getCommentsPlace(this.place._id)
-      .subscribe(comments => this.comments = comments);
+        this.placesProvider.getCommentsPlace(this.place._id)
+          .takeUntil(this.ngUnsubscribe)
+          .subscribe(comments => this.comments = comments);
 
-      this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
-      .subscribe(placesNearBy => {
-        placesNearByData = placesNearBy;
-        this.placesNearBy = placesNearByData.splice(0,2);
+        this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
+          .takeUntil(this.ngUnsubscribe)
+          .subscribe(placesNearBy => {
+            placesNearByData = placesNearBy;
+            this.placesNearBy = placesNearByData.splice(0, 2);
+          });
+
+        this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
+          .takeUntil(this.ngUnsubscribe)
+          .subscribe(spotsNearBy => {
+            spotsNearByData = spotsNearBy;
+            this.spotsNearBy = spotsNearByData.splice(0, 2);
+          });
       });
-
-      this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
-      .subscribe(spotsNearBy => {
-        spotsNearByData = spotsNearBy;
-        this.spotsNearBy = spotsNearByData.splice(0,2);
-      });
-    });
   }
 
   setFavoriteStatus(event, placeId) {
@@ -138,15 +145,22 @@ export class PlacePage {
       if (this.userProvider.isFavoritePlace(placeId) === false) {
         this.favorite = true;
         this.userProvider.addPlaceFavorite(placeId)
+          .takeUntil(this.ngUnsubscribe)
           .subscribe();
       } else {
         this.favorite = false;
         this.userProvider.removePlaceFavorite(placeId)
+          .takeUntil(this.ngUnsubscribe)
           .subscribe();
       }
     } else {
       let loginModal = this.modalCtrl.create(LoginPage);
       loginModal.present();
     }
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

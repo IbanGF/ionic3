@@ -11,8 +11,10 @@ import {
   // Marker
 } from '@ionic-native/google-maps';
 
-import { Component, ViewChild, NgZone, Renderer2, OnInit } from '@angular/core';
+import { Component, ViewChild, NgZone, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { App, IonicPage, ModalController, NavController, Platform, Slides, ViewController, LoadingController } from 'ionic-angular';
+import { Observable, Subject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 
 // import { Item } from '../../models/item';
 // import { ModalGoogleAutocomplete } from '../modal-google-autocomplete';
@@ -23,12 +25,13 @@ import { PlacesProvider, SpotsProvider, SearchProvider, User, AuthProvider } fro
   selector: 'page-search',
   templateUrl: 'search.html'
 })
-export class SearchPage implements OnInit {
+export class SearchPage implements OnInit, OnDestroy {
 
   @ViewChild(Slides) placesSlider: Slides;
   @ViewChild(Slides) spotsSlider: Slides;
   @ViewChild('searchBar') searchBar;
 
+  private ngUnsubscribe: Subject<any> = new Subject();
   map: GoogleMap;
   currentPlacesMarkers = [];
   currentSpotsMarkers = [];
@@ -158,16 +161,18 @@ export class SearchPage implements OnInit {
           })
         }
 
-        this.map.on(GoogleMapsEvent.MAP_DRAG_END).subscribe(() => {
-          this.zone.run(() => {
-            this.showRelaunch = true;
+        this.map.on(GoogleMapsEvent.MAP_DRAG_END)
+          .takeUntil(this.ngUnsubscribe)
+          .subscribe(() => {
+            this.zone.run(() => {
+              this.showRelaunch = true;
+            });
+            console.log('dragged');
+            console.log('======> this.showRelaunch ', this.showRelaunch);
+            // let visibleRegion: VisibleRegion = this.map.getVisibleRegion();
+            // console.log(visibleRegion.northeast.toString());
+            // console.log(visibleRegion.southwest.toString());
           });
-          console.log('dragged');
-          console.log('======> this.showRelaunch ', this.showRelaunch);
-          // let visibleRegion: VisibleRegion = this.map.getVisibleRegion();
-          // console.log(visibleRegion.northeast.toString());
-          // console.log(visibleRegion.southwest.toString());
-        });
       });
     // Now you can use all methods safely.
 
@@ -187,6 +192,7 @@ export class SearchPage implements OnInit {
 
   getPlacesInBounds() {
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((data: any) => {
         this.currentPlaces = data.places;
         this.totalPlacesCount = data.count;
@@ -252,6 +258,7 @@ export class SearchPage implements OnInit {
     if ((this.currentPlaces.length - this.currentPlaceIndex - 1) < 2 && (this.totalPlacesCount - this.currentPlaces.length) > 0) {
       this.placesSearchQuery.page++;
       this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
+        .takeUntil(this.ngUnsubscribe)
         .subscribe((data: any) => {
           this.currentPlaces = this.currentPlaces.concat(data.places);
           for (let i in data.places) {
@@ -296,10 +303,11 @@ export class SearchPage implements OnInit {
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((data: any) => {
         this.currentPlaces = data.places;
         this.totalPlacesCount = data.count;
-        this.spotsProvider.getSpots().subscribe((data: any) => {
+        this.spotsProvider.getSpots().takeUntil(this.ngUnsubscribe).subscribe((data: any) => {
           this.currentSpots = data;
           this.platform.ready().then(() => {
             this.loadMap();
@@ -315,6 +323,11 @@ export class SearchPage implements OnInit {
     } else {
       return false;
     }
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
   // panEvent() {
   //   console.log('panned!')

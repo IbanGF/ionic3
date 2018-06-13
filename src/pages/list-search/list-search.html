@@ -68,7 +68,7 @@
   </ion-grid>
   <ion-list>
     <div *ngFor="let place of currentPlaces">
-      <card-place [place]="place" isVertical="true"></card-place>
+      <card-place [place]="place"  [favorite]="isFavoritePlace(place._id)" isVertical="true"></card-place>
     </div>
   </ion-list>
   <ion-fab bottom right>
