@@ -33,6 +33,10 @@ export class SpotPage {
     this.appCtrl.getRootNav().push('UserProfilePage', { id: id });
   }
 
+   scrolledToggle(){
+     this.scrolled = true;
+   }
+
   ionViewDidLoad() {
     this.spotsProvider.getOneSpot(this.navParams.get('spotSlug'))
       .subscribe(data => {

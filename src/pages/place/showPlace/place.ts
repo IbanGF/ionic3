@@ -87,6 +87,10 @@ export class PlacePage {
      if(spotsNearByData && spotsNearByData.length) spotsNearByData.splice(0,2).map(place => this.spotsNearBy.push(place));
    }
 
+   scrolledToggle(){
+     this.scrolled = true;
+   }
+
   ionViewDidLoad() {
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
     .subscribe(data => {
