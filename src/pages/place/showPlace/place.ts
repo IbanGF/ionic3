@@ -42,7 +42,7 @@ export class PlacePage {
   }
 
   slideChanged() {
-  this.imageChange$.next();
+  this.imageChange$.next(1000);
 }
 
   loadMap() {
@@ -109,8 +109,7 @@ export class PlacePage {
     .subscribe(data => {
       this.place = data;
       this.defaultImage ="'https://test.sportihome.com/uploads/places/'"+this.place._id+'/large/'+this.place.pictures[0];
-      console.log("===============>");
-      console.log(this.defaultImage);
+
       this.placesProvider.setPlace(data);
 
       this.placesProvider.getCommentsPlace(this.place._id)
