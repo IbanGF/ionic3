@@ -27,6 +27,7 @@ export class PlacePage {
   placesNearBy: any;
   spotsNearBy: any;
   comments: any;
+  scrolled: boolean = false;
 
   constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;

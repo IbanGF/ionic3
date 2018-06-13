@@ -13,6 +13,7 @@ export class ElasticHeaderDirective {
   translateAmt: number = 0;
 
   @Input("elasticHeader") content: Content;
+  @Input('scrolled') scrolled;
 
   constructor(public element: ElementRef, public renderer: Renderer2, public platform: Platform) {
   }
@@ -43,6 +44,8 @@ export class ElasticHeaderDirective {
       "transparent"
     );
     !this.headerHeight && (this.headerHeight = this.header.clientHeight);
+
+    if(scrollTop > 0 && this.scrolled == false) this.scrolled = true;
 
     if (this.lastScrollTop < 0) this.translateAmt = 0;
     else {
