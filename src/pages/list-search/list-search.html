@@ -17,11 +17,11 @@
     <ion-toolbar color="light">
       <ion-buttons style="padding: 0 8px" left>
 
-        <ion-select [(ngModel)]="selectedSports" multiple="true" #sportSelect hidden=true>
+        <!-- <ion-select [(ngModel)]="selectedSports" multiple="true" #sportSelect hidden=true>
           <ion-option *ngFor="let sport of sports" [value]="sport">{{sport}}</ion-option>
-        </ion-select>
+        </ion-select> -->
 
-        <button ion-button color="dark" round outline (click)="openSportSelect()">Sports</button>
+        <button ion-button color="dark" round outline (click)='sportsModal()'>Sports</button>
         <button ion-button color="dark" round outline (click)="calendarModal()">Dates</button>
         <button ion-button color="dark" round outline>Filtres</button>
       </ion-buttons>

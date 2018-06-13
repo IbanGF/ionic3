@@ -11,6 +11,8 @@
   justify-content: center;
 }
 
+.transparent { background: transparent !important; }
+.white_text { color: white; }
 // ===================================================================
 // ====================== FONT SIZE / example > f10 = font-size: 10px;
 @mixin fontSize { @for $i from 1 through 60 { .f#{$i} { font-size: #{$i}px !important; } } }

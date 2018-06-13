@@ -199,7 +199,6 @@ export class CalendarSearchPage {
     }
 
     nextMonth(){
-      console.log('sdlkflsdjfhljshdfbljksdfljhbgvsdfbjhkk')
       this.initCalendar(nextMonthDate, 3);
     }
 
@@ -207,10 +206,6 @@ export class CalendarSearchPage {
       this.currentDateCalendar = today.clone();
       this.currentDate = today.clone();
       this.initCalendar(this.currentDateCalendar, 1);
-      setTimeout(function() {
-        console.log(nextMonthDate.toDate());
-        this.initCalendar(nextMonthDate, 3);
-      }.bind(this), 2000);
     }
 
 }

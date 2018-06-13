@@ -5,7 +5,7 @@
 //   GoogleMapOptions,
 // } from '@ionic-native/google-maps';
 
-import { Component, ViewChild , ChangeDetectionStrategy, ElementRef} from '@angular/core';
+import { Component, ViewChild , ChangeDetectionStrategy, ElementRef, NgZone} from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform, Slides} from 'ionic-angular';
 import { Observable, Subject } from 'rxjs';
 
@@ -36,7 +36,7 @@ export class PlacePage {
   imageChange$ = new Subject();
   defaultImage: any;
 
-  constructor(public authProvider: AuthProvider, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public authProvider: AuthProvider,public zone:NgZone, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
 
   }
@@ -100,7 +100,9 @@ export class PlacePage {
    }
 
    scrolledToggle(){
-     this.scrolled = true;
+     this.zone.run(() => {
+       this.scrolled = true;
+     });
    }
 
   ionViewDidLoad() {
