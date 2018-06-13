@@ -23,5 +23,20 @@ page-list-search {
   .containerCard:first-child {
     margin-top: 0;
   }
+  
+  .cardPlaceSpot {
+    padding-top: 15px;
 
+    img.main {
+      height: 220px;
+    }
+
+    .item {
+      padding-left: 8px;
+    }
+
+    .right_avatar {
+      top: 196px;
+    }
+  }
 }
