@@ -2,7 +2,7 @@ import {
   ILatLng
 } from '@ionic-native/google-maps';
 
-import { Component, NgModule, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, Renderer2 } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, ModalController, Select } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider, SearchProvider } from '../../providers/providers';
@@ -21,11 +21,12 @@ import * as Constants from '../../constants/constants';
   selector: 'page-list-search',
   templateUrl: 'list-search.html',
 })
-export class ListSearchPage {
+export class ListSearchPage implements OnInit {
 
   @ViewChild('searchBar') searchBar;
   @ViewChild('sportSelect') sportSelect: Select;
 
+  selectedSecondaryTab = 'places';
   placesSearchQuery: any;
   currentPlaces: any;
   totalPlacesCount: number = 0;
@@ -56,7 +57,9 @@ export class ListSearchPage {
     // mapModal.onDidDismiss(() => {
     //   this.isModal = false;
     // });
-    this.appCtrl.getRootNav().push('SearchPage');
+    // this.appCtrl.getRootNav().push('SearchPage');
+
+    this.navCtrl.push('SearchPage');
   }
 
   presentAutocompleteModal() {
@@ -103,6 +106,7 @@ export class ListSearchPage {
   }
 
   ionViewDidLoad() {
+    console.log('ionViewDidLoad')
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
@@ -114,6 +118,17 @@ export class ListSearchPage {
         this.totalSpotsCount = data.count;
       });
     });
+  }
+
+  ionViewWillEnter() {
+
+    console.log('ionViewWillEnter')
+    if (this.bounds != this.searchProvider.getBounds()) {
+      this.bounds = this.searchProvider.getBounds();
+      this.formatted_address = this.searchProvider.getAddress();
+      this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+      this.relaunchSearch();
+    }
   }
 
 }

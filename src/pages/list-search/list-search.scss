@@ -1,4 +1,18 @@
 page-list-search {
+  .grid.custom_segment {
+    position: fixed;
+    bottom: 56px;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .custom_segment ion-segment {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 4px;
+  }
+
   .toolbar-ios {
     min-height: auto;
   }
@@ -23,5 +37,4 @@ page-list-search {
   .containerCard:first-child {
     margin-top: 0;
   }
-
 }

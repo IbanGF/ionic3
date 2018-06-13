@@ -9,25 +9,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content no-bounce>
 
   <div #map id="map">
     <div class="search_relaunch" *ngIf="showRelaunch">
-      <button ion-button round (click)="relaunchSearch()">Relancer la recherche</button>
+      <button ion-button color="dark" round (click)="relaunchSearch()" outline>Relancer la recherche</button>
+    </div>
+    <div class="filters_button">
+      <button ion-button color="dark" round outline>Filtres</button>
     </div>
   </div>
 
 
   <div id="search_content">
 
-    <ion-segment [(ngModel)]="selectedSecondaryTab" color="secondary">
+    <!-- <ion-segment [(ngModel)]="selectedSecondaryTab" color="secondary">
       <ion-segment-button value="places" disabled="places">
         <ion-icon name="camera"></ion-icon> Logements
       </ion-segment-button>
       <ion-segment-button value="spots" disabled="spots">
         <ion-icon name="bookmark"></ion-icon> Spots
       </ion-segment-button>
-    </ion-segment>
+    </ion-segment> -->
 
     <div id="cards" [ngSwitch]="selectedSecondaryTab">
 

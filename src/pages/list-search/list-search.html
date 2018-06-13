@@ -50,20 +50,22 @@
       </ion-row>
     </ion-grid>
   </div>
-  <!-- <ion-card *ngFor="let place of currentPlaces">
-    <img class="main" [src]="'https://test.sportihome.com/uploads/places/' + place._id + '/thumb/' + place.pictures[0]" />
-    <ion-card-content>
-      <p>{{place.private}} - {{place.home.travellers}} voyageurs</p>
-      <h2>{{place.name}}</h2>
-      <h3>{{place.address && place.address.locality}}</h3>
-      <h3>À partir de {{place.home.price.defaultPrice|currency:'EUR':'€':0}} par nuit</h3>
-      <p>
-        <ion-icon name="text"></ion-icon>
-        <rating [ngModel]="place.rating.overallRating" readOnly="true"></rating> ({{place.rating.numberOfRatings || 0}} avis)
-      </p>
-    </ion-card-content> -->
   <!-- <ion-list [virtualScroll]="currentPlaces" [approxItemHeight]="'200px'">
     <div *virtualItem="let place" class="containerCard"> -->
+  <ion-grid class="custom_segment">
+    <ion-row>
+      <ion-col text-center>
+        <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary">
+          <sportihome-segment-button value="places" disabled="places">
+            <ion-icon name="camera"></ion-icon> Logements
+          </sportihome-segment-button>
+          <sportihome-segment-button value="spots" disabled="spots">
+            <ion-icon name="bookmark"></ion-icon> Spots
+          </sportihome-segment-button>
+        </sportihome-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <div *ngFor="let place of currentPlaces">
       <card-place [place]="place" isVertical="true"></card-place>
