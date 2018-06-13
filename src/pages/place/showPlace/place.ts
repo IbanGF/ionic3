@@ -5,8 +5,9 @@
 //   GoogleMapOptions,
 // } from '@ionic-native/google-maps';
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild , ChangeDetectionStrategy, ElementRef} from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
+import { Observable, Subject } from 'rxjs';
 
 import { PlacesProvider, SpotsProvider, User, AuthProvider } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
@@ -28,10 +29,17 @@ export class PlacePage {
   spotsNearBy: any;
   comments: any;
   favorite: boolean;
-
+  imageChange$ = new Subject();
+  defaultImage: any;
   constructor(public authProvider: AuthProvider, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
+
+
   }
+
+  slideChanged() {
+  this.imageChange$.next();
+}
 
   loadMap() {
 
@@ -84,6 +92,9 @@ export class PlacePage {
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
       .subscribe(data => {
         this.place = data;
+        this.defaultImage ="'https://test.sportihome.com/uploads/places/'"+this.place._id+'/large/'+this.place.pictures[0];
+        console.log("===============>");
+        console.log(this.defaultImage);
         this.placesProvider.setPlace(data);
 
         this.placesProvider.getCommentsPlace(this.place._id)

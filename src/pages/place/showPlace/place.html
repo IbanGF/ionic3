@@ -1,5 +1,4 @@
 <ion-header [elasticHeader]="myContent">
-
   <ion-navbar>
   </ion-navbar>
   <div class="heart" tappable (click)="setFavoriteStatus($event ,place._id)" end>
@@ -12,9 +11,10 @@
   <!-- ================================= imageSlider ===================================  -->
   <!-- =================================================================================  -->
   <div class="imageSlider" *ngIf="place">
-    <ion-slides class="imageSlider" pager="true" paginationType="fraction" slides-per-view="1" autoplay="3000" loop="true" zoom="true">
+    <ion-slides class="imageSlider" pager="true" paginationType="fraction" slides-per-view="1" autoplay="3000" loop="true" zoom="true" (ionSlideDidChange)="slideChanged()">
       <ion-slide class="swiper-slide" *ngFor="let picture of place.pictures">
-        <img [src]="'https://test.sportihome.com/uploads/places/'+place._id+'/large/'+picture">
+        <!-- <img [src]="'https://test.sportihome.com/uploads/places/'+place._id+'/large/'+picture"> -->
+        <img *ngIf="place.pictures" [defaultImage]="defaultImage" [lazyLoad]="'https://test.sportihome.com/uploads/places/'+place._id+'/large/'+picture" [offset]="offset" [scrollObservable]="imageChange$">
       </ion-slide>
     </ion-slides>
 
