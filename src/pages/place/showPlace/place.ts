@@ -6,12 +6,13 @@
 // } from '@ionic-native/google-maps';
 
 import { Component, ViewChild , ChangeDetectionStrategy, ElementRef} from '@angular/core';
-import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
+import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform, Slides} from 'ionic-angular';
 import { Observable, Subject } from 'rxjs';
 
 import { PlacesProvider, SpotsProvider, User, AuthProvider } from '../../../providers/providers';
 import { EquipementsPage } from './modals/equipements/equipements';
 import { LoginPage } from '../../../pages/login/login'
+let placesNearByData, spotsNearByData;
 
 @IonicPage()
 @Component({
@@ -21,6 +22,8 @@ import { LoginPage } from '../../../pages/login/login'
 export class PlacePage {
 
   @ViewChild(Content) content: Content;
+  @ViewChild(Slides) placesNearBySlider: Slides;
+  @ViewChild(Slides) spotsNearBySlider: Slides;
   // map: GoogleMap;
   showNavbar: boolean = false;
   sliderHeight: number = 0;
@@ -28,12 +31,13 @@ export class PlacePage {
   placesNearBy: any;
   spotsNearBy: any;
   comments: any;
+  scrolled: boolean = false;
   favorite: boolean;
   imageChange$ = new Subject();
   defaultImage: any;
+
   constructor(public authProvider: AuthProvider, public modalCtrl: ModalController, public userProvider: User, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
-
 
   }
 
@@ -87,25 +91,43 @@ export class PlacePage {
     reglementsModalModal.present();
   }
 
+   slidePlacesChanged(){
+     if(placesNearByData && placesNearByData.length) placesNearByData.splice(0,2).map(place => this.placesNearBy.push(place));
+   }
+
+   slideSpotsChanged(){
+     if(spotsNearByData && spotsNearByData.length) spotsNearByData.splice(0,2).map(place => this.spotsNearBy.push(place));
+   }
+
+   scrolledToggle(){
+     this.scrolled = true;
+   }
+
   ionViewDidLoad() {
     this.favorite = this.navParams.get('favorite');
     this.placesProvider.getOnePlace(this.navParams.get('placeSlug'))
-      .subscribe(data => {
-        this.place = data;
-        this.defaultImage ="'https://test.sportihome.com/uploads/places/'"+this.place._id+'/large/'+this.place.pictures[0];
-        console.log("===============>");
-        console.log(this.defaultImage);
-        this.placesProvider.setPlace(data);
+    .subscribe(data => {
+      this.place = data;
+      this.defaultImage ="'https://test.sportihome.com/uploads/places/'"+this.place._id+'/large/'+this.place.pictures[0];
+      console.log("===============>");
+      console.log(this.defaultImage);
+      this.placesProvider.setPlace(data);
 
-        this.placesProvider.getCommentsPlace(this.place._id)
-          .subscribe(comments => this.comments = comments);
+      this.placesProvider.getCommentsPlace(this.place._id)
+      .subscribe(comments => this.comments = comments);
 
-        this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
-          .subscribe(placesNearBy => this.placesNearBy = placesNearBy);
-
-        this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
-          .subscribe(spotsNearBy => this.spotsNearBy = spotsNearBy);
+      this.placesProvider.getPlacesNearBy(this.place.loc.coordinates, 50000)
+      .subscribe(placesNearBy => {
+        placesNearByData = placesNearBy;
+        this.placesNearBy = placesNearByData.splice(0,2);
       });
+
+      this.spotsProvider.getSpotsNearBy(this.place.loc.coordinates, 50000)
+      .subscribe(spotsNearBy => {
+        spotsNearByData = spotsNearBy;
+        this.spotsNearBy = spotsNearByData.splice(0,2);
+      });
+    });
   }
 
   setFavoriteStatus(event, placeId) {

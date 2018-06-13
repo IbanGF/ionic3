@@ -1,0 +1,137 @@
+page-calendar-search {
+    .white_text{
+      color: white;
+    }
+
+    .blue_gradient_background  {
+      background: #67c9ff;
+      background: -moz-linear-gradient(-45deg, #67c9ff 0%, #3399e5 100%);
+      background: -webkit-linear-gradient(-45deg, #67c9ff 0%, #3399e5 100%);
+      background: linear-gradient(135deg, #67c9ff 0%, #3399e5 100%);
+    }
+    .slash {
+      border-left: 1px solid #fff;
+      transform: rotate(40deg);
+      width: 1px;
+      height: 50px;
+      margin: auto;
+    }
+
+    .calendar_section {
+      height: calc(100% - 116px);
+      overflow: auto;
+      box-shadow: inset 0 11px 8px -10px rgba(0,0,0,0.2), inset 0 -11px 8px -10px rgba(0,0,0,0.2);
+    }
+
+    .cellWrapper {
+      min-height: 42px;
+     overflow: hidden;
+    }
+
+    .cellDate {
+      position: absolute;
+      width: 100%;
+      height: 26px;
+      line-height: 24px;
+      font-size: 16px;
+      z-index: 3;
+    }
+
+    .previous_date {
+      opacity: 0.3;
+    }
+
+    .current_date {
+      border: 1px solid white;
+      width: 26px;
+      height: 26px;
+      margin: auto;
+      text-align: center;
+      border-radius: 50%;
+    }
+
+    .minDay_selected {
+      width: 26px;
+      height: 26px;
+      line-height: 25px;
+      text-align: center;
+      margin: auto;
+      background: white;
+      border-radius: 13px;
+    }
+
+    .first_selected {
+      width: 100%;
+      height: 26px;
+      line-height: 26px;
+      margin-left: calc(50% - 13px);
+      background: white;
+      border-radius: 13px 0 0 13px;
+    }
+
+    .last_selected {
+      width: 100%;
+      height: 26px;
+      line-height: 26px;
+      margin-right: calc(50% - 13px);
+      background: white;
+      border-radius: 0 13px 13px 0;
+    }
+
+    .middle_selected {
+      width: 100%;
+      height: 26px;
+      background: white;
+    }
+    .background_selected {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .text_selected {
+      color: #555F61;
+    }
+
+    .selected_date {
+      width: 26px;
+      height: 26px;
+      line-height: 25px;
+      text-align: center;
+      margin: auto;
+      background: white;
+      border-radius: 13px;
+      z-index: 2;
+    }
+
+    .toolbar-background {
+      background: transparent;
+      border: unset !important;
+      border-color: unset !important;
+    }
+
+    .toolbar-title {
+      color: white;
+    }
+
+    .button-inner {
+      color: white;
+    }
+
+    .btn_footer {
+      color: white;
+      background: transparent;
+      font-size: 18px;
+      padding: 6px 20px;
+      border: 1px solid white;
+      border-radius: 40px;
+      width: 60%;
+    }
+
+    .btn_footer:active {
+      opacity: 0.5;
+    }
+}

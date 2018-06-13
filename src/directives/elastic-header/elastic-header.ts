@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Renderer2, HostListener } from "@angular/core";
+import { Directive, ElementRef, Input, Renderer2, HostListener, EventEmitter, Output } from "@angular/core";
 import { Content, Platform } from "ionic-angular";
 
 @Directive({
@@ -13,6 +13,8 @@ export class ElasticHeaderDirective {
   translateAmt: number = 0;
 
   @Input("elasticHeader") content: Content;
+  @Input('scrolled') scrolled;
+  @Output('scrollEvent') scrollEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(public element: ElementRef, public renderer: Renderer2, public platform: Platform) {
   }
@@ -43,6 +45,11 @@ export class ElasticHeaderDirective {
       "transparent"
     );
     !this.headerHeight && (this.headerHeight = this.header.clientHeight);
+
+    if(scrollTop > 0 && this.scrolled == false) {
+      this.scrolled = true;
+      this.scrollEvent.emit(null);
+    }
 
     if (this.lastScrollTop < 0) this.translateAmt = 0;
     else {

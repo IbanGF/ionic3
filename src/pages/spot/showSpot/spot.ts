@@ -23,6 +23,7 @@ export class SpotPage {
   placesNearBy: any;
   showNavbar: boolean = false;
   sliderHeight: number = 0;
+  scrolled: boolean = false;
 
   constructor(public appCtrl: App, public navCtrl: NavController, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public navParams: NavParams, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
@@ -31,6 +32,10 @@ export class SpotPage {
   showUser(id) {
     this.appCtrl.getRootNav().push('UserProfilePage', { id: id });
   }
+
+   scrolledToggle(){
+     this.scrolled = true;
+   }
 
   ionViewDidLoad() {
     this.spotsProvider.getOneSpot(this.navParams.get('spotSlug'))
