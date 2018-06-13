@@ -23,7 +23,7 @@
 
         <button ion-button color="dark" round outline (click)='sportsModal()'>Sports</button>
         <button ion-button color="dark" round outline (click)="calendarModal()">Dates</button>
-        <button ion-button color="dark" round outline>Filtres</button>
+        <!-- <button ion-button color="dark" round outline>Filtres</button> -->
       </ion-buttons>
     </ion-toolbar>
   </shrinking-segment-header>
@@ -69,7 +69,8 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   <ion-fab bottom right>
-    <button ion-fab (click)="openMap()"><ion-icon name="map"></ion-icon></button>
+    <!-- <button ion-fab (click)="openMap()"><ion-icon name="map"></ion-icon></button> -->
+    <button ion-fab (click)="openMap()"><i class="sp-mobile-globe f40 mt9"></i></button>
   </ion-fab>
   <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)" threshold="120px" *ngIf="currentPlaces && currentPlaces.length < totalPlacesCount">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement..."></ion-infinite-scroll-content>

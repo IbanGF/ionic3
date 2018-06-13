@@ -52,40 +52,43 @@ export class MyprofilePage implements OnInit {
 
   ngOnInit() {
     this.user = this.userProvider.getUserData();
-    this.user.creation = moment(this.user.creation).format('MMM YYYY');
+    if(this.user) {
+      this.user.creation = moment(this.user.creation).format('MMM YYYY');
 
-    this.userProvider.getHostComments(this.user._id)
-      .subscribe(data => {
-        this.hostComments = data;
-      }, err => {
-        console.log(err);
-      });
+      this.userProvider.getHostComments(this.user._id)
+        .subscribe(data => {
+          this.hostComments = data;
+        }, err => {
+          console.log(err);
+        });
 
-    this.userProvider.getGuestComments(this.user._id)
-      .subscribe(data => {
-        this.guestComments = data;
-      }, err => {
-        console.log(err);
-      });
+      this.userProvider.getGuestComments(this.user._id)
+        .subscribe(data => {
+          this.guestComments = data;
+        }, err => {
+          console.log(err);
+        });
 
-    this.userProvider.getUserPlaces(this.user._id)
-      .subscribe( (data:any) => {
-        if(data && data.length) this.places = data.filter(place => place.isActive && place.finished);
-      }, err => {
-        console.log(err);
-      });
+      this.userProvider.getUserPlaces(this.user._id)
+        .subscribe( (data:any) => {
+          if(data && data.length) this.places = data.filter(place => place.isActive && place.finished);
+        }, err => {
+          console.log(err);
+        });
 
-    this.userProvider.getUserSpots(this.user._id)
-      .subscribe( (data:any) => {
-        this.spots = data;
-      }, err => {
-        console.log(err);
-      });
+      this.userProvider.getUserSpots(this.user._id)
+        .subscribe( (data:any) => {
+          this.spots = data;
+        }, err => {
+          console.log(err);
+        });
 
-      this.userProvider.getFavoritesForUser()
-      .subscribe(data =>{
-        this.favPlaces = data[0];
-      })
+        this.userProvider.getFavoritesForUser()
+        .subscribe(data =>{
+          this.favPlaces = data[0];
+        })
+    }
+
 
   }
 

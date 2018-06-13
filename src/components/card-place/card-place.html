@@ -1,4 +1,4 @@
-<div class="cardPlaceSpot" [ngClass]="{'vertical': isVertical}" *ngIf="place" tappable (click)="openPlace(place, favorite)">
+<div class="cardPlaceSpot" *ngIf="place" tappable (click)="openPlace(place, favorite)">
   <div class="heart">
     <i class='sp-mobile-heart' *ngIf="favorite === false"></i>
     <i class="sp-mobile-heart-full" [ngClass]="{'heart-opacity': favorite === false}"></i>
