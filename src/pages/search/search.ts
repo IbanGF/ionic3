@@ -37,6 +37,7 @@ export class SearchPage implements OnInit, OnDestroy {
   currentSpotsMarkers = [];
   selectedSecondaryTab = 'places';
   placesSearchQuery: any;
+  spotsSearchQuery: any;
   currentPlaces: any;
   totalPlacesCount: number = 0;
   currentPlaceIndex: number = 0;
@@ -302,12 +303,13 @@ export class SearchPage implements OnInit, OnDestroy {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+    this.spotsSearchQuery = this.searchProvider.getSpotsQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((data: any) => {
         this.currentPlaces = data.places;
         this.totalPlacesCount = data.count;
-        this.spotsProvider.getSpots().takeUntil(this.ngUnsubscribe).subscribe((data: any) => {
+        this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery).takeUntil(this.ngUnsubscribe).subscribe((data: any) => {
           this.currentSpots = data;
           this.platform.ready().then(() => {
             this.loadMap();
