@@ -18,9 +18,10 @@ export class CardPlaceComponent {
   constructor(public appCtrl: App, public userProvider: User, public authProvider: AuthProvider, public modalCtrl: ModalController) { }
 
 
-  openPlace(place) {
+  openPlace(place, favorite) {
     this.appCtrl.getRootNav().push('PlacePage', {
       placeSlug: place.slug,
+      favorite: favorite,
     })
   }
 }

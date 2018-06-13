@@ -38,14 +38,24 @@ card-place {
     }
   }
 
-  .heart {
-    margin: 5px;
+  .heart{
+    margin: 10px;
     position: absolute;
-    top: 15px;
-    right: 10px;
+    top: 12px;
+    right: 0px;
     z-index: 2;
+    color: white;
+    font-size:25px;
   }
 
+  .heart-opacity{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: black;
+    opacity: 0.7;
+    z-index: -10;
+  }
   .right_avatar {
     position: absolute;
     top: 103px;
@@ -105,14 +115,15 @@ card-place {
   }
 }
 
-.heart{
-  margin: 5px;
-  position: absolute;
-  top: 0;
-  right: 10px;
-  z-index: 2;
-  color: white;
-}
+// .heart{
+//   margin: 10px;
+//   position: absolute;
+//   top: 0;
+//   right: 0px;
+//   z-index: 2;
+//   color: white;
+//   font-size:25px;
+// }
 
 .cardPlaceSpot{
   position: relative;
