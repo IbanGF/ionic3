@@ -3,13 +3,6 @@ import { App, IonicPage, NavController, NavParams, Platform, Content } from 'ion
 
 import { SpotsProvider, PlacesProvider } from '../../../providers/providers';
 
-/**
- * Generated class for the SpotPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-spot',

@@ -48,6 +48,11 @@ export class ListSearchPage {
     calendarModal.present();
   }
 
+  sportsModal() {
+    const sportsModal = this.modalCtrl.create('HobbiesSelectMultiplePage');
+    sportsModal.present();
+  }
+
   openMap() {
     // const mapModal = this.modalCtrl.create('SearchPage');
     // mapModal.present();

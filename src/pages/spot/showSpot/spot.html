@@ -98,14 +98,14 @@
         <!-- =================================================================================  -->
         <!-- ============================== Places, Spots Near ===============================  -->
         <!-- =================================================================================  -->
-        <h2 *ngIf="placesNearBy && placesNearBy.length">Logement à proximités</h2>
+        <h2 *ngIf="placesNearBy && placesNearBy.length">Logement à proximité</h2>
         <ion-slides *ngIf="placesNearBy && placesNearBy.length" zoom="false" class="mt20">
           <ion-slide *ngFor="let place of placesNearBy">
             <card-place [place]="place"></card-place>
           </ion-slide>
         </ion-slides>
 
-        <h2 *ngIf="spotsNearBy && spotsNearBy.length">Spots à proximités</h2>
+        <h2 *ngIf="spotsNearBy && spotsNearBy.length">Spots à proximité</h2>
         <ion-slides *ngIf="spotsNearBy && spotsNearBy.length" zoom="false" class="mt20">
           <ion-slide *ngFor="let spot of spotsNearBy">
             <card-spot [spot]="spot"></card-spot>
