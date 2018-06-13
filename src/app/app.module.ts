@@ -52,6 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true,
       scrollAssist: false,
       autoFocusAssist: false
     }),
