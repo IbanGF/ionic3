@@ -38,3 +38,45 @@ page-spot {
   }
 
 }
+.heart-opacity{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  color: black;
+  opacity: 0.7;
+  z-index: -10;
+}
+
+.lazyImg {
+  opacity: 0;
+}
+
+.lazyImg.ng-lazyloaded {
+  animation-name: fade-in;
+  animation-fill-mode: both;
+  animation-duration: 0.5s;
+}
+$animationDelay: 1;
+@for $i from 1 through 15 {
+  .projects div:nth-of-type(#{$i}) {
+    animation-delay: #{0.3+($i)/30}s;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.heart {
+  margin: 5px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 400;
+  color: white;
+}

@@ -3,7 +3,10 @@
 
   <ion-navbar>
   </ion-navbar>
-
+  <div class="heart" tappable (click)="setFavoriteStatus($event ,place._id)" end>
+    <i class='sp-mobile-heart f30' *ngIf="favorite === false"></i>
+    <i class="sp-mobile-heart-full f30" [ngClass]="{'heart-opacity': favorite === false}"></i>
+  </div>
 </ion-header>
 
 <ion-content fullscreen #myContent>
@@ -13,7 +16,7 @@
   <div class="imageSlider" *ngIf="spot">
     <ion-slides class="imageSlider" pager="true" paginationType="fraction" slides-per-view="1" autoplay="3000" loop="true" zoom="true">
       <ion-slide class="swiper-slide" *ngFor="let picture of spot.pictures">
-        <img [src]="'https://test.sportihome.com/uploads/spots/'+spot._id+'/large/'+picture">
+        <img class="lazyImg" *ngIf="spot.pictures" [defaultImage]="defaultImage" [lazyLoad]="'https://test.sportihome.com/uploads/spots/'+spot._id+'/large/'+picture" [offset]="offset" [scrollObservable]="imageChange$">
       </ion-slide>
     </ion-slides>
     <!-- <a [navPush]="userProfile" [navParams]="{id: spot.owner._id}"> -->
