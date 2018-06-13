@@ -5,7 +5,7 @@
 //   GoogleMapOptions,
 // } from '@ionic-native/google-maps';
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { ModalController, App, IonicPage, NavController, NavParams, Content, Platform, Slides } from 'ionic-angular';
 
 import { PlacesProvider, SpotsProvider } from '../../../providers/providers';
@@ -29,7 +29,7 @@ export class PlacePage {
   comments: any;
   scrolled: boolean = false;
 
-  constructor(public modalCtrl: ModalController, public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
+  constructor(public modalCtrl: ModalController, public appCtrl: App, private zone: NgZone, public navCtrl: NavController, public navParams: NavParams, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -88,7 +88,9 @@ export class PlacePage {
    }
 
    scrolledToggle(){
-     this.scrolled = true;
+     this.zone.run(() => {
+       this.scrolled = true;
+     });
    }
 
   ionViewDidLoad() {

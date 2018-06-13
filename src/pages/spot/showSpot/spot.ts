@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, Platform, Content } from 'ionic-angular';
 
 import { SpotsProvider, PlacesProvider } from '../../../providers/providers';
@@ -25,7 +25,7 @@ export class SpotPage {
   sliderHeight: number = 0;
   scrolled: boolean = false;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public navParams: NavParams, public platform: Platform) {
+  constructor(public appCtrl: App, public navCtrl: NavController, private zone: NgZone, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider, public navParams: NavParams, public platform: Platform) {
     this.sliderHeight = this.platform.height() * 0.4 + 40;
   }
 
@@ -34,7 +34,9 @@ export class SpotPage {
   }
 
    scrolledToggle(){
-     this.scrolled = true;
+     this.zone.run(() => {
+       this.scrolled = true;
+     });
    }
 
   ionViewDidLoad() {
