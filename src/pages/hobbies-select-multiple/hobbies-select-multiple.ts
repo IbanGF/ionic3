@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import * as Constants from '../../constants/constants';
+import { SearchProvider } from '../../providers/providers';
 
 
 @IonicPage()
@@ -9,10 +10,11 @@ import * as Constants from '../../constants/constants';
   templateUrl: 'hobbies-select-multiple.html',
 })
 export class HobbiesSelectMultiplePage {
-  sports: Array<any>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {}
+  sports: Array<string>;
+  selectedHobbies: Array<string> = [];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider) { }
 
-  initializeItems(){
+  initializeItems() {
     this.sports = Constants.SPORTS;
   };
 
@@ -26,11 +28,23 @@ export class HobbiesSelectMultiplePage {
     }
   }
 
+  selectSport(sport: string) {
+    let index = this.selectedHobbies.indexOf(sport);
+    if (index == -1) {
+      this.selectedHobbies.push(sport);
+    } else {
+      this.selectedHobbies.splice(index, 1);
+    }
+    console.log(this.selectedHobbies);
+  }
+
   saveSports() {
+    this.searchProvider.setSelectedHobbies(this.selectedHobbies);
     this.viewCtrl.dismiss();
   }
 
   ionViewDidLoad() {
+    this.selectedHobbies = this.searchProvider.getSelectedHobbies();
     this.initializeItems();
   }
 }

@@ -20,9 +20,9 @@
 <ion-content  class="gradient-bg">
   <div class="sports_section pb0 pr15 pl15 ">
     <ion-list>
-        <ion-item *ngFor="let sport of sports" class="transparent">
+        <ion-item tappable *ngFor="let sport of sports" class="transparent">
           <ion-label class="white_text">{{sport}}</ion-label>
-          <ion-checkbox color="secondary"></ion-checkbox>
+          <ion-checkbox color="secondary" (click)="selectSport(sport)" [checked]="selectedHobbies.indexOf(sport) > -1"></ion-checkbox>
         </ion-item>
     </ion-list>
   </div>

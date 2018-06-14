@@ -1,3 +1,5 @@
+/// @prop - Box shadow of sportihome segment
+$sportihome-segment-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3) !default;
 /// @prop - Background of the segment button
 $sportihome-segment-button-background-color: white !default;
 /// @prop - Background of the activated segment button
@@ -55,6 +57,7 @@ sportihome-segment {
   width: 100%;
   background-color: $sportihome-segment-button-background-color;
   border-radius: $sportihome-segment-button-border-radius;
+  box-shadow: $sportihome-segment-box-shadow;
 }
 
 .sportihome-segment-button {

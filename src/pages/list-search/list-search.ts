@@ -53,14 +53,17 @@ export class ListSearchPage implements OnInit {
     const filtersModal = this.modalCtrl.create('FiltersPage');
     filtersModal.present();
     filtersModal.onDidDismiss((data) => {
+      console.log(this.placesSearchQuery);
       this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
+      this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+      this.getPlacesInBounds();
     });
   }
 
   presentSportsModal() {
     const sportsModal = this.modalCtrl.create('HobbiesSelectMultiplePage');
     sportsModal.onDidDismiss(data => {
-      console.log(data);
+      console.log(this.placesSearchQuery);
       this.placesSearchQuery = this.searchProvider.getPlacesQuery();
       this.getPlacesInBounds();
     });
@@ -98,13 +101,12 @@ export class ListSearchPage implements OnInit {
 
   relaunchSearch() {
     this.searchProvider.setBounds(this.bounds);
-    this.placesSearchQuery.page = 1;
-    this.spotsSearchQuery.page = 1;
     this.getPlacesInBounds();
     this.getSpotsInBounds();
   }
 
   getPlacesInBounds() {
+    this.placesSearchQuery.page = 1;
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;
@@ -112,6 +114,7 @@ export class ListSearchPage implements OnInit {
   }
 
   getSpotsInBounds() {
+    this.spotsSearchQuery.page = 1;
     this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery).subscribe((data: any) => {
       this.currentSpots = this.currentSpots.concat(data.spots);
       this.totalSpotsCount = data.count;

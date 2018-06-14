@@ -2,10 +2,13 @@
 export class SearchProvider {
 
   selectedSecondaryTab: string;
-  placesQuery: object;
-  spotsQuery: object;
-  bounds: object;
   formatted_address: string;
+  bounds: object;
+  selectedHobbies: Array<string>;
+  defaultPlacesQuery: object;
+  placesQuery: any;
+  defaultSpotsQuery: object;
+  spotsQuery: any;
 
   constructor() {
     this.selectedSecondaryTab = 'places';
@@ -14,7 +17,8 @@ export class SearchProvider {
       southwest: [0.19748888593744596, 41.14594933613824],
       northeast: [6.536600214062446, 45.943861212538316]
     };
-    this.placesQuery = {
+    this.selectedHobbies = [];
+    this.defaultPlacesQuery = {
       date: {},
       propertyTypes: [],
       privacyTypes: [],
@@ -30,12 +34,14 @@ export class SearchProvider {
       },
       page: 1
     };
-    this.spotsQuery = {
+    this.placesQuery = this.defaultPlacesQuery;
+    this.defaultSpotsQuery = {
       sortBy: {
         'creation': "desc"
       },
       page: 1
     };
+    this.spotsQuery = this.defaultSpotsQuery;
   }
 
   getSelectedSecondaryTab() {
@@ -62,6 +68,16 @@ export class SearchProvider {
     this.bounds = bounds;
   }
 
+  getSelectedHobbies() {
+    return this.selectedHobbies;
+  }
+
+  setSelectedHobbies(selectedHobbies) {
+    this.selectedHobbies = selectedHobbies;
+    this.placesQuery.selectedHobbies = selectedHobbies;
+    this.spotsQuery.selectedHobbies = selectedHobbies;
+  }
+
   getPlacesQuery() {
     return this.placesQuery;
   }
@@ -70,12 +86,20 @@ export class SearchProvider {
     this.placesQuery = placesQuery;
   }
 
+  resetPlacesQuery() {
+    this.placesQuery = this.defaultPlacesQuery;
+  }
+
   getSpotsQuery() {
     return this.spotsQuery;
   }
 
   setSpotsQuery(spotsQuery) {
     this.spotsQuery = spotsQuery;
+  }
+
+  resetSpotsQuery() {
+    this.spotsQuery = this.defaultSpotsQuery;
   }
 
 }
