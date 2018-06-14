@@ -28,7 +28,7 @@
     </a>
   </div>
 
-  <div class="item-detail" padding *ngIf="place">
+  <div class="item-detail" padding *ngIf="place" class="pb20">
     <p text-center class="no_margin bold" *ngIf="place.owner && place.owner.firstName">{{place.owner.firstName}}</p>
     <!-- =================================================================================  -->
     <!-- ================================= Place Infos ===================================  -->
@@ -178,9 +178,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>Footer</ion-title>
-    <button class="btn_footer" (click)="saveHouseTypes()">
-      Sauvegarder
-    </button>
+    <span style="line-height: 52px; color:#555F61;" class="pl10 bold f16">{{place?.home?.price?.defaultPrice}}€ / nuit</span>
+    <button ion-button round color="secondary" style="float: right">Demande de réservation</button>
   </ion-toolbar>
 </ion-footer>
