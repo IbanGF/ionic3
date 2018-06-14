@@ -45,6 +45,7 @@ export class SearchPage implements OnInit, OnDestroy {
   formatted_address: string;
   // prevPlaceIndex: number = 0;
   currentSpots: any;
+  totalSpotsCount: any;
   currentSpotIndex: number = 0;
   showRelaunch: boolean = false;
   loading: any;
@@ -67,7 +68,6 @@ export class SearchPage implements OnInit, OnDestroy {
       content: 'Please wait...'
     });
     this.loading.present();
-
   }
 
   presentAutocompleteModal() {
@@ -145,13 +145,19 @@ export class SearchPage implements OnInit, OnDestroy {
         for (let i in this.currentSpots) {
           this.map.addMarker({
             title: this.currentSpots[i].name,
-            icon: {
+            icon: i != '0' ? {
               url: 'https://test.sportihome.com/assets/search/nanoSpotIcon.png',
               size: {
                 width: 12,
                 height: 18
               }
-            },
+            } : {
+                url: 'https://sportihome.com/assets/search/' + this.currentSpots[i].hobby + '.png',
+                size: {
+                  width: 35,
+                  height: 42
+                }
+              },
             animation: 'DROP',
             position: {
               lat: this.currentSpots[i].loc.coordinates[1],
@@ -189,6 +195,7 @@ export class SearchPage implements OnInit, OnDestroy {
       this.currentPlacesMarkers[i].remove();
     }
     this.getPlacesInBounds();
+    this.getSpotsInBounds();
   }
 
   getPlacesInBounds() {
@@ -229,6 +236,44 @@ export class SearchPage implements OnInit, OnDestroy {
       });
   }
 
+  getSpotsInBounds() {
+    this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((data: any) => {
+        this.currentSpots = data.spots;
+        this.totalSpotsCount = data.count;
+        this.spotsSlider.update();
+        this.spotsSlider.slideTo(0);
+        // this.prevPlaceIndex = 0;
+        this.currentSpotsMarkers = [];
+        for (let i in this.currentPlaces) {
+          this.map.addMarker({
+            title: this.currentSpots[i].name,
+            icon: i != '0' ? {
+              url: 'https://test.sportihome.com/assets/search/nanoSpotIcon.png',
+              size: {
+                width: 12,
+                height: 18
+              }
+            } : {
+                url: 'https://sportihome.com/assets/search/' + this.currentSpots[i].hobby + '.png',
+                size: {
+                  width: 35,
+                  height: 42
+                }
+              },
+            animation: 'DROP',
+            position: {
+              lat: this.currentSpots[i].loc.coordinates[1],
+              lng: this.currentSpots[i].loc.coordinates[0]
+            }
+          }).then(marker => {
+            this.currentSpotsMarkers.push(marker);
+          })
+        }
+      });
+  }
+
   placeSlideChanged() {
     this.showRelaunch = false;
     // this.currentPlacesMarkers[this.currentPlaceIndex].setZIndex(10000 + this.currentPlaceIndex);
@@ -247,7 +292,7 @@ export class SearchPage implements OnInit, OnDestroy {
         width: 35,
         height: 42
       }
-    })
+    });
     // this.prevPlaceIndex = this.currentPlaceIndex;
     // this.currentPlacesMarkers[this.currentPlaceIndex].setAnimation('BOUNCE');
     this.map.animateCamera({
@@ -287,15 +332,57 @@ export class SearchPage implements OnInit, OnDestroy {
   }
 
   spotSlideChanged() {
-    // if (this.currentSpotIndex) this.currentSpotsMarkers[this.currentSpotIndex].setZIndex();
+    this.showRelaunch = false;
+    this.currentSpotsMarkers[this.spotsSlider.getPreviousIndex()].setIcon({
+      url: 'https://test.sportihome.com/assets/search/nanoSpotIcon.png',
+      size: {
+        width: 12,
+        height: 18
+      }
+    });
     this.currentSpotIndex = this.spotsSlider.getActiveIndex();
+    this.currentSpotsMarkers[this.currentSpotIndex].setIcon({
+      url: 'https://sportihome.com/assets/search/' + this.currentSpots[this.currentSpotIndex].hobby + '.png',
+      size: {
+        width: 35,
+        height: 42
+      }
+    });
+    // if (this.currentSpotIndex) this.currentSpotsMarkers[this.currentSpotIndex].setZIndex();
     this.map.animateCamera({
       target: this.currentSpotsMarkers[this.currentSpotIndex].get("position"),
       zoom: 15,
       duration: 500,
       padding: 0 // default = 20px
     }).then(() => console.log('spot camera changed !'));
-    this.spotsSlider.update();
+    if ((this.currentSpots.length - this.currentSpotIndex - 1) < 2 && (this.totalSpotsCount - this.currentSpots.length) > 0) {
+      this.spotsSearchQuery.page++;
+      this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery)
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe((data: any) => {
+          this.currentSpots = this.currentSpots.concat(data.spots);
+          for (let i in data.spots) {
+            this.map.addMarker({
+              title: data.spots[i].name,
+              icon: {
+                url: 'https://test.sportihome.com/assets/search/nanoSpotIcon.png',
+                size: {
+                  width: 12,
+                  height: 18
+                }
+              },
+              animation: 'DROP',
+              position: {
+                lat: data.spots[i].loc.coordinates[1],
+                lng: data.spots[i].loc.coordinates[0]
+              }
+            }).then(marker => {
+              this.currentSpotsMarkers.push(marker);
+            });
+          }
+          this.spotsSlider.update();
+        });
+    }
   }
 
   ionViewDidLoad() {
@@ -303,14 +390,15 @@ export class SearchPage implements OnInit, OnDestroy {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
-    this.spotsSearchQuery = this.searchProvider.getSpotsQuery();
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((data: any) => {
         this.currentPlaces = data.places;
         this.totalPlacesCount = data.count;
+        this.spotsSearchQuery = this.searchProvider.getSpotsQuery();
         this.spotsProvider.getSpotsInBounds(this.bounds.southwest, this.bounds.northeast, this.spotsSearchQuery).takeUntil(this.ngUnsubscribe).subscribe((data: any) => {
-          this.currentSpots = data;
+          this.currentSpots = data.spots;
+          this.totalSpotsCount = data.count;
           this.platform.ready().then(() => {
             this.loadMap();
           });
