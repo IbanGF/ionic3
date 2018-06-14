@@ -34,9 +34,9 @@
    <p class="pl16 white_text f17">Engagement</p>
    <ion-grid>
      <ion-row>
-       <ion-col col text-center><img src="/assets/imgs/engagements/stay.svg" width="70%" alt="engagements"></ion-col>
-       <ion-col col text-center><img src="/assets/imgs/engagements/stayshare.svg" width="70%" alt="engagements"></ion-col>
-       <ion-col col text-center><img src="/assets/imgs/engagements/stayshareplay.svg" width="70%" alt="engagements"></ion-col>
+       <ion-col col text-center (click)="toggleEngagement('stay')"><img src="/assets/imgs/engagements/stay.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stay'}"></ion-col>
+       <ion-col col text-center (click)="toggleEngagement('stayshare')"><img src="/assets/imgs/engagements/stayshare.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stayshare'}"></ion-col>
+       <ion-col col text-center (click)="toggleEngagement('stayshareplay')"><img src="/assets/imgs/engagements/stayshareplay.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stayshareplay'}"></ion-col>
      </ion-row>
    </ion-grid>
   </div>
