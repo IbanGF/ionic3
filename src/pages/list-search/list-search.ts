@@ -40,24 +40,32 @@ export class ListSearchPage implements OnInit {
     this.sports = Constants.SPORTS;
   }
 
-  openSportSelect() {
-    this.sportSelect.open();
-  }
-
   calendarModal() {
     const calendarModal = this.modalCtrl.create('CalendarSearchPage');
-    calendarModal.present();
+    calendarModal.onDidDismiss(data => {
+     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+     this.getPlacesInBounds();
+   });
+   calendarModal.present();
   }
 
   filtersModal() {
-    console.log("hey")
     const filtersModal = this.modalCtrl.create('FiltersPage');
-    filtersModal.present();
+    filtersModal.onDidDismiss(data => {
+     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+     this.getPlacesInBounds();
+   });
+   filtersModal.present();
   }
 
   sportsModal() {
     const sportsModal = this.modalCtrl.create('HobbiesSelectMultiplePage');
-    sportsModal.present();
+    sportsModal.onDidDismiss(data => {
+     console.log(data);
+     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+     this.getPlacesInBounds();
+   });
+   sportsModal.present();
   }
 
   openMap() {
@@ -145,6 +153,7 @@ export class ListSearchPage implements OnInit {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+    console.log(this.placesSearchQuery);
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;

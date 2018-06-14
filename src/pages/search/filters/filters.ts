@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { SearchProvider } from '../../../providers/search/search';
 
 @IonicPage()
 @Component({
@@ -9,9 +10,9 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 export class FiltersPage {
 
   price: any = { lower: 0, upper: 2000 };
-  engagement: string = "";
+  engagements: Array<string> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FiltersPage');
@@ -19,12 +20,14 @@ export class FiltersPage {
 
   saveFilters(){
     this.viewCtrl.dismiss();
+    if(this.engagements.length) this.searchProvider.placesQuery.engagements = this.engagements;
+    if(this.price.lower || this.price.upper != 2000) this.searchProvider.placesQuery.price = { min: this.price.lower, max: this.price.upper };
   }
 
   toggleEngagement(engagement){
-    if(this.engagement == engagement) this.engagement = "";
-    else this.engagement = engagement;
-    console.log('llll')
+    let index = this.engagements.indexOf(engagement);
+    if(index == -1) this.engagements.push(engagement);
+    else this.engagements.splice(index, 1);
   }
 
 }

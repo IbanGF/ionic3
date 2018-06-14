@@ -1,7 +1,22 @@
 
 export class SearchProvider {
 
-  placesQuery: object;
+  placesQuery: {
+    date: {},
+    propertyTypes: [],
+    privacyTypes: [],
+    engagements: [],
+    equipments: {},
+    services: [],
+    rules: [],
+    amenities: [],
+    beds: [],
+    price: {
+      min: 0,
+      max: 2000
+    },
+    page: 1
+  };
   spotsQuery: object;
   bounds: object;
   formatted_address: string;
