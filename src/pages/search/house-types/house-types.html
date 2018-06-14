@@ -3,9 +3,9 @@
 
   <ion-navbar class="transparent">
     <ion-buttons start>
-      <button ion-button icon-only (click)="saveSports()"><ion-icon name="arrow-down"></ion-icon></button>
+      <button ion-button icon-only (click)="saveHouseTypes()"><ion-icon name="arrow-down"></ion-icon></button>
     </ion-buttons>
-    <ion-title class="white_text">Filtrer par sports</ion-title>
+    <ion-title class="white_text">Types de logement</ion-title>
   </ion-navbar>
   <ion-searchbar (ionInput)="getItems($event)" placeholder="Rechercher"></ion-searchbar>
 
@@ -13,10 +13,10 @@
 
 
 <ion-content  class="gradient-bg">
-  <div class="sports_section pb0 pr15 pl15 ">
+  <div class="houseTypes_section pb0 pr15 pl15 ">
     <ion-list>
-        <ion-item *ngFor="let sport of sports" class="transparent">
-          <ion-label class="white_text">{{sport}}</ion-label>
+        <ion-item *ngFor="let type of houseTypes" class="transparent">
+          <ion-label class="white_text">{{type}}</ion-label>
           <ion-checkbox color="secondary"></ion-checkbox>
         </ion-item>
     </ion-list>
@@ -25,7 +25,7 @@
 
 <ion-footer>
   <ion-toolbar text-center>
-    <button class="btn_footer" (click)="saveSports()">
+    <button class="btn_footer" (click)="saveHouseTypes()">
       Sauvegarder
     </button>
   </ion-toolbar>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { SearchProvider } from '../../../providers/providers';
 
 @IonicPage()
@@ -14,7 +14,12 @@ export class FiltersPage {
   // price: any = { min: 0, max: 2000 };
   // engagements: Array<string> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider, public modalCtrl: ModalController) { }
+
+  openModalHouseTypes(){
+    const houseTypesModal = this.modalCtrl.create('HouseTypesPage');
+    houseTypesModal.present();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FiltersPage');
