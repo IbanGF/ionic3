@@ -1,12 +1,14 @@
 
 export class SearchProvider {
 
+  selectedSecondaryTab: string;
   placesQuery: object;
   spotsQuery: object;
   bounds: object;
   formatted_address: string;
 
   constructor() {
+    this.selectedSecondaryTab = 'places';
     this.formatted_address = '';
     this.bounds = {
       southwest: [0.19748888593744596, 41.14594933613824],
@@ -34,6 +36,14 @@ export class SearchProvider {
       },
       page: 1
     };
+  }
+
+  getSelectedSecondaryTab() {
+    return this.selectedSecondaryTab;
+  }
+
+  setSelectedSecondaryTab(selectedSecondaryTab) {
+    this.selectedSecondaryTab = selectedSecondaryTab;
   }
 
   getAddress() {

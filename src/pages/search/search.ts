@@ -35,7 +35,7 @@ export class SearchPage implements OnInit, OnDestroy {
   map: GoogleMap;
   currentPlacesMarkers = [];
   currentSpotsMarkers = [];
-  selectedSecondaryTab = 'places';
+  selectedSecondaryTab: string;
   placesSearchQuery: any;
   spotsSearchQuery: any;
   currentPlaces: any;
@@ -59,8 +59,12 @@ export class SearchPage implements OnInit, OnDestroy {
     // };
   }
 
-  closeMapModal() {
-    this.view.dismiss();
+  presentFiltersModal() {
+    const filtersModal = this.modalCtrl.create('FiltersPage');
+    filtersModal.present();
+    filtersModal.onDidDismiss((data) => {
+      this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
+    });
   }
 
   ngOnInit() {
@@ -114,7 +118,6 @@ export class SearchPage implements OnInit, OnDestroy {
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
-        console.log('Map is ready!');
 
         for (let i in this.currentPlaces) {
           this.map.addMarker({
@@ -174,8 +177,6 @@ export class SearchPage implements OnInit, OnDestroy {
             this.zone.run(() => {
               this.showRelaunch = true;
             });
-            console.log('dragged');
-            console.log('======> this.showRelaunch ', this.showRelaunch);
             // let visibleRegion: VisibleRegion = this.map.getVisibleRegion();
             // console.log(visibleRegion.northeast.toString());
             // console.log(visibleRegion.southwest.toString());
@@ -386,7 +387,8 @@ export class SearchPage implements OnInit, OnDestroy {
   }
 
   ionViewDidLoad() {
-    console.log('map ionViewDidLoad')
+    console.log('map ionViewDidLoad');
+    this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();

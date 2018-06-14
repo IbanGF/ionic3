@@ -40,22 +40,20 @@ export class ListSearchPage implements OnInit {
     this.sports = Constants.SPORTS;
   }
 
-  openSportSelect() {
-    this.sportSelect.open();
-  }
-
-  calendarModal() {
+  presentCalendarModal() {
     const calendarModal = this.modalCtrl.create('CalendarSearchPage');
     calendarModal.present();
   }
 
-  filtersModal() {
-    console.log("hey")
+  presentFiltersModal() {
     const filtersModal = this.modalCtrl.create('FiltersPage');
     filtersModal.present();
+    filtersModal.onDidDismiss((data) => {
+      this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
+    });
   }
 
-  sportsModal() {
+  presentSportsModal() {
     const sportsModal = this.modalCtrl.create('HobbiesSelectMultiplePage');
     sportsModal.present();
   }
@@ -141,6 +139,10 @@ export class ListSearchPage implements OnInit {
     }
   }
 
+  segmentChanged() {
+    this.searchProvider.setSelectedSecondaryTab(this.selectedSecondaryTab);
+  }
+
   ionViewDidLoad() {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
@@ -157,7 +159,8 @@ export class ListSearchPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter')
+    console.log('ionViewWillEnter');
+    this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
     if (this.bounds != this.searchProvider.getBounds()) {
       this.bounds = this.searchProvider.getBounds();
       this.formatted_address = this.searchProvider.getAddress();

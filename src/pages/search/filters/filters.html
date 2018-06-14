@@ -21,6 +21,20 @@
 
 <ion-content class="gradient-bg">
   <div class="filters_section">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary" (ionChange)="segmentChanged($event)">
+            <sportihome-segment-button value="places" disabled="places">
+              Logements
+            </sportihome-segment-button>
+            <sportihome-segment-button value="spots" disabled="spots">
+              Spots
+            </sportihome-segment-button>
+          </sportihome-segment>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-list class="mb20">
       <button ion-item color="light" class="transparent white_text">
         Types de logements <span style="float: right">Tous</span>
@@ -28,17 +42,17 @@
     </ion-list>
     <p class="pl16 white_text f17 no_margin">Prix par nuit</p>
     <ion-item class="transparent">
-     <ion-range dualKnobs="true" pin="true" max="2000" [(ngModel)]="price" color="light">
-     </ion-range>
-   </ion-item>
-   <p class="pl16 white_text f17">Engagement</p>
-   <ion-grid>
-     <ion-row>
-       <ion-col col text-center (click)="toggleEngagement('stay')"><img src="/assets/imgs/engagements/stay.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stay'}"></ion-col>
-       <ion-col col text-center (click)="toggleEngagement('stayshare')"><img src="/assets/imgs/engagements/stayshare.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stayshare'}"></ion-col>
-       <ion-col col text-center (click)="toggleEngagement('stayshareplay')"><img src="/assets/imgs/engagements/stayshareplay.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stayshareplay'}"></ion-col>
-     </ion-row>
-   </ion-grid>
+      <ion-range dualKnobs="true" pin="true" max="2000" [(ngModel)]="price" color="light">
+      </ion-range>
+    </ion-item>
+    <p class="pl16 white_text f17">Engagement</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col col text-center (click)="toggleEngagement('stay')"><img src="/assets/imgs/engagements/stay.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stay'}"></ion-col>
+        <ion-col col text-center (click)="toggleEngagement('stayshare')"><img src="/assets/imgs/engagements/stayshare.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stayshare'}"></ion-col>
+        <ion-col col text-center (click)="toggleEngagement('stayshareplay')"><img src="/assets/imgs/engagements/stayshareplay.svg" width="70%" alt="engagements" [ngClass]="{'opacity1': engagement == 'stayshareplay'}"></ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
 

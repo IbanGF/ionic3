@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { SearchProvider } from '../../../providers/providers';
 
 @IonicPage()
 @Component({
@@ -8,21 +9,27 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class FiltersPage {
 
+  selectedSecondaryTab: string;
   price: any = { lower: 0, upper: 2000 };
   engagement: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FiltersPage');
+    this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
   }
 
-  saveFilters(){
+  segmentChanged() {
+    this.searchProvider.setSelectedSecondaryTab(this.selectedSecondaryTab);
+  }
+
+  saveFilters() {
     this.viewCtrl.dismiss();
   }
 
-  toggleEngagement(engagement){
-    if(this.engagement == engagement) this.engagement = "";
+  toggleEngagement(engagement) {
+    if (this.engagement == engagement) this.engagement = "";
     else this.engagement = engagement;
     console.log('llll')
   }

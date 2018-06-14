@@ -21,9 +21,9 @@
           <ion-option *ngFor="let sport of sports" [value]="sport">{{sport}}</ion-option>
         </ion-select> -->
 
-        <button ion-button color="dark" round outline (click)='sportsModal()' style="padding: 0 8px; font-size: 14px;">Sports</button>
-        <button ion-button color="dark" round outline (click)="calendarModal()" style="padding: 0 8px; font-size: 14px;">Dates</button>
-        <button ion-button color="dark" round outline (click)="filtersModal()" style="padding: 0 8px; font-size: 14px;">Filtres</button>
+        <button ion-button color="dark" round outline (click)='presentSportsModal()' style="padding: 0 8px; font-size: 14px;">Sports</button>
+        <button ion-button color="dark" round outline (click)="presentCalendarModal()" style="padding: 0 8px; font-size: 14px;">Dates</button>
+        <button ion-button color="dark" round outline (click)="presentFiltersModal()" style="padding: 0 8px; font-size: 14px;">Filtres</button>
       </ion-buttons>
     </ion-toolbar>
   </shrinking-segment-header>
@@ -55,7 +55,7 @@
   <ion-grid class="custom_segment">
     <ion-row>
       <ion-col text-center>
-        <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary">
+        <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary" (ionChange)="segmentChanged($event)">
           <sportihome-segment-button value="places" disabled="places">
             Logements
           </sportihome-segment-button>
