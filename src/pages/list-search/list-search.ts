@@ -42,6 +42,10 @@ export class ListSearchPage implements OnInit {
 
   presentCalendarModal() {
     const calendarModal = this.modalCtrl.create('CalendarSearchPage');
+    calendarModal.onDidDismiss(data => {
+      this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+      this.getPlacesInBounds();
+    });
     calendarModal.present();
   }
 
@@ -55,6 +59,11 @@ export class ListSearchPage implements OnInit {
 
   presentSportsModal() {
     const sportsModal = this.modalCtrl.create('HobbiesSelectMultiplePage');
+    sportsModal.onDidDismiss(data => {
+      console.log(data);
+      this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+      this.getPlacesInBounds();
+    });
     sportsModal.present();
   }
 
@@ -147,6 +156,7 @@ export class ListSearchPage implements OnInit {
     this.bounds = this.searchProvider.getBounds();
     this.formatted_address = this.searchProvider.getAddress();
     this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+    console.log(this.placesSearchQuery);
     this.placesProvider.getPlacesInBounds(this.bounds.southwest, this.bounds.northeast, this.placesSearchQuery).subscribe((data: any) => {
       this.currentPlaces = data.places;
       this.totalPlacesCount = data.count;
