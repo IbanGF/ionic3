@@ -159,6 +159,10 @@ export class PlacePage implements OnDestroy {
     }
   }
 
+  openConstruction() {
+    this.navCtrl.push('ConstructionPage');
+  }
+
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();

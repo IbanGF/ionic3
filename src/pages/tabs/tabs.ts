@@ -3,9 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { MenuPage } from '../menu/menu';
 import { MyprofilePage } from '../user/my-profile/my-profile';
+import { ConstructionPage } from '../construction/construction';
 
 // import { Tab1Root } from '../pages';
-import { Tab2Root } from '../pages';
+import { Tab2Root, Tab4Root, Tab5Root } from '../pages';
 // import { Tab3Root } from '../pages';
 
 @IonicPage()
@@ -21,7 +22,9 @@ export class TabsPage {
   tab3Root: any = MenuPage;
   tab3Title = "Menu";
   tab4Title = "Partager";
-  // tab3Root: any = Tab3Root;
+  tab4Root: any = Tab4Root;
+  tab5Title = "Réservations";
+  tab5Root: any = Tab5Root;
 
   // tab1Title = " ";
   // tab3Title = " ";
