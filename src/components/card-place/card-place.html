@@ -5,7 +5,7 @@
   </div>
   <div class="right_avatar">
     <img [src]="place.owner && place.owner.avatar && 'https://test.sportihome.com/uploads/users/'+place.owner._id+'/thumb/'+place.owner.avatar || place.owner.facebookAvatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" class="img_user">
-    <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/{{place.engagement}}.svg">
+    <img ng-src="assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/{{place.engagement}}.svg">
   </div>
   <img class="main" [src]="'https://test.sportihome.com/uploads/places/'+place._id+'/thumb/'+place.pictures[0]" />
   <ion-item>
