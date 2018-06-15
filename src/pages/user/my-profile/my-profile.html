@@ -38,21 +38,40 @@
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="user" class="mt20">
 
+  <h2 *ngIf="!user && newPlaces && newPlaces.length && selectedSecondaryTab == 'places'" class="mt20">Nouveau logements</h2>
+  <h2 *ngIf="!user && newSpots && newSpots.length && selectedSecondaryTab == 'spots'" class="mt20">Nouveau spots</h2>
+
+  <div style="height: 210px" *ngIf="!user">
+    <ion-slides zoom="false" *ngIf="!user && newPlaces && newPlaces.length && selectedSecondaryTab == 'places'">
+      <ion-slide *ngFor="let place of newPlaces">
+        <card-place [place]="place"></card-place>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-slides zoom="false" *ngIf="!user &&  newSpots && newSpots.length && selectedSecondaryTab == 'spots'">
+      <ion-slide *ngFor="let spot of newSpots">
+        <card-spot [spot]="spot"></card-spot>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+
+  <div *ngIf="user" class="mt20">
     <h2  *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">Vu récemment</h2>
-    <ion-slides #spotsSlider zoom="false" *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">
+    <ion-slides zoom="false" *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">
       <ion-slide *ngFor="let spot of user.lastVisited?.spots">
         <card-spot [spot]="spot"></card-spot>
       </ion-slide>
     </ion-slides>
 
     <h2 *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">Vu récemment</h2>
-    <ion-slides #placesSlider zoom="false" *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">
+    <ion-slides zoom="false" *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">
       <ion-slide *ngFor="let place of user.lastVisited?.places">
         <card-place [place]="place" [favorite]="isFavoritePlace(place._id)"></card-place>
       </ion-slide>
     </ion-slides>
+
 
     <ion-list>
       <button *ngIf="places && places.length && selectedSecondaryTab == 'places'" class="pl1" ion-item (click)="annoncesModal()">

@@ -38,4 +38,8 @@ export class PlacesProvider {
   getHobbyStats(hobbies) {
       return this.api.post('/places/statsHobby', hobbies);
   }
+
+  getNewsest() {
+      return this.api.get('/places/getNewsest');
+  }
 }

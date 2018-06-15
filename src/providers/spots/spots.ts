@@ -38,4 +38,7 @@ export class SpotsProvider {
       return this.api.post('/spots/statsHobby', hobbies);
   }
 
+  getNewsest() {
+    return this.api.get('/spots/getNewsest');
+  }
 }

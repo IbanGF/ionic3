@@ -26,6 +26,8 @@ export class MyprofilePage implements OnInit {
   exploreHobbiesLabel = ['Randonnée', 'VTT', 'Parapente', 'Equitation', 'Kitesurf', 'Ski'];
   statsSpot = [];
   statsPlace = [];
+  newPlaces: any;
+  newSpots: any;
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider, public searchProvider: SearchProvider, public spotsProvider: SpotsProvider, public placesProvider: PlacesProvider) {}
 
@@ -74,6 +76,7 @@ export class MyprofilePage implements OnInit {
 
   ngOnInit() {
       this.user = this.userProvider.getUserData();
+      console.log(this.user)
       this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
       if(this.user) {
           this.user.creation = moment(this.user.creation).format('MMM YYYY');
@@ -117,6 +120,19 @@ export class MyprofilePage implements OnInit {
               this.statsPlace[this.exploreHobbies.indexOf(placeSportCount._id)] = placeSportCount.count;
             });
           })
+
+
+      }
+      else {
+        this.spotsProvider.getNewsest()
+        .subscribe((data: any) =>{
+          this.newSpots = data;
+        })
+
+        this.placesProvider.getNewsest()
+        .subscribe((data: any) =>{
+          this.newPlaces = data;
+        })
       }
   }
 
