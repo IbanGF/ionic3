@@ -7,7 +7,7 @@
       <button ion-button icon-only (click)="saveFilters()"><ion-icon name="arrow-down"></ion-icon></button>
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button icon-only (click)="reset()">Réinitialiser</button>
+      <button ion-button icon-only (click)="resetFilters()">Réinitialiser</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -30,8 +30,8 @@
       </ion-row>
     </ion-grid>
     <ion-list class="mb20">
-      <button ion-item color="light" class="transparent white_text" (click)="openModalHouseTypes()">
-        Types de logements <span style="float: right">Tous</span>
+      <button ion-item color="light" class="transparent white_text" (click)="presentModalHouseTypes()">
+        Types de logements <span style="float: right" *ngIf="!placesSearchQuery?.propertyTypes.length">Tous</span><span *ngIf="placesSearchQuery?.propertyTypes.length"><span style="float: right" *ngIf="placesSearchQuery?.propertyTypes.length > 3" class="f25">...</span><span style="float: right" *ngFor="let propertyType of placesSearchQuery?.propertyTypes | slice:0:3"><i class="sp-mobile-{{propertyType}} f25 pr5"></i></span></span>
       </button>
     </ion-list>
     <p class="pl16 white_text f17 no_margin">Prix par nuit</p>

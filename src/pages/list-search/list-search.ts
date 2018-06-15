@@ -41,9 +41,11 @@ export class ListSearchPage implements OnInit {
   }
 
   presentCalendarModal() {
-    const calendarModal = this.modalCtrl.create('CalendarSearchPage');
+    const calendarModal = this.modalCtrl.create('CalendarSearchPage', { data: this.placesSearchQuery.date });
     calendarModal.onDidDismiss(data => {
-      this.placesSearchQuery = this.searchProvider.getPlacesQuery();
+      if (!data) return;
+      this.placesSearchQuery.date = data;
+      this.searchProvider.setPlacesQuery(this.placesSearchQuery);
       this.getPlacesInBounds();
     });
     calendarModal.present();
