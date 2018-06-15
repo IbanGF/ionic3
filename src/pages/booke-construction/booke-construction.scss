@@ -1,0 +1,33 @@
+page-booke-construction {
+  .background_contruction {
+    background-image: url("/assets/imgs/construction/booke.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
+  }
+
+  .toolbar-background {
+    background: transparent;
+    border: unset !important;
+    border-color: unset !important;
+  }
+
+  .toolbar-title {
+    color: white;
+  }
+
+  .button-inner {
+    color: white;
+  }
+
+  .text_wrapper {
+    position: absolute;
+    padding: 30px 10px 30px 10px;
+    bottom: 0px;
+    left: 0px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.85+100 */
+    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+  }
+}

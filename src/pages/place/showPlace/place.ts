@@ -11,7 +11,6 @@ import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 
 import { PlacesProvider, SpotsProvider, User, AuthProvider } from '../../../providers/providers';
-import { EquipementsPage } from './modals/equipements/equipements';
 import { LoginPage } from '../../../pages/login/login'
 let placesNearByData, spotsNearByData;
 
@@ -160,7 +159,7 @@ export class PlacePage implements OnDestroy {
   }
 
   openConstruction() {
-    this.navCtrl.push('ConstructionPage');
+    this.navCtrl.push('BookeConstructionPage', { shortId: this.place.shortId });
   }
 
   ngOnDestroy() {
