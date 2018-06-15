@@ -1,8 +1,7 @@
 
 <div class="cardPlaceSpot" *ngIf="spot" tappable (click)="openSpot(spot)">
   <div class="right_avatar">
-    <img src="https://test.sportihome.com/assets/users/default-avatar.png" class="img_user">
-    <img ng-src="/assets/users/stayshare.svg" alt="stayshare" class="responsive-img engagementIcon" src="https://test.sportihome.com/assets/users/stayshare.svg">
+    <img [src]="spot.owner && spot.owner.avatar && 'https://test.sportihome.com/uploads/users/'+spot.owner._id+'/thumb/'+spot.owner.avatar || spot.owner.facebookAvatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" class="img_user">
   </div>
   <img class="main" [src]="'https://test.sportihome.com/uploads/spots/' + spot._id + '/thumb/' + spot.pictures[0]" />
   <ion-item>

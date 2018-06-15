@@ -9,32 +9,46 @@
 
 
 <ion-content padding>
-  <div *ngIf="user">
-    <img class="imageUserProfile" width="60px" height="60px" [src]="user.avatar && 'https://test.sportihome.com/uploads/users/'+user._id+'/thumb/'+user.avatar || 'https://test.sportihome.com/assets/users/default-avatar.png'" alt="">
-    <h1 class="mt10">{{user.identity.firstName}}</h1>
-    <p *ngIf="user.hobbies && user.hobbies.length" class="mb1"><span *ngFor="let hobby of user.hobbies"><i class="sp-mobile-{{hobby}} f20"></i> </span></p>
 
-    <div class="border relative p5 mt15" *ngIf="user.identity.about">
-      <span class="title_about_user bold">En savoir plus sur {{user.identity.firstName}}</span>
-      <p>{{user.identity.about}}</p>
-    </div>
-
-    <ion-item class="pl1 mt10">
-      <h2 class=" bold">Membre depuis</h2>
-      <p class="mt10">{{user.creation}}</p>
-    </ion-item>
-    <ion-item class="pl1">
-      <h2 class="bold">Informations vérifiées</h2>
-      <p class="pl5 mt10">Addresse Email</p>
-      <p class="pl5" *ngIf="user.identity.mobileVerified">Numéro de téléphone</p>
-      <p class="pl5" *ngIf="user.facebook && user.facebook.id">Compte Facebook</p>
-    </ion-item>
+  <ion-grid class="no_padding">
+    <ion-row class="no_padding">
+      <ion-col class="no_padding">
+        <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary" (ionChange)="segmentChanged($event)">
+          <sportihome-segment-button value="places" disabled="places">
+            Logements
+          </sportihome-segment-button>
+          <sportihome-segment-button value="spots" disabled="spots">
+            Spots
+          </sportihome-segment-button>
+        </sportihome-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="user" class="mt20">
+    <h2  *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">Vu récemment</h2>
+    <ion-slides #spotsSlider zoom="false" *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">
+      <ion-slide *ngFor="let spot of user.lastVisited?.spots">
+        <card-spot [spot]="spot"></card-spot>
+      </ion-slide>
+    </ion-slides>
+    <h2  *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">Vu récemment</h2>
+    <ion-slides #placesSlider zoom="false" *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">
+      <ion-slide *ngFor="let place of user.lastVisited?.places">
+        <card-place [place]="place" [favorite]="isFavoritePlace(place._id)"></card-place>
+      </ion-slide>
+    </ion-slides>
     <ion-list>
-      <button *ngIf="places && places.length" class="pl1" ion-item (click)="annoncesModal()">
-          {{places.length}} Annonce<span *ngIf="places && places.length > 1">s</span>
+      <button *ngIf="places && places.length && selectedSecondaryTab == 'places'" class="pl1" ion-item (click)="annoncesModal()">
+          Vos Annonces
       </button>
-      <button *ngIf="spots && spots.length" class="pl1" ion-item (click)="spotModal()">
-          {{spots.length}} Spot<span *ngIf="spots.length > 1">s</span>
+      <button *ngIf="spots && spots.length && selectedSecondaryTab == 'spots'" class="pl1" ion-item (click)="spotModal()">
+          Vos Spots
+      </button>
+      <button *ngIf="favPlaces && favPlaces.length  && selectedSecondaryTab == 'places'" class="pl1" ion-item (click)="favoritePlacesModal()">
+          {{favPlaces.length}} Logement<span *ngIf="favPlaces && favPlaces.length > 1">s</span> favori<span *ngIf="favPlaces && favPlaces.length > 1">s</span>
+      </button>
+      <button *ngIf="favSpots && favSpots.length && selectedSecondaryTab == 'spots'" class="pl1" ion-item (click)="favoritePlacesModal()">
+          {{favSpots.length}} Spot<span *ngIf="favSpots && favSpots.length > 1">s</span> favori<span *ngIf="favSpots && favSpots.length > 1">s</span>
       </button>
       <button *ngIf="hostComments && hostComments.length" class="pl1" ion-item (click)="hostCommentsModal()">
           {{hostComments.length}} Commentaire<span *ngIf="hostComments.length > 1">s</span> d'hôte<span *ngIf="hostComments.length > 1">s</span>
@@ -42,9 +56,7 @@
       <button *ngIf="guestComments && guestComments.length" class="pl1" ion-item (click)="guestCommentsModal()">
           {{guestComments.length}} Commentaire<span *ngIf="guestComments.length > 1">s</span> de voyageur<span *ngIf="guestComments.length > 1">s</span>
       </button>
-      <button *ngIf="favPlaces && favPlaces.length" class="pl1" ion-item (click)="favoritePlacesModal()">
-          {{favPlaces.length}} Logements favori<span *ngIf="favPlaces && favPlaces.length > 1">s</span>
-      </button>
     </ion-list>
+
   </div>
 </ion-content>

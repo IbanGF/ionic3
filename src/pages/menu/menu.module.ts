@@ -15,6 +15,8 @@ import { CguPage } from './condition/cgu/cgu';
 import { LegalPage } from './condition/legal/legal';
 import { AnnulationPage } from './condition/annulation/annulation';
 import { MyprofilePage } from '../user/my-profile/my-profile';
+import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { MyprofilePage } from '../user/my-profile/my-profile';
   ],
   imports: [
     IonicPageModule.forChild(MenuPage),
+    ComponentsModule,
+    DirectivesModule
   ],
   entryComponents: [
     MenuPage,

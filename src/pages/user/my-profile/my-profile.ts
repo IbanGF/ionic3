@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../../providers/user/user';
 import { AuthProvider } from '../../../providers/auth/auth';
+import { SearchProvider } from '../../../providers/search/search';
 import { UserData } from '../../../models/userdata';
 import moment from 'moment';
 
+@IonicPage()
 @Component({
   selector: 'page-my-profile',
   templateUrl: 'my-profile.html',
@@ -16,8 +18,10 @@ export class MyprofilePage implements OnInit {
   places: any = false;
   spots: any = false;
   favPlaces: Array<any>;
+  favSpots: Array<any>;
+  selectedSecondaryTab: string;
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public userProvider: User, public authProvider: AuthProvider, public searchProvider: SearchProvider) {
 
   }
 
@@ -50,8 +54,18 @@ export class MyprofilePage implements OnInit {
     favPlacesModal.present();
   }
 
+  segmentChanged() {
+    this.searchProvider.setSelectedSecondaryTab(this.selectedSecondaryTab);
+  }
+
+  isFavoritePlace(place) {
+    if (this.authProvider.getLogStatus() === true) return this.userProvider.isFavoritePlace(place);
+    else return false;
+  }
+
   ngOnInit() {
     this.user = this.userProvider.getUserData();
+    this.selectedSecondaryTab = this.searchProvider.getSelectedSecondaryTab();
     if(this.user) {
       this.user.creation = moment(this.user.creation).format('MMM YYYY');
 
@@ -86,10 +100,9 @@ export class MyprofilePage implements OnInit {
         this.userProvider.getFavoritesForUser()
         .subscribe(data =>{
           this.favPlaces = data[0];
+          this.favSpots = data[1];
         })
     }
-
-
   }
 
 }
