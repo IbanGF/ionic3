@@ -15,9 +15,9 @@
 <ion-content  class="gradient-bg">
   <div class="houseTypes_section pb0 pr15 pl15 ">
     <ion-list>
-        <ion-item *ngFor="let type of houseTypes" class="transparent">
-          <ion-label class="white_text">{{type}}</ion-label>
-          <ion-checkbox color="secondary"></ion-checkbox>
+        <ion-item *ngFor="let houseType of houseTypes" class="transparent">
+          <ion-label class="white_text">{{houseType}}</ion-label>
+          <ion-checkbox color="secondary" (click)="selectHouseType(houseType)" [checked]="placeQuery.propertyTypes.indexOf(houseType) > -1"></ion-checkbox>
         </ion-item>
     </ion-list>
   </div>

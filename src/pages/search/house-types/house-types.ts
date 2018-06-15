@@ -14,17 +14,38 @@ export class HouseTypesPage {
   houseTypes: Array<string>;
   placeQuery: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public searchProvider: SearchProvider) {}
+
+  initializeItems() {
     this.houseTypes = Constants.PLACESLISTS.HOUSETYPES;
-    this.placeQuery = this.searchProvider.getPlacesQuery();
+  };
+
+  getItems(ev) {
+    this.initializeItems();
+    var val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.houseTypes = this.houseTypes.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HouseTypesPage');
+    this.placeQuery = this.searchProvider.getPlacesQuery();
+    this.initializeItems();
   }
 
+  selectHouseType(propertyType: string) {
+    let index = this.placeQuery.propertyTypes.indexOf(propertyType);
+    if (index == -1) {
+      this.placeQuery.propertyTypes.push(propertyType);
+    } else {
+      this.placeQuery.propertyTypes.splice(index, 1);
+    }
+    console.log(this.placeQuery.propertyTypes);
+  }
 
-  saveHouseTypes(){
+  saveHouseTypes() {
     this.searchProvider.setPlacesQuery(this.placeQuery);
     this.viewCtrl.dismiss();
   }
