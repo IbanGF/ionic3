@@ -22,4 +22,39 @@ page-my-profile {
     background: white;
   }
 
+  .wrapper_slider_mySpace {
+    height: 140px;
+
+    ion-slide {
+      .explore_hobby_img {
+        height: 140px;
+        width: 100%;
+        object-fit: cover !important;
+        object-position: 50% 50% !important;
+      }
+      .explore_hobby_overlay {
+        position: absolute;
+        top: 0;
+        min-width: 100%;
+        height: 100%;
+        box-shadow: 0 -200px 100px -100px rgba(0, 0, 0, .65) inset;
+        text-align: center;
+        span {
+            position: relative;
+            top: 55%;
+            color: #FFF;
+            font-size: 27px;
+            line-height: 20px;
+            font-weight: 700;
+        }
+        b {
+            color: #c9c9c9;
+            font-size: 17px;
+            font-weight: 100;
+            margin-right: 0;
+        }
+      }
+    }
+  }
+
 }

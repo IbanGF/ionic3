@@ -3,12 +3,25 @@
 
   <ion-navbar>
     <ion-title *ngIf="user">{{user.identity.firstName}}</ion-title>
+    <ion-title *ngIf="!user"><img width="100%" src="https://sportihome.com/assets/icones/sportihome-white.svg" alt="Sportihome logo"></ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+  <div class="wrapper_slider_mySpace mb20">
+    <ion-slides zoom="false" >
+      <ion-slide *ngFor="let hobby of exploreHobbies; let i = index;">
+        <img class="explore_hobby_img" src="/assets/imgs/miniSlide/{{hobby}}.jpg">
+        <div class="explore_hobby_overlay">
+          <span>{{exploreHobbiesLabel[i]}}<br>
+              <b>{{statsPlace[i]}} logements</b>
+              <b>{{statsSpot[i]}} spots</b>
+          </span>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
 
   <ion-grid class="no_padding">
     <ion-row class="no_padding">
@@ -24,19 +37,23 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
   <div *ngIf="user" class="mt20">
+
     <h2  *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">Vu récemment</h2>
     <ion-slides #spotsSlider zoom="false" *ngIf="user.lastVisited?.spots && selectedSecondaryTab == 'spots'">
       <ion-slide *ngFor="let spot of user.lastVisited?.spots">
         <card-spot [spot]="spot"></card-spot>
       </ion-slide>
     </ion-slides>
-    <h2  *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">Vu récemment</h2>
+
+    <h2 *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">Vu récemment</h2>
     <ion-slides #placesSlider zoom="false" *ngIf="user.lastVisited?.places && selectedSecondaryTab == 'places'">
       <ion-slide *ngFor="let place of user.lastVisited?.places">
         <card-place [place]="place" [favorite]="isFavoritePlace(place._id)"></card-place>
       </ion-slide>
     </ion-slides>
+
     <ion-list>
       <button *ngIf="places && places.length && selectedSecondaryTab == 'places'" class="pl1" ion-item (click)="annoncesModal()">
           Vos Annonces
@@ -47,7 +64,7 @@
       <button *ngIf="favPlaces && favPlaces.length  && selectedSecondaryTab == 'places'" class="pl1" ion-item (click)="favoritePlacesModal()">
           {{favPlaces.length}} Logement<span *ngIf="favPlaces && favPlaces.length > 1">s</span> favori<span *ngIf="favPlaces && favPlaces.length > 1">s</span>
       </button>
-      <button *ngIf="favSpots && favSpots.length && selectedSecondaryTab == 'spots'" class="pl1" ion-item (click)="favoritePlacesModal()">
+      <button *ngIf="favSpots && favSpots.length && selectedSecondaryTab == 'spots'" class="pl1" ion-item (click)="favoriteSpotsModal()">
           {{favSpots.length}} Spot<span *ngIf="favSpots && favSpots.length > 1">s</span> favori<span *ngIf="favSpots && favSpots.length > 1">s</span>
       </button>
       <button *ngIf="hostComments && hostComments.length" class="pl1" ion-item (click)="hostCommentsModal()">

@@ -34,4 +34,8 @@ export class SpotsProvider {
     return this.api.get('/spots/' + spotSlug);
   }
 
+  getHobbyStats(hobbies) {
+      return this.api.post('/spots/statsHobby', hobbies);
+  }
+
 }
