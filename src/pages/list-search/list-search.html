@@ -52,20 +52,6 @@
   </div>
   <!-- <ion-list [virtualScroll]="currentPlaces" [approxItemHeight]="'200px'">
     <div *virtualItem="let place" class="containerCard"> -->
-  <ion-grid class="custom_segment">
-    <ion-row>
-      <ion-col text-center>
-        <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary" (ionChange)="segmentChanged($event)">
-          <sportihome-segment-button value="places" disabled="places">
-            Logements
-          </sportihome-segment-button>
-          <sportihome-segment-button value="spots" disabled="spots">
-            Spots
-          </sportihome-segment-button>
-        </sportihome-segment>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
   <div [ngSwitch]="selectedSecondaryTab">
     <ion-list *ngSwitchCase="'places'">
       <div *ngFor="let place of currentPlaces">
@@ -88,3 +74,17 @@
     <button ion-fab (click)="openMap()"><i class="sp-mobile-globe f40 mt9"></i></button>
   </ion-fab> -->
 </ion-content>
+<ion-grid class="custom_segment">
+  <ion-row>
+    <ion-col text-center>
+      <sportihome-segment [(ngModel)]="selectedSecondaryTab" color="secondary" (ionChange)="segmentChanged($event)">
+        <sportihome-segment-button value="places" disabled="places">
+          Logements
+        </sportihome-segment-button>
+        <sportihome-segment-button value="spots" disabled="spots">
+          Spots
+        </sportihome-segment-button>
+      </sportihome-segment>
+    </ion-col>
+  </ion-row>
+</ion-grid>

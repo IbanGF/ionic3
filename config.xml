@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.sportihome.com" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.sportihome.app" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sportihome</name>
     <description>Sportihome est la première application 100% dédié aux vacances sport et aventure</description>
     <author email="contact@sportihome.com" href="http://sportihome.com/">Sportihome team</author>
